@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../../dist/business-portal-frontend",
+  "lib": {
+    "entryFile": "../../../libs/wrapper_index.ts"
+  }
+}

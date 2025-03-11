@@ -1,0 +1,400 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "eshop-cms": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/eshop-cms",
+      "sourceRoot": "projects/eshop-cms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/eshop-cms",
+            "index": "projects/eshop-cms/src/index.html",
+            "browser": "projects/eshop-cms/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/eshop-cms/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/eshop-cms/public"
+              }
+            ],
+            "styles": ["projects/eshop-cms/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "eshop-cms:build:production"
+            },
+            "development": {
+              "buildTarget": "eshop-cms:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/eshop-cms/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/eshop-cms/public"
+              }
+            ],
+            "styles": ["projects/eshop-cms/src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "tow-truck": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/tow-truck",
+      "sourceRoot": "projects/tow-truck/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/tow-truck",
+            "index": "projects/tow-truck/src/index.html",
+            "browser": "projects/tow-truck/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/tow-truck/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/tow-truck/public"
+              }
+            ],
+            "styles": ["projects/tow-truck/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "tow-truck:build:production"
+            },
+            "development": {
+              "buildTarget": "tow-truck:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/tow-truck/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/tow-truck/public"
+              }
+            ],
+            "styles": ["projects/tow-truck/src/styles.scss"],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "business-portal-core": {
+      "projectType": "library",
+      "root": "libs/backend/business-portal-core",
+      "sourceRoot": "libs/backend/business-portal-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/backend/business-portal-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/backend/business-portal-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/backend/business-portal-core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/backend/business-portal-core/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "business-portal-api-client": {
+      "projectType": "library",
+      "root": "libs/frontend/utils/api-client/business-portal-core",
+      "sourceRoot": "libs/frontend/utils/api-client/business-portal-core/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/frontend/utils/api-client/business-portal-core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/frontend/utils/api-client/business-portal-core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/frontend/utils/api-client/business-portal-core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/frontend/utils/api-client/business-portal-core/tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
+          }
+        }
+      }
+    },
+    "business-portal": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/business-portal",
+      "sourceRoot": "projects/business-portal/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/business-portal",
+            "index": "projects/business-portal/src/index.html",
+            "browser": "projects/business-portal/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/business-portal/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/business-portal/public"
+              }
+            ],
+            "styles": [
+              "projects/business-portal/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "business-portal:build:production"
+            },
+            "development": {
+              "buildTarget": "business-portal:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/business-portal/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/business-portal/public"
+              }
+            ],
+            "styles": [
+              "projects/business-portal/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    },
+    "business-portal-backend": {
+      "projectType": "library",
+      "root": "libs/backend/business-portal",
+      "sourceRoot": "libs/backend/business-portal/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/backend/business-portal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/backend/business-portal/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/backend/business-portal/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/backend/business-portal/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "business-portal-frontend": {
+      "projectType": "library",
+      "root": "libs/frontend/business-portal",
+      "sourceRoot": "libs/frontend/business-portal/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "libs/frontend/business-portal/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/frontend/business-portal/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/frontend/business-portal/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "libs/frontend/business-portal/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

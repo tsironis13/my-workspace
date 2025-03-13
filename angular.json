@@ -175,66 +175,6 @@
         }
       }
     },
-    "business-portal-core": {
-      "projectType": "library",
-      "root": "libs/backend/business-portal-core",
-      "sourceRoot": "libs/backend/business-portal-core/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "libs/backend/business-portal-core/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/backend/business-portal-core/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/backend/business-portal-core/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "libs/backend/business-portal-core/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
-          }
-        }
-      }
-    },
-    "business-portal-api-client": {
-      "projectType": "library",
-      "root": "libs/frontend/utils/api-client/business-portal-core",
-      "sourceRoot": "libs/frontend/utils/api-client/business-portal-core/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "libs/frontend/utils/api-client/business-portal-core/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "libs/frontend/utils/api-client/business-portal-core/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "libs/frontend/utils/api-client/business-portal-core/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "libs/frontend/utils/api-client/business-portal-core/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
-          }
-        }
-      }
-    },
     "business-portal": {
       "projectType": "application",
       "schematics": {
@@ -252,9 +192,7 @@
             "outputPath": "dist/business-portal",
             "index": "projects/business-portal/src/index.html",
             "browser": "projects/business-portal/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/business-portal/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -263,9 +201,7 @@
                 "input": "projects/business-portal/public"
               }
             ],
-            "styles": [
-              "projects/business-portal/src/styles.scss"
-            ],
+            "styles": ["projects/business-portal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -310,10 +246,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": [],
             "tsConfig": "projects/business-portal/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -322,10 +255,18 @@
                 "input": "projects/business-portal/public"
               }
             ],
-            "styles": [
-              "projects/business-portal/src/styles.scss"
-            ],
+            "styles": ["projects/business-portal/src/styles.scss"],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/business-portal/**/*.ts",
+              "projects/business-portal/**/*.html"
+            ],
+            "eslintConfig": "projects/business-portal/eslint.config.js"
           }
         }
       }
@@ -355,10 +296,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "libs/backend/business-portal/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": []
           }
         }
       }
@@ -388,10 +326,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "libs/frontend/business-portal/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": []
           }
         }
       }

@@ -1,28 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
 
-import { injectTrpcClient } from '@business-portal/frontend';
+import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
+  selector: 'my-org-root',
+  imports: [MainLayoutComponent],
+  template: `<my-org-main-layout />`,
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
-  title = 'business-portal';
-
-  trpcClient = injectTrpcClient();
-
-  ngOnInit(): void {
-    this.callApi();
-  }
-
-  async callApi(): Promise<void> {
-    const x = await this.trpcClient.todos.all.query();
-    console.log(x);
-
-    const y = await this.trpcClient.productCategory.getById.query(4);
-    console.log(y);
-  }
-}
+export class AppComponent {}

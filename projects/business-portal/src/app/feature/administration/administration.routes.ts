@@ -1,20 +1,19 @@
 import { Routes } from '@angular/router';
-import { AdminComponent } from './admin.component';
 
 export default <Routes>[
   {
     path: '',
-    component: AdminComponent,
-    children: [
-      {
-        path: 'users',
-        loadChildren: () => import('./user-management/management.routes'),
-      },
-      {
-        path: 'assignments',
-        loadChildren: () =>
-          import('./user-assignments/user-assignments.routes'),
-      },
-    ],
+    redirectTo: 'users',
+    pathMatch: 'full',
+  },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./user-management-feature/user-management.routes'),
+  },
+  {
+    path: 'assignments',
+    loadChildren: () =>
+      import('./user-assignments-feature/user-assignments.routes'),
   },
 ];

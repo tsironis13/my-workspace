@@ -4,7 +4,7 @@ export default <Routes>[
   {
     path: '',
     loadComponent: () =>
-      import('./dashboard/assignments.component').then(
+      import('./feature-ui/smart/assignments.component').then(
         (m) => m.AssignmentsComponent
       ),
   },

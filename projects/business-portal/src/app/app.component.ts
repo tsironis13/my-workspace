@@ -6,6 +6,5 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
   selector: 'my-org-root',
   imports: [MainLayoutComponent],
   template: `<my-org-main-layout />`,
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {}

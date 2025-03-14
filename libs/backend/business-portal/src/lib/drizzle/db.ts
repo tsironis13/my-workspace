@@ -4,6 +4,7 @@ import * as schema from './schema';
 
 //const client = postgres(process.env['DATABASE_URL'] ?? '');
 const client = postgres(
-  'postgresql://postgres.smrapzkhjrhqwrserfao:YzfCwQunykpicAvE@aws-0-eu-central-1.pooler.supabase.com:6543/postgres'
+  //businessporta-db-password:
+  'postgresql://postgres.tikfxljuvjqcqeibbgey:[PASSWORD]@aws-0-eu-central-1.pooler.supabase.com:6543/postgres'
 );
 export const db = drizzle(client, { schema, logger: true });

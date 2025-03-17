@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
-
-import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'my-org-root',
-  imports: [MainLayoutComponent],
-  template: `<my-org-main-layout />`,
+  imports: [RouterOutlet],
+  template: `<router-outlet />`,
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100%;
+      }
+    `,
+  ],
 })
 export class AppComponent {}

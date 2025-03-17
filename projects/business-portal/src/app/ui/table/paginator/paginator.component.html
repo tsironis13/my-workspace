@@ -1,0 +1,20 @@
+<div #mydiv></div>
+<div class="paginator-wrapper flex justify-between items-center px-2">
+  <div>
+    <p-select
+      [options]="pageSizeOptions()"
+      [(ngModel)]="rows"
+      [appendTo]="mydiv"
+      (onChange)="onPageSizeChange($event)"
+    />
+  </div>
+
+  <p-paginator
+    #paginator
+    [rows]="rows()"
+    [totalRecords]="totalRecords()"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="{first} to {last} of {totalRecords}"
+    (onPageChange)="onPageChange($event)"
+  />
+</div>

@@ -1,0 +1,42 @@
+<div class="flex flex-col w-full">
+  <div>
+    <ng-content />
+  </div>
+
+  <p-table
+    [columns]="columns()"
+    [value]="data()"
+    [lazy]="lazy()"
+    [scrollable]="true"
+    stripedRows="true"
+    scrollHeight="flex"
+    class="flex-1 overflow-auto"
+  >
+    <ng-template #header let-columns>
+      <tr>
+        @for (col of columns; track $index) {
+        <th>
+          {{ col.header }}
+        </th>
+        }
+      </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns">
+      <tr>
+        @for (col of columns; track $index) {
+        <td>
+          {{ rowData[col.field] }}
+        </td>
+        }
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <my-org-app-table-paginator
+    [rows]="defaultPageSize"
+    [totalRecords]="totalCount()"
+    [pageSizeOptions]="pageSizeOptions"
+    (pageChange)="pageChange.emit($event)"
+    (pageSizeChange)="pageSizeChange.emit($event)"
+  />
+</div>

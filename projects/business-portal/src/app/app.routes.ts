@@ -2,13 +2,17 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
-    pathMatch: 'full',
-    redirectTo: 'administration',
+    path: 'login',
+    loadChildren: () =>
+      import('./layout/auth/auth.routes').then((m) => m.routes),
   },
   {
-    path: 'administration',
+    path: '',
     loadChildren: () =>
-      import('./feature/administration/administration.routes'),
+      import('./layout/navigation/navigation.routes').then((m) => m.routes),
+  },
+  {
+    path: '**',
+    redirectTo: '',
   },
 ];

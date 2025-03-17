@@ -16,8 +16,23 @@
       "@business-portal/frontend": [
         "libs/frontend/business-portal/src/public-api.ts"
       ],
-      "@business-portal/core/entities": [
-        "projects/business-portal/src/app/core/entities/public-api.ts"
+      "@business-portal/core/config": [
+        "projects/business-portal/src/app/core/core.config.ts"
+      ],
+      "@business-portal/ui": [
+        "projects/business-portal/src/app/ui/public-api.ts"
+      ],
+      "@business-portal/core/entities/application": [
+        "projects/business-portal/src/app/core/entities/application/public-api.ts"
+      ],
+      "@business-portal/core/entities/infrastructure": [
+        "projects/business-portal/src/app/core/entities/infrastructure/public-api.ts"
+      ],
+      "@business-portal/administration/user-management/domain": [
+        "projects/business-portal/src/app/feature/administration/user-management-subfeature/domain/public-api.ts"
+      ],
+      "@business-portal/administration/user-assignments/domain": [
+        "projects/business-portal/src/app/feature/administration/user-assignments-subfeature/domain/public-api.ts"
       ]
     },
     "skipLibCheck": true,

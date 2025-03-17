@@ -1,0 +1,9 @@
+<my-org-app-table
+  [data]="users()"
+  [columns]="columns()"
+  [totalCount]="totalCount()"
+  (pageChange)="pageChange.emit($event)"
+  (pageSizeChange)="pageSizeChange.emit($event)"
+>
+  <ng-content />
+</my-org-app-table>

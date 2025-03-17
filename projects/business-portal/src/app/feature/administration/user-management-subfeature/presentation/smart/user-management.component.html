@@ -1,0 +1,9 @@
+<my-org-users-list
+  [users]="userManagementUiService.users()"
+  [columns]="userManagementUiService.userColumns()"
+  [totalCount]="userManagementUiService.totalCount()"
+  (pageChange)="userManagementUiService.pageChange($event)"
+  (pageSizeChange)="userManagementUiService.pageSizeChange($event)"
+>
+  <my-org-users-header />
+</my-org-users-list>

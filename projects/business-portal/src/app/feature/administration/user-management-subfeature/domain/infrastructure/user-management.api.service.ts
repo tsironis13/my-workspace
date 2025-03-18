@@ -1,5 +1,6 @@
 import { injectTrpcClient } from '@business-portal/frontend';
 import { UserApiResponseItem } from './user-management.api.model';
+import { EntitySortApiModel } from '@business-portal/core/entities/infrastructure';
 import {
   EntitiesApiResponse,
   EntityApiPagination,
@@ -8,12 +9,13 @@ import {
 export class UserManagementApiService {
   #trpcClient = injectTrpcClient();
 
-  getUsersByFilterAndPagination(
-    pagination: EntityApiPagination
+  getUsersByFilterAndSortAndPagination(
+    pagination: EntityApiPagination,
+    sort: EntitySortApiModel<UserApiResponseItem>
   ): Promise<EntitiesApiResponse<UserApiResponseItem>> {
     return this.#trpcClient.users.getPaginated.query({
       pagination,
-      sort: { sortBy: 'id', sortOrder: 1 },
+      sort,
     });
   }
 }

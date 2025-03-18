@@ -5,6 +5,7 @@ import {
   input,
   model,
   output,
+  signal,
   viewChild,
 } from '@angular/core';
 import { PaginatorModule, Paginator, PaginatorState } from 'primeng/paginator';
@@ -22,20 +23,18 @@ export class TablePaginatorComponent {
   readonly rows = model.required<number>();
   readonly totalRecords = input.required<number>();
   readonly pageSizeOptions = input.required<number[]>();
+  readonly resetPagination = input<boolean>(false);
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();
 
   protected readonly paginator = viewChild<Paginator>(Paginator);
 
-  //protected readonly first = signal(2);
+  #resetInProgress = signal(false);
 
   constructor() {
     effect(() => {
-      //const x = this.rows();
-      //console.log(x);
-      //this.first.set(0);
-      //this.rows.set(this.pageSizeOptions()[0].value);
+      this.resetTableOnDemand();
     });
   }
 
@@ -46,7 +45,16 @@ export class TablePaginatorComponent {
   }
 
   protected onPageChange(event: PaginatorState): void {
-    this.pageChange.emit((event?.page ?? 0) + 1);
+    if (!this.#resetInProgress()) {
+      console.log('ON PAGE CHANGE');
+      this.pageChange.emit((event?.page ?? 0) + 1);
+    }
+  }
+
+  private resetTableOnDemand(): void {
+    if (this.resetPagination() && this.paginator()?.currentPage() !== 0) {
+      this.resetTableToFirstPage();
+    }
   }
 
   private resetTableToFirstPage(): void {
@@ -62,6 +70,12 @@ export class TablePaginatorComponent {
    * @param fn
    */
   private startResetProcess(fn: () => void): void {
+    this.#resetInProgress.set(true);
+
     fn();
+
+    setTimeout(() => {
+      this.#resetInProgress.set(false);
+    });
   }
 }

@@ -1,25 +1,34 @@
 import { computed, effect, inject } from '@angular/core';
 
-import {
-  UserManagementStore,
-  User,
-} from '@business-portal/administration/user-management/domain';
+import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 import { UserViewModel } from '../presentational/models/user.view.model';
-import { ColumnType } from '@business-portal/ui';
+import {
+  ColumnTypeViewModel,
+  PaginationViewModel,
+  SortDataViewModel,
+} from '@business-portal/ui';
+import { PAGINATOR_CONFIG } from '@business-portal/core/config';
 
 export class UserManagementUiService {
   readonly #userManagementStore = inject(UserManagementStore);
+  readonly #paginatorConfig = inject(PAGINATOR_CONFIG);
 
-  readonly users = computed(() =>
-    this.#userManagementStore.entities().map(this.mapUserToUserViewModel)
-  );
-
+  readonly paginationOptions = computed<PaginationViewModel>(() => ({
+    pageSizeOptions: this.#paginatorConfig.pageSizeOptions,
+    defaultPageSize: this.#paginatorConfig.defaultPageSize,
+  }));
+  readonly defaultSort = computed<SortDataViewModel<UserViewModel>>(() => ({
+    sortBy: 'name',
+    sortOrder: 1,
+  }));
+  readonly users = computed(() => this.#userManagementStore.entities());
   readonly totalCount = computed(() => this.#userManagementStore.totalCount());
 
-  readonly userColumns = computed<ColumnType<UserViewModel>[]>(() => [
-    { field: 'id', header: 'ID' },
-    { field: 'name', header: 'Name' },
+  readonly userColumns = computed<ColumnTypeViewModel<UserViewModel>[]>(() => [
+    { field: 'name', header: 'First name' },
+    { field: 'familyName', header: 'Last name' },
     { field: 'email', header: 'Email' },
+    { field: 'phoneNumber', header: 'Phone number' },
     { field: 'active', header: 'Active' },
   ]);
 
@@ -31,16 +40,7 @@ export class UserManagementUiService {
   }
 
   triggerReq() {
-    this.#userManagementStore.onPaginationChange({
-      pageNumber: 2,
-      pageSize: 10,
-    });
-    console.log(this.#userManagementStore.totalCount());
-    console.log(this.#userManagementStore.entities());
-    // this.#userManagementStore.entityFilterParams().pagination = {
-    //   pageNumber: 2,
-    //   pageSize: 10,
-    // };
+    console.log('triggerReq');
   }
 
   pageChange(pageNumber: number): void {
@@ -51,12 +51,7 @@ export class UserManagementUiService {
     this.#userManagementStore.changePageSize(pageSize);
   }
 
-  private mapUserToUserViewModel(user: User): UserViewModel {
-    return {
-      id: user.id.toString(),
-      name: user.name,
-      email: user.email,
-      active: user.active,
-    };
+  sortChange(sortData: SortDataViewModel<UserViewModel>): void {
+    this.#userManagementStore.onSortChange(sortData);
   }
 }

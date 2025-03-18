@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 //import { admin } from '../../admin.component';
 
@@ -17,28 +12,15 @@ import {
 import { UserManagementUiService } from './user-management.ui.service';
 import { UsersListComponent } from '../presentational/list/users-list.component';
 import { UsersHeaderComponent } from '../presentational/header/users-header.component';
+import { UserToUserViewModelPipe } from './pipes/user-to-user-view-model.pipe';
 
 @Component({
   selector: 'my-org-user-management',
-  imports: [UsersListComponent, UsersHeaderComponent],
+  imports: [UsersListComponent, UsersHeaderComponent, UserToUserViewModelPipe],
   templateUrl: `./user-management.component.html`,
   styleUrls: ['./user-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserManagementComponent implements OnInit {
+export class UserManagementComponent {
   protected readonly userManagementUiService = inject(UserManagementUiService);
-
-  ngOnInit(): void {
-    console.log('management');
-    // const x: Assignment = {
-    //   name: 'test',
-    // };
-    //console.log(this.usersStore.loadUsers());
-    // effect(() => {
-    //   console.log(this.usersStore.entities());
-    // });
-    //console.log(admin);
-    //console.log(management);
-    //console.log(device);
-  }
 }

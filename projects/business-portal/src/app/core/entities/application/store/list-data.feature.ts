@@ -14,6 +14,7 @@ import { tapResponse } from '@ngrx/operators';
 
 import { Entity } from '../models/entity.model';
 import { EntityFilter } from '../models/entity-filter.model';
+import { EntitySort } from '../models/entity-sort.model';
 import { EntityListDataService } from '../models/entity-list.data.service.model';
 import { EntityFilterData } from '../models/entity-filter.data.model';
 import { EntityId, setAllEntities } from '@ngrx/signals/entities';
@@ -64,19 +65,25 @@ export function withListDataService<
       const dService = inject(dataService);
 
       return {
-        changePage(pageNumber: number) {
+        changePage(pageNumber: number): void {
           this.onPaginationChange({
             ...store.pagination(),
             pageNumber,
           });
         },
-        changePageSize(pageSize: number) {
+        changePageSize(pageSize: number): void {
           this.onPaginationChange({
             pageNumber: 1,
             pageSize,
           });
         },
-        onPaginationChange(pagination: EntityPagination) {
+        onSortChange(sort: EntitySort<E>): void {
+          patchState(store, {
+            sort,
+            pagination: { ...store.pagination(), pageNumber: 1 },
+          });
+        },
+        onPaginationChange(pagination: EntityPagination): void {
           patchState(store, { pagination });
         },
         getListByFilterAndPagination: rxMethod<EntityFilterData<E, F>>(

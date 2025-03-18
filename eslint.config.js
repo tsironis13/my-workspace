@@ -73,6 +73,7 @@ module.exports = tseslint.config(
                 ["env", { app: "${from.app}" }],
                 ["ui-api", { app: "${from.app}" }],
                 ["pattern", { app: "${from.app}" }],
+                ["core", { app: "${from.app}" }],
                 [
                   "subfeature-ui-smart",
                   {

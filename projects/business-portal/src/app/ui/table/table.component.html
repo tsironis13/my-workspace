@@ -7,16 +7,26 @@
     [columns]="columns()"
     [value]="data()"
     [lazy]="lazy()"
+    [customSort]="customSort()"
     [scrollable]="true"
+    [sortField]="defaultSortOrder().sortBy"
+    [sortOrder]="defaultSortOrder().sortOrder"
     stripedRows="true"
     scrollHeight="flex"
+    (onLazyLoad)="onLazyLoad($event)"
     class="flex-1 overflow-auto"
   >
     <ng-template #header let-columns>
       <tr>
         @for (col of columns; track $index) {
-        <th>
+        <th
+          [pSortableColumn]="col.field"
+          [pSortableColumnDisabled]="col.metaData?.disableSort"
+        >
           {{ col.header }}
+          @if ( !col.metaData?.disableSort ) {
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+          }
         </th>
         }
       </tr>
@@ -33,10 +43,11 @@
   </p-table>
 
   <my-org-app-table-paginator
-    [rows]="defaultPageSize"
+    [rows]="paginationOptions().defaultPageSize"
     [totalRecords]="totalCount()"
-    [pageSizeOptions]="pageSizeOptions"
-    (pageChange)="pageChange.emit($event)"
+    [pageSizeOptions]="paginationOptions().pageSizeOptions"
+    [resetPagination]="resetPagination()"
+    (pageChange)="pageChange.emit($event); resetPagination.set(false)"
     (pageSizeChange)="pageSizeChange.emit($event)"
   />
 </div>

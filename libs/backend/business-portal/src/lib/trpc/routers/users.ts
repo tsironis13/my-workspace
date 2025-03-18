@@ -1,7 +1,7 @@
-import { asc, count, SQL } from 'drizzle-orm';
+import { asc, count, desc, SQL } from 'drizzle-orm';
 import { optional, z } from 'zod';
 import { db } from '../../drizzle/db';
-import { users } from '../../drizzle/schema';
+import { Users, users } from '../../drizzle/schema';
 import { publicProcedure, router } from '../trpc';
 import { PgSelect, PgColumn } from 'drizzle-orm/pg-core';
 
@@ -50,29 +50,21 @@ export const usersRouter = router({
       })
     )
     .query(async ({ input }) => {
-      console.log(input.pagination);
+      console.log(input);
       const query = db.select().from(users);
 
       const totalCount = await db.select({ count: count() }).from(users);
 
+      const sortBy = <keyof Users>input.sort.sortBy;
+      const sort =
+        input.sort.sortOrder === -1 ? desc(users[sortBy]) : asc(users[sortBy]);
+
       const result = await withPagination(
         query.$dynamic(),
-        asc(users['id']),
+        sort,
         input.pagination.pageNumber,
         input.pagination.pageSize
       );
-
-      //   const sortBy = input.sort.sortBy as keyof ProductCategories;
-      //   const sort =
-      //     input.sort.sortOrder === -1
-      //       ? asc(productCategories[sortBy])
-      //       : desc(productCategories[sortBy]);
-      //     const result = await withPagination(
-      //       query.$dynamic(),
-      //       sort,
-      //       input.pagination.pageNumber,
-      //       input.pagination.pageSize
-      //     );
 
       return {
         items: [...result],

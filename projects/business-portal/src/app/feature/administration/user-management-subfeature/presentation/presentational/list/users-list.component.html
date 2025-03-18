@@ -2,8 +2,11 @@
   [data]="users()"
   [columns]="columns()"
   [totalCount]="totalCount()"
+  [paginationOptions]="paginationOptions()"
+  [defaultSort]="defaultSort()"
   (pageChange)="pageChange.emit($event)"
   (pageSizeChange)="pageSizeChange.emit($event)"
+  (sortChange)="sortChange.emit($event)"
 >
   <ng-content />
 </my-org-app-table>

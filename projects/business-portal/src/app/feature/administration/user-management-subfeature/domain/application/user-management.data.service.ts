@@ -1,4 +1,5 @@
 import { from, map, Observable } from 'rxjs';
+import { inject } from '@angular/core';
 
 import {
   EntityListDataService,
@@ -7,10 +8,10 @@ import {
   EntitiesMapped,
 } from '@business-portal/core/entities/application';
 import { User, UserFilter } from './user-management.data.model';
-import { inject } from '@angular/core';
 import { UserManagementApiService } from '../infrastructure/user-management.api.service';
 import { UserApiResponseItem } from '../infrastructure/user-management.api.model';
 import { EntitiesApiResponse } from '@business-portal/core/entities/infrastructure';
+import { removeNullish } from '@business-portal/core/utils';
 
 export class UserManagementDataService
   implements EntityListDataService<User, UserFilter>
@@ -20,11 +21,13 @@ export class UserManagementDataService
   getListByFilterAndPagination(
     params: EntityFilterData<User, UserFilter>
   ): Observable<Entities<User>> {
-    //console.log(params);
+    console.log(params);
+
     return from(
       this.#userManagementApiService.getUsersByFilterAndSortAndPagination(
         params.pagination,
-        params.sort
+        params.sort,
+        removeNullish(params.filters)
       )
     ).pipe(
       map(

@@ -21,6 +21,7 @@ export class UsersListComponent {
   readonly totalCount = input.required<number>();
   readonly paginationOptions = input.required<PaginationViewModel>();
   readonly defaultSort = input.required<SortDataViewModel<UserViewModel>>();
+  readonly isLoading = input<boolean>(false);
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();

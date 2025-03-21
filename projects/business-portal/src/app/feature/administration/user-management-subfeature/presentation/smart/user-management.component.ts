@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
 //import { admin } from '../../admin.component';
 
@@ -11,12 +12,19 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { UserManagementUiService } from './user-management.ui.service';
 import { UsersListComponent } from '../presentational/list/users-list.component';
-import { UsersHeaderComponent } from '../presentational/header/users-header.component';
 import { UserToUserViewModelPipe } from './pipes/user-to-user-view-model.pipe';
+import { UserFilterDialogDirective } from './directives/user-filter-dialog.directive';
+import { PageHeaderComponent } from '@business-portal/ui';
 
 @Component({
   selector: 'my-org-user-management',
-  imports: [UsersListComponent, UsersHeaderComponent, UserToUserViewModelPipe],
+  imports: [
+    UsersListComponent,
+    UserToUserViewModelPipe,
+    ButtonModule,
+    UserFilterDialogDirective,
+    PageHeaderComponent,
+  ],
   templateUrl: `./user-management.component.html`,
   styleUrls: ['./user-management.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

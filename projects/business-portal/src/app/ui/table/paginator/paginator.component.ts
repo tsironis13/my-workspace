@@ -46,7 +46,6 @@ export class TablePaginatorComponent {
 
   protected onPageChange(event: PaginatorState): void {
     if (!this.#resetInProgress()) {
-      console.log('ON PAGE CHANGE');
       this.pageChange.emit((event?.page ?? 0) + 1);
     }
   }

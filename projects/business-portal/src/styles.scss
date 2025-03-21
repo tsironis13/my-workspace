@@ -1,9 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
+@theme {
+  --font-size-2xl: 22px;
+}
+
+@layer base {
+  h1 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
 .p-datatable {
   border: 1px solid #e2e8f0;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   overflow: auto;
+}
+
+.p-dialog {
+  height: var(--p-dialog-height);
+  max-height: var(--p-dialog-max-height) !important;
+
+  &.right-side {
+    width: var(--p-dialog-right-side-width);
+  }
 }

@@ -16,11 +16,17 @@
       "@business-portal/frontend": [
         "libs/frontend/business-portal/src/public-api.ts"
       ],
-      "@business-portal/core/config": [
-        "projects/business-portal/src/app/core/core.config.ts"
+      "@business-portal/core/config/token": [
+        "projects/business-portal/src/app/core/config/core.config.tokens.ts"
+      ],
+      "@business-portal/core/utils": [
+        "projects/business-portal/src/app/core/utils/public-api.ts"
       ],
       "@business-portal/ui": [
         "projects/business-portal/src/app/ui/public-api.ts"
+      ],
+      "@business-portal/pattern": [
+        "projects/business-portal/src/app/pattern/public-api.ts"
       ],
       "@business-portal/core/entities/application": [
         "projects/business-portal/src/app/core/entities/application/public-api.ts"

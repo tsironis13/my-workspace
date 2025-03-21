@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    padding: var(--p-dialog-header-padding);
+  }
+
+  .body {
+    padding: var(--p-dialog-body-padding);
+  }
+
+  .footer {
+    padding: var(--p-dialog-footer-padding);
+  }
+}

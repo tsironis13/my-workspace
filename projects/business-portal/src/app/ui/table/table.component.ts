@@ -7,6 +7,7 @@ import {
   output,
 } from '@angular/core';
 import { TableModule, TableLazyLoadEvent } from 'primeng/table';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 import {
   ColumnTypeViewModel,
@@ -19,7 +20,7 @@ type PrimengSortOrder = { sortBy: string; sortOrder: 1 | -1 };
 
 @Component({
   selector: 'my-org-app-table',
-  imports: [TableModule, TablePaginatorComponent],
+  imports: [TableModule, TablePaginatorComponent, ProgressBarModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,6 +34,7 @@ export class TableComponent<T> {
   readonly lazy = input<boolean>(true);
   readonly customSort = input<boolean>(true);
   readonly resetPagination = model<boolean>(false);
+  readonly isLoading = input<boolean>(false);
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();

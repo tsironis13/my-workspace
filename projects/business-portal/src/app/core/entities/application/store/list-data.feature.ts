@@ -7,6 +7,7 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
+import { EntityId, setAllEntities } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { pipe } from 'rxjs';
 import { switchMap } from 'rxjs';
@@ -17,9 +18,14 @@ import { EntityFilter } from '../models/entity-filter.model';
 import { EntitySort } from '../models/entity-sort.model';
 import { EntityListDataService } from '../models/entity-list.data.service.model';
 import { EntityFilterData } from '../models/entity-filter.data.model';
-import { EntityId, setAllEntities } from '@ngrx/signals/entities';
 import { EntityPagination } from '../models/entity-pagination.model';
-import { PAGINATOR_CONFIG } from '@business-portal/core/config';
+import { PAGINATOR_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
+import {
+  withRequestStatus,
+  setPending,
+  setFulfilled,
+  setError,
+} from '../../../store/request-status.feature';
 
 export function withListDataService<
   E extends Entity,
@@ -46,12 +52,13 @@ export function withListDataService<
           pageSize,
         },
         sort: { sortBy: 'id', sortOrder: 1 },
-        filters: {} as F,
+        filters: <F>{},
       })
     ),
     withState<{ totalCount: number }>(() => ({
       totalCount: 0,
     })),
+    withRequestStatus(),
     withComputed((store) => ({
       entityFilterParams: computed<EntityFilterData<E, F>>(() => {
         return {
@@ -65,17 +72,18 @@ export function withListDataService<
       const dService = inject(dataService);
 
       return {
+        changeFilters(filters: F): void {
+          console.log(filters);
+          patchState(store, { filters });
+        },
         changePage(pageNumber: number): void {
-          this.onPaginationChange({
-            ...store.pagination(),
-            pageNumber,
-          });
+          patchState(
+            store,
+            updatePagination(store.pagination().pageSize, pageNumber)
+          );
         },
         changePageSize(pageSize: number): void {
-          this.onPaginationChange({
-            pageNumber: 1,
-            pageSize,
-          });
+          patchState(store, updatePagination(pageSize, 1));
         },
         onSortChange(sort: EntitySort<E>): void {
           patchState(store, {
@@ -83,21 +91,27 @@ export function withListDataService<
             pagination: { ...store.pagination(), pageNumber: 1 },
           });
         },
-        onPaginationChange(pagination: EntityPagination): void {
-          patchState(store, { pagination });
-        },
         getListByFilterAndPagination: rxMethod<EntityFilterData<E, F>>(
           pipe(
             switchMap((params) => {
+              patchState(store, setPending());
+
               return dService.getListByFilterAndPagination(params).pipe(
+                //delay(3000),
                 tapResponse({
                   next: (response) => {
-                    patchState(store, setAllEntities(response.items), {
-                      totalCount: response.totalCount,
-                    });
+                    patchState(
+                      store,
+                      setAllEntities(response.items),
+                      {
+                        totalCount: response.totalCount,
+                      },
+                      setFulfilled()
+                    );
                   },
-                  error: (error) => {
+                  error: (error: any) => {
                     console.error(error);
+                    patchState(store, setError(error.message));
                   },
                 })
               );
@@ -107,4 +121,16 @@ export function withListDataService<
       };
     })
   );
+}
+
+export function updatePagination(
+  pageSize: number,
+  pageNumber: number
+): { pagination: EntityPagination } {
+  return {
+    pagination: {
+      pageNumber,
+      pageSize,
+    },
+  };
 }

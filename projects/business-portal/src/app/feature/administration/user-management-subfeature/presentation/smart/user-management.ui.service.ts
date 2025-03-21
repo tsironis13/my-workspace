@@ -1,4 +1,4 @@
-import { computed, effect, inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 
 import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 import { UserViewModel } from '../presentational/models/user.view.model';
@@ -7,7 +7,17 @@ import {
   PaginationViewModel,
   SortDataViewModel,
 } from '@business-portal/ui';
-import { PAGINATOR_CONFIG } from '@business-portal/core/config';
+import { PAGINATOR_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
+
+export const columnsConfig = (): ColumnTypeViewModel<UserViewModel>[] => {
+  return [
+    { field: 'name', header: 'First name' },
+    { field: 'familyName', header: 'Last name' },
+    { field: 'active', header: 'Status', metaData: { disableSort: true } },
+    { field: 'email', header: 'Email' },
+    { field: 'phoneNumber', header: 'Phone number' },
+  ];
+};
 
 export class UserManagementUiService {
   readonly #userManagementStore = inject(UserManagementStore);
@@ -23,24 +33,14 @@ export class UserManagementUiService {
   }));
   readonly users = computed(() => this.#userManagementStore.entities());
   readonly totalCount = computed(() => this.#userManagementStore.totalCount());
+  readonly isLoading = computed(() => this.#userManagementStore.isPending());
+  readonly userColumns = computed<ColumnTypeViewModel<UserViewModel>[]>(() =>
+    columnsConfig()
+  );
+  //readonly filters = computed(() => <F>this.#userManagementStore.filters());
 
-  readonly userColumns = computed<ColumnTypeViewModel<UserViewModel>[]>(() => [
-    { field: 'name', header: 'First name' },
-    { field: 'familyName', header: 'Last name' },
-    { field: 'email', header: 'Email' },
-    { field: 'phoneNumber', header: 'Phone number' },
-    { field: 'active', header: 'Active' },
-  ]);
-
-  constructor() {
-    effect(() => {
-      //console.log(this.#userManagementStore.entities());
-      //console.log(this.users());
-    });
-  }
-
-  triggerReq() {
-    console.log('triggerReq');
+  triggerFilter() {
+    console.log('filter');
   }
 
   pageChange(pageNumber: number): void {
@@ -54,4 +54,8 @@ export class UserManagementUiService {
   sortChange(sortData: SortDataViewModel<UserViewModel>): void {
     this.#userManagementStore.onSortChange(sortData);
   }
+
+  // filtersChange(filters: F): void {
+  //   this.#userManagementStore.changeFilters(filters);
+  // }
 }

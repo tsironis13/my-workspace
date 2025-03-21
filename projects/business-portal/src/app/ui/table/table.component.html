@@ -30,6 +30,12 @@
         </th>
         }
       </tr>
+      @if (isLoading()) {
+      <p-progressbar
+        mode="indeterminate"
+        class="absolute w-full"
+        [style]="{ height: '4px' }"
+      />}
     </ng-template>
     <ng-template #body let-rowData let-columns="columns">
       <tr>

@@ -1,4 +1,4 @@
-import { asc, count, desc, SQL } from 'drizzle-orm';
+import { asc, count, desc, and, SQL, ilike, like, eq } from 'drizzle-orm';
 import { optional, z } from 'zod';
 import { db } from '../../drizzle/db';
 import { Users, users } from '../../drizzle/schema';
@@ -44,16 +44,30 @@ export const usersRouter = router({
         }),
         filters: optional(
           z.object({
-            name: z.string(),
+            active: optional(z.boolean()),
           })
         ),
       })
     )
     .query(async ({ input }) => {
       console.log(input);
-      const query = db.select().from(users);
 
-      const totalCount = await db.select({ count: count() }).from(users);
+      const filters: SQL<unknown>[] = [];
+      const inputFilters = input.filters;
+
+      if (inputFilters && 'active' in inputFilters) {
+        filters.push(eq(users.active, <boolean>inputFilters.active));
+      }
+
+      const query = db
+        .select()
+        .from(users)
+        .where(and(...filters));
+
+      const totalCount = await db
+        .select({ count: count() })
+        .from(users)
+        .where(and(...filters));
 
       const sortBy = <keyof Users>input.sort.sortBy;
       const sort =

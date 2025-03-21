@@ -4,9 +4,14 @@
   [columns]="userManagementUiService.userColumns()"
   [paginationOptions]="userManagementUiService.paginationOptions()"
   [defaultSort]="userManagementUiService.defaultSort()"
+  [isLoading]="userManagementUiService.isLoading()"
   (pageChange)="userManagementUiService.pageChange($event)"
   (pageSizeChange)="userManagementUiService.pageSizeChange($event)"
   (sortChange)="userManagementUiService.sortChange($event)"
 >
-  <my-org-users-header />
+  <my-org-app-page-header [title]="'User Management'">
+    <ng-template>
+      <p-button label="Filter" myOrgUserFilterDialog />
+    </ng-template>
+  </my-org-app-page-header>
 </my-org-users-list>

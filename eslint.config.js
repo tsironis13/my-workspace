@@ -52,7 +52,7 @@ module.exports = tseslint.config(
                 ["env", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
                 ["ui", { app: "${from.app}" }],
-                ["pattern", { app: "${from.app}" }],
+                ["pattern-api", { app: "${from.app}" }],
                 ["layout", { app: "${from.app}" }],
                 ["feature-routes", { app: "${from.app}" }],
               ],
@@ -68,11 +68,21 @@ module.exports = tseslint.config(
               ],
             },
             {
+              from: ["pattern"],
+              allow: [
+                ["lib-api"],
+                ["env", { app: "${from.app}" }],
+                ["core", { app: "${from.app}" }],
+                ["ui", { app: "${from.app}" }],
+                ["pattern", { app: "${from.app}" }],
+              ],
+            },
+            {
               from: ["subfeature-ui-smart"],
               allow: [
                 ["env", { app: "${from.app}" }],
                 ["ui-api", { app: "${from.app}" }],
-                ["pattern", { app: "${from.app}" }],
+                ["pattern-api", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
                 [
                   "subfeature-ui-smart",
@@ -173,7 +183,6 @@ module.exports = tseslint.config(
                 ["lib-api"],
                 ["env", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
-                ["pattern", { app: "${from.app}" }],
                 [
                   "subfeature-ui-smart",
                   {
@@ -212,7 +221,7 @@ module.exports = tseslint.config(
                     app: "${from.app}",
                   },
                 ],
-                ["pattern", { app: "${from.app}" }],
+                ["pattern-api", { app: "${from.app}" }],
                 [
                   "feature-ui-smart",
                   {
@@ -298,7 +307,6 @@ module.exports = tseslint.config(
                 ["lib-api"],
                 ["env", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
-                ["pattern", { app: "${from.app}" }],
                 ["feature", { app: "${from.app}", feature: "${from.feature}" }],
                 [
                   "feature-routes",
@@ -324,7 +332,7 @@ module.exports = tseslint.config(
         "error",
         {
           type: "attribute",
-          prefix: "my-org",
+          prefix: "myOrg",
           style: "camelCase",
         },
       ],
@@ -385,6 +393,19 @@ module.exports = tseslint.config(
         {
           type: "layout",
           pattern: "layout",
+          basePattern: "projects/**/src/app",
+          baseCapture: ["app"],
+        },
+        {
+          type: "pattern-api",
+          mode: "file",
+          pattern: "pattern/public-api.ts",
+          basePattern: "projects/**/src/app",
+          baseCapture: ["app"],
+        },
+        {
+          type: "pattern",
+          pattern: "pattern",
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },

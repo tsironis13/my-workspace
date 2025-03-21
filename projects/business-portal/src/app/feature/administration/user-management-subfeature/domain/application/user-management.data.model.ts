@@ -9,4 +9,4 @@ export type User = {
   deletedAt: string | null;
 };
 
-export type UserFilter = { status: string };
+export type UserFilter = { active: boolean };

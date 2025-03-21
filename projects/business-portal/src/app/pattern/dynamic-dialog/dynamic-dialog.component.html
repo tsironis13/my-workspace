@@ -1,0 +1,41 @@
+<ng-container
+  [ngTemplateOutlet]="headerTemplate()"
+  [ngTemplateOutletContext]="{
+    $implicit: dynamicDialogService.headerContextState()
+  }"
+/>
+
+<ng-template [myOrgDynamicDialogDefaultHeaderTemplate] let-header>
+  <div class="header flex-0">
+    <p>default dialog header!</p>
+    <div>{{ header.title }}</div>
+  </div>
+</ng-template>
+
+<p-divider />
+
+<div class="flex-1 overflow-y-auto overflow-x-hidden body">
+  <ng-container [ngTemplateOutlet]="bodyTemplate()"> </ng-container>
+</div>
+
+<p-divider />
+
+<ng-container
+  [ngTemplateOutlet]="footerTemplate()"
+  [ngTemplateOutletContext]="{
+    $implicit: dynamicDialogService.headerContextState()
+  }"
+/>
+
+<ng-template [myOrgDynamicDialogDefaultFooterTemplate] let-footer>
+  <div class="footer flex">
+    <p>default dialog footer!</p>
+    <p-button label="Submit" (onClick)="dynamicDialogService.onSubmit()" />
+  </div>
+</ng-template>
+
+<!-- <ng-container [ngTemplateOutlet]="footerTemplate() || defaultFooter" />
+
+<ng-template #defaultFooter>
+  <p>default dialog footer!</p>
+</ng-template> -->

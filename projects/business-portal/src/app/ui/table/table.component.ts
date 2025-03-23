@@ -13,6 +13,7 @@ import {
   ColumnTypeViewModel,
   PaginationViewModel,
   SortDataViewModel,
+  TableMetadataViewModel,
 } from './table.view.model';
 import { TablePaginatorComponent } from './paginator/paginator.component';
 
@@ -33,14 +34,16 @@ export class TableComponent<T> {
   readonly defaultSort = input<SortDataViewModel<T>>();
   readonly lazy = input<boolean>(true);
   readonly customSort = input<boolean>(true);
-  readonly resetPagination = model<boolean>(false);
   readonly isLoading = input<boolean>(false);
+  readonly metadata = model<TableMetadataViewModel>({
+    resetPagination: false,
+  });
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();
   readonly sortChange = output<SortDataViewModel<T>>();
 
-  readonly defaultSortOrder = computed<PrimengSortOrder>(() => {
+  protected readonly defaultSortOrder = computed<PrimengSortOrder>(() => {
     return {
       sortBy: <string>this.defaultSort()?.sortBy,
       sortOrder: this.defaultSort()?.sortOrder ?? 1,
@@ -48,11 +51,14 @@ export class TableComponent<T> {
   });
 
   protected onLazyLoad(event: TableLazyLoadEvent): void {
-    if (this.data().length === 0 && (!event.sortField || !event.sortOrder)) {
+    if (
+      !this.totalCount() ||
+      (this.data().length === 0 && (!event.sortField || !event.sortOrder))
+    ) {
       return;
     }
 
-    this.resetPagination.set(true);
+    this.metadata.set({ resetPagination: true });
 
     this.sortChange.emit({
       sortBy: <keyof T>event.sortField,

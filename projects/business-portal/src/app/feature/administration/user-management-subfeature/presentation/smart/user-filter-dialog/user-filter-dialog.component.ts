@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { SelectModule } from 'primeng/select';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 
@@ -9,16 +9,16 @@ import {
 } from '@business-portal/pattern';
 import { UserFilterDialogFormType } from './user-filter-dialog.form';
 import { YES_NO_OPTIONS_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
+import { SelectReactiveComponent } from '@business-portal/ui';
 
 @Component({
   selector: 'my-org-app-user-filter-dialog',
   templateUrl: './user-filter-dialog.component.html',
-  styleUrl: './user-filter-dialog.component.scss',
   imports: [
-    SelectModule,
     ButtonModule,
     ReactiveFormsModule,
     DynamicDialogComponent,
+    SelectReactiveComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

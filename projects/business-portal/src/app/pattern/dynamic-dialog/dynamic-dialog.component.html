@@ -7,8 +7,7 @@
 
 <ng-template [myOrgDynamicDialogDefaultHeaderTemplate] let-header>
   <div class="header flex-0">
-    <p>default dialog header!</p>
-    <div>{{ header.title }}</div>
+    <h1>{{ header.title }}</h1>
   </div>
 </ng-template>
 
@@ -30,7 +29,11 @@
 <ng-template [myOrgDynamicDialogDefaultFooterTemplate] let-footer>
   <div class="footer flex">
     <p>default dialog footer!</p>
-    <p-button label="Submit" (onClick)="dynamicDialogService.onSubmit()" />
+    <my-org-app-button
+      label="Submit"
+      myOrgUserFilterDialog
+      (clickTriggered)="dynamicDialogService.onSubmit()"
+    />
   </div>
 </ng-template>
 

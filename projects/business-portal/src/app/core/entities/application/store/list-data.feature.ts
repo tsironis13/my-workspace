@@ -73,8 +73,11 @@ export function withListDataService<
 
       return {
         changeFilters(filters: F): void {
-          console.log(filters);
-          patchState(store, { filters });
+          patchState(
+            store,
+            { filters },
+            updatePagination(store.pagination().pageSize, 1)
+          );
         },
         changePage(pageNumber: number): void {
           patchState(

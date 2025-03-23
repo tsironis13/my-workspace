@@ -1,0 +1,6 @@
+<p-select
+  [options]="options()"
+  [(ngModel)]="model"
+  [appendTo]="appendTo()"
+  (onChange)="valueChanged.emit($event)"
+/>

@@ -9,12 +9,14 @@ import {
   viewChild,
 } from '@angular/core';
 import { PaginatorModule, Paginator, PaginatorState } from 'primeng/paginator';
-import { Select, SelectChangeEvent } from 'primeng/select';
+import { SelectChangeEvent } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
+
+import { SelectTemplateDrivenComponent } from '../../select/template-driven/select-template-driven.component';
 
 @Component({
   selector: 'my-org-app-table-paginator',
-  imports: [PaginatorModule, Select, FormsModule],
+  imports: [PaginatorModule, FormsModule, SelectTemplateDrivenComponent],
   templateUrl: './paginator.component.html',
   styleUrl: './paginator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,7 +25,9 @@ export class TablePaginatorComponent {
   readonly rows = model.required<number>();
   readonly totalRecords = input.required<number>();
   readonly pageSizeOptions = input.required<number[]>();
-  readonly resetPagination = input<boolean>(false);
+  readonly metadata = input<{ resetPagination: boolean }>({
+    resetPagination: false,
+  });
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();
@@ -51,7 +55,11 @@ export class TablePaginatorComponent {
   }
 
   private resetTableOnDemand(): void {
-    if (this.resetPagination() && this.paginator()?.currentPage() !== 0) {
+    console.log(this.metadata());
+    if (
+      this.metadata().resetPagination &&
+      this.paginator()?.currentPage() !== 0
+    ) {
       this.resetTableToFirstPage();
     }
   }

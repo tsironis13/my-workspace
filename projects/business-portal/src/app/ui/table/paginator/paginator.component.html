@@ -1,11 +1,11 @@
 <div #mydiv></div>
 <div class="paginator-wrapper flex justify-between items-center px-2">
   <div>
-    <p-select
+    <my-org-app-select-template-driven
       [options]="pageSizeOptions()"
-      [(ngModel)]="rows"
+      [(model)]="rows"
       [appendTo]="mydiv"
-      (onChange)="onPageSizeChange($event)"
+      (valueChanged)="onPageSizeChange($event)"
     />
   </div>
 

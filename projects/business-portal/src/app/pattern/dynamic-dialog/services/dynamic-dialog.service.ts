@@ -18,6 +18,7 @@ export class DynamicDialogService<
   #contextState = signal<DeepPartial<ContextState> | null>(null);
   #form = signal<F>(<F>{});
   #func = signal<DynamicDialogFunc<F> | undefined>(undefined);
+  #dialogRef = signal<DynamicDialogRef<C> | null>(null);
 
   readonly headerContextState = computed(() => this.#contextState()?.header);
 
@@ -36,6 +37,7 @@ export class DynamicDialogService<
     this.#form.set(config.form);
     this.#contextState.set(config.contextState);
     this.#func.set(func);
+    this.#dialogRef.set(ref);
 
     return ref;
   }
@@ -50,5 +52,7 @@ export class DynamicDialogService<
     if (func) {
       func(this.#form());
     }
+
+    this.#dialogRef()?.close();
   }
 }

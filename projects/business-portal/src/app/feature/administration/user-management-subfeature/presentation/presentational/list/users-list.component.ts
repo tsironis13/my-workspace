@@ -22,6 +22,9 @@ export class UsersListComponent {
   readonly paginationOptions = input.required<PaginationViewModel>();
   readonly defaultSort = input.required<SortDataViewModel<UserViewModel>>();
   readonly isLoading = input<boolean>(false);
+  readonly metadata = input<{ resetPagination: boolean }>({
+    resetPagination: false,
+  });
 
   readonly pageChange = output<number>();
   readonly pageSizeChange = output<number>();

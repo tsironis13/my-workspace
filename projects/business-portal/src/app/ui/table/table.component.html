@@ -52,8 +52,10 @@
     [rows]="paginationOptions().defaultPageSize"
     [totalRecords]="totalCount()"
     [pageSizeOptions]="paginationOptions().pageSizeOptions"
-    [resetPagination]="resetPagination()"
-    (pageChange)="pageChange.emit($event); resetPagination.set(false)"
+    [metadata]="metadata()"
+    (pageChange)="
+      pageChange.emit($event); metadata.set({ resetPagination: false })
+    "
     (pageSizeChange)="pageSizeChange.emit($event)"
   />
 </div>

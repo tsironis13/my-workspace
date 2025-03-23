@@ -1,4 +1,4 @@
-import { computed, inject } from '@angular/core';
+import { computed, inject, linkedSignal } from '@angular/core';
 
 import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 import { UserViewModel } from '../presentational/models/user.view.model';
@@ -37,11 +37,12 @@ export class UserManagementUiService {
   readonly userColumns = computed<ColumnTypeViewModel<UserViewModel>[]>(() =>
     columnsConfig()
   );
-  //readonly filters = computed(() => <F>this.#userManagementStore.filters());
-
-  triggerFilter() {
-    console.log('filter');
-  }
+  readonly tableMetadata = linkedSignal({
+    source: this.#userManagementStore.filters,
+    computation: () => ({
+      resetPagination: true,
+    }),
+  });
 
   pageChange(pageNumber: number): void {
     this.#userManagementStore.changePage(pageNumber);
@@ -54,8 +55,4 @@ export class UserManagementUiService {
   sortChange(sortData: SortDataViewModel<UserViewModel>): void {
     this.#userManagementStore.onSortChange(sortData);
   }
-
-  // filtersChange(filters: F): void {
-  //   this.#userManagementStore.changeFilters(filters);
-  // }
 }

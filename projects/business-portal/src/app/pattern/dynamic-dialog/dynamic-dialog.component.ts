@@ -8,7 +8,6 @@ import {
   computed,
 } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
-import { ButtonModule } from 'primeng/button';
 
 import {
   DynamicDialogDefaultHeaderTemplateDirective,
@@ -19,6 +18,7 @@ import {
   DynamicDialogCustomFooterTemplateDirective,
   DynamicDialogDefaultFooterTemplateDirective,
 } from './directives/dynamic-dialog-footer-template.directive';
+import { ButtonComponent } from '@business-portal/ui';
 
 @Component({
   selector: 'my-org-app-dynamic-dialog',
@@ -26,7 +26,7 @@ import {
     NgTemplateOutlet,
     DynamicDialogDefaultHeaderTemplateDirective,
     DynamicDialogDefaultFooterTemplateDirective,
-    ButtonModule,
+    ButtonComponent,
     DividerModule,
   ],
   templateUrl: './dynamic-dialog.component.html',

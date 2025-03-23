@@ -21,8 +21,6 @@ export class UserManagementDataService
   getListByFilterAndPagination(
     params: EntityFilterData<User, UserFilter>
   ): Observable<Entities<User>> {
-    console.log(params);
-
     return from(
       this.#userManagementApiService.getUsersByFilterAndSortAndPagination(
         params.pagination,

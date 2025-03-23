@@ -17,3 +17,7 @@ export type SortDataViewModel<T> = {
   sortBy: keyof T;
   sortOrder: 1 | -1;
 };
+
+export type TableMetadataViewModel = {
+  resetPagination: boolean;
+};

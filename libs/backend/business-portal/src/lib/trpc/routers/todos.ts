@@ -1,6 +1,6 @@
 import { publicProcedure, router } from '../trpc';
 
-let todos = [
+const todos = [
   {
     id: 0,
     todo: 'Clean the kitchen',

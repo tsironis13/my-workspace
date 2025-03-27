@@ -1,7 +1,11 @@
+/* eslint-disable boundaries/no-unknown-files */
 import fastify from 'fastify';
 import cors from '@fastify/cors';
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
-import { appRouter } from '../../../libs/backend/business-portal/src/public-api';
+import {
+  appRouter,
+  createContext,
+} from '../../../libs/backend/business-portal/src/public-api';
 
 const dev = true;
 const port = 3000;
@@ -13,7 +17,7 @@ function createServer() {
     origin: true,
   });
   server.register(fastifyTRPCPlugin, {
-    trpcOptions: { router: appRouter },
+    trpcOptions: { router: appRouter, createContext },
   });
 
   server.get('/', async () => {

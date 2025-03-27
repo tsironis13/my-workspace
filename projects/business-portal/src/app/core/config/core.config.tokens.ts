@@ -1,6 +1,22 @@
 import { InjectionToken } from '@angular/core';
+
 import { PaginatorConfig, YesNoConfig } from './core.config.models';
 import { CoreConfig } from './core.config';
+import { environment } from '@business-portal/env';
+import { AUTH_KEY, AUTH_URL } from '@shared/auth';
+
+export const provideAuthConfig = () => {
+  return [
+    {
+      provide: AUTH_KEY,
+      useValue: environment.AUTH_KEY,
+    },
+    {
+      provide: AUTH_URL,
+      useValue: environment.AUTH_URL,
+    },
+  ];
+};
 
 export const PAGINATOR_CONFIG = new InjectionToken<PaginatorConfig>(
   'paginatorConfig'
@@ -29,6 +45,7 @@ export const provideYesNoOptionsConfig = () => {
 };
 
 export const provideCoreConfig = () => [
+  provideAuthConfig(),
   provideYesNoOptionsConfig(),
   providePaginatorConfig(),
 ];

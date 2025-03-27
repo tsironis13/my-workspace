@@ -5,6 +5,7 @@ import {
   type,
   withComputed,
   withMethods,
+  withProps,
   withState,
 } from '@ngrx/signals';
 import { EntityId, setAllEntities } from '@ngrx/signals/entities';
@@ -59,6 +60,9 @@ export function withListDataService<
       totalCount: 0,
     })),
     withRequestStatus(),
+    withProps(() => ({
+      _dataService: inject(dataService),
+    })),
     withComputed((store) => ({
       entityFilterParams: computed<EntityFilterData<E, F>>(() => {
         return {
@@ -69,8 +73,6 @@ export function withListDataService<
       }),
     })),
     withMethods((store) => {
-      const dService = inject(dataService);
-
       return {
         changeFilters(filters: F): void {
           patchState(
@@ -99,25 +101,27 @@ export function withListDataService<
             switchMap((params) => {
               patchState(store, setPending());
 
-              return dService.getListByFilterAndPagination(params).pipe(
-                //delay(3000),
-                tapResponse({
-                  next: (response) => {
-                    patchState(
-                      store,
-                      setAllEntities(response.items),
-                      {
-                        totalCount: response.totalCount,
-                      },
-                      setFulfilled()
-                    );
-                  },
-                  error: (error: any) => {
-                    console.error(error);
-                    patchState(store, setError(error.message));
-                  },
-                })
-              );
+              return store._dataService
+                .getListByFilterAndPagination(params)
+                .pipe(
+                  //delay(3000),
+                  tapResponse({
+                    next: (response) => {
+                      patchState(
+                        store,
+                        setAllEntities(response.items),
+                        {
+                          totalCount: response.totalCount,
+                        },
+                        setFulfilled()
+                      );
+                    },
+                    error: (error: any) => {
+                      console.error(error);
+                      patchState(store, setError(error.message));
+                    },
+                  })
+                );
             })
           )
         ),

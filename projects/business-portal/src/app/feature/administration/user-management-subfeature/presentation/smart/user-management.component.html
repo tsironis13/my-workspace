@@ -13,6 +13,10 @@
   <my-org-app-page-header [title]="'User Management'">
     <ng-template>
       <my-org-app-button label="Filter" myOrgUserFilterDialog />
+      <my-org-app-button
+        label="Sign Up"
+        (click)="authService.signUp('test@test.com', 'test')"
+      />
     </ng-template>
   </my-org-app-page-header>
 </my-org-users-list>

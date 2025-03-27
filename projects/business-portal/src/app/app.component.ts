@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AuthDirective } from '@business-portal/core/auth';
 
 @Component({
   selector: 'my-org-root',
@@ -13,5 +14,6 @@ import { RouterOutlet } from '@angular/router';
       }
     `,
   ],
+  hostDirectives: [AuthDirective],
 })
 export class AppComponent {}

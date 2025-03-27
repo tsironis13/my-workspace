@@ -6,7 +6,6 @@ import { UserManagementDataService } from './user-management.data.service';
 import { withListDataService } from '@business-portal/core/entities/application';
 
 export const UserManagementStore = signalStore(
-  //withState(initialState),
   withEntities<User>(),
   withListDataService<User, UserFilter, UserManagementDataService>(
     UserManagementDataService

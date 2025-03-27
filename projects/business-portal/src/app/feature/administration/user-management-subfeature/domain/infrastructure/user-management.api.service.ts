@@ -10,7 +10,7 @@ import {
 } from '@business-portal/core/entities/infrastructure';
 
 export class UserManagementApiService {
-  #trpcClient = injectTrpcClient();
+  readonly #trpcClient = injectTrpcClient();
 
   getUsersByFilterAndSortAndPagination(
     pagination: EntityApiPagination,

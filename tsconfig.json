@@ -10,6 +10,9 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@business-portal/env": [
+        "projects/business-portal/src/environments/environment.ts"
+      ],
       "@business-portal/backend": [
         "libs/backend/business-portal/src/public-api.ts"
       ],
@@ -18,6 +21,9 @@
       ],
       "@business-portal/core/config/token": [
         "projects/business-portal/src/app/core/config/core.config.tokens.ts"
+      ],
+      "@business-portal/core/auth": [
+        "projects/business-portal/src/app/core/auth/public-api.ts"
       ],
       "@business-portal/core/utils": [
         "projects/business-portal/src/app/core/utils/public-api.ts"
@@ -39,7 +45,8 @@
       ],
       "@business-portal/administration/user-assignments/domain": [
         "projects/business-portal/src/app/feature/administration/user-assignments-subfeature/domain/public-api.ts"
-      ]
+      ],
+      "@shared/auth": ["libs/shared/auth/src/public-api.ts"]
     },
     "skipLibCheck": true,
     "isolatedModules": true,

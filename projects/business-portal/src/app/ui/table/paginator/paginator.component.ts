@@ -55,7 +55,6 @@ export class TablePaginatorComponent {
   }
 
   private resetTableOnDemand(): void {
-    console.log(this.metadata());
     if (
       this.metadata().resetPagination &&
       this.paginator()?.currentPage() !== 0

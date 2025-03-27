@@ -1,9 +1,11 @@
-import { asc, count, desc, and, SQL, ilike, like, eq } from 'drizzle-orm';
+import { asc, count, desc, and, SQL, eq } from 'drizzle-orm';
 import { optional, z } from 'zod';
+import { PgSelect, PgColumn } from 'drizzle-orm/pg-core';
+
 import { db } from '../../drizzle/db';
 import { Users, users } from '../../drizzle/schema';
-import { publicProcedure, router } from '../trpc';
-import { PgSelect, PgColumn } from 'drizzle-orm/pg-core';
+import { router } from '../trpc';
+import { protectedProcedure } from './utils/protected-procedure.util';
 
 export function withPagination<T extends PgSelect>(
   qb: T,
@@ -31,7 +33,17 @@ export const usersRouter = router({
   //         .where(eq(productCategories.name, input.name))
   //         .limit(2);
   //     }),
-  getPaginated: publicProcedure
+  current: protectedProcedure.query(async (opts) => {
+    const currentUser = await opts.ctx.user;
+
+    const result = await db
+      .select()
+      .from(users)
+      .where(eq(users.authUserId, currentUser.id));
+
+    return result[0];
+  }),
+  getPaginated: protectedProcedure
     .input(
       z.object({
         pagination: z.object({

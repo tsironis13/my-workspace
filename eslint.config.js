@@ -32,6 +32,7 @@ module.exports = tseslint.config(
             {
               from: "core",
               allow: [
+                ["env", { app: "${from.app}" }],
                 // the core can depend on itself (within a single app)
                 ["core", { app: "${from.app}" }],
                 ["lib-api"], // core can depend on the public API of a library
@@ -318,6 +319,14 @@ module.exports = tseslint.config(
                 ],
               ],
             },
+            {
+              from: ["lib-api"],
+              allow: [["lib", { app: "${from.lib}" }]],
+            },
+            {
+              from: ["lib"],
+              allow: [["lib", { app: "${from.lib}" }]],
+            },
           ],
         },
       ],
@@ -355,6 +364,12 @@ module.exports = tseslint.config(
       "boundaries/ignore": [],
       "boundaries/dependency-nodes": ["import", "dynamic-import"],
       "boundaries/elements": [
+        {
+          type: "env",
+          pattern: "environments",
+          basePattern: "projects/**/src",
+          baseCapture: ["app"],
+        },
         // helper types
         {
           type: "main",

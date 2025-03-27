@@ -1,4 +1,5 @@
-import { InferSelectModel } from 'drizzle-orm';
+import { InferSelectModel, sql } from 'drizzle-orm';
+import { uuid } from 'drizzle-orm/gel-core';
 import {
   pgTable,
   bigserial,
@@ -14,6 +15,7 @@ export const users = pgTable('users', {
   familyName: text('familyName'),
   phoneNumber: text('phoneNumber'),
   active: boolean('active').default(true).notNull(),
+  authUserId: <any>uuid('authUserId').notNull(),
   createdAt: timestamp('created_at', {
     withTimezone: true,
     mode: 'string',

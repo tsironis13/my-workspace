@@ -8,3 +8,4 @@ export type {
 export { SelectReactiveComponent } from './select/reactive/select-reactive.component';
 export { SelectTemplateDrivenComponent } from './select/template-driven/select-template-driven.component';
 export { ButtonComponent } from './button/button.component';
+export { InputComponent } from './input/input.component';

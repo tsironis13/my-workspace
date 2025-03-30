@@ -1,6 +1,7 @@
 import { Directive, inject } from '@angular/core';
 
 import { AuthStore } from './domain/application/auth.store';
+import { loginForm } from './login.form';
 
 @Directive({
   selector: '[myOrgAuth]',
@@ -8,8 +9,13 @@ import { AuthStore } from './domain/application/auth.store';
 export class AuthDirective {
   readonly #authStore = inject(AuthStore);
 
-  public signIn(email: string, password: string): void {
-    this.#authStore.signIn(email, password);
+  readonly loginForm = loginForm();
+
+  public signIn(): void {
+    const email = this.loginForm.get('email')?.value;
+    const password = this.loginForm.get('password')?.value;
+
+    this.#authStore.signIn(email || '', password || '');
   }
 
   public signOut(): void {

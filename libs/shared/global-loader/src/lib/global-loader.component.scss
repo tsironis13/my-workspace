@@ -1,0 +1,48 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999999999999999999999;
+  opacity: 0.8;
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 79px;
+  min-height: 79px;
+  border-radius: 50%;
+  border: 7px solid rgba(50, 97, 151, 0.3);
+  margin: 10% 40%;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 66px;
+    height: 64px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 7px solid #326197;
+    border-color: #326197 transparent #326197 transparent;
+    animation: spin 1.2s linear infinite;
+    z-index: 9;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

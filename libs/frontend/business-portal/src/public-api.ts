@@ -3,8 +3,7 @@
  */
 
 export {
-  apiClient,
   injectTrpcClient,
-  TRPC_CLIENT,
+  provideTrpcCore,
   setToken,
 } from './lib/api-client.service';

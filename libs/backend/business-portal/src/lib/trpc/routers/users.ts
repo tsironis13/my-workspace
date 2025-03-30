@@ -40,7 +40,7 @@ export const usersRouter = router({
       .select()
       .from(users)
       .where(eq(users.authUserId, currentUser.id));
-
+    //throw new Error('test');
     return result[0];
   }),
   getPaginated: protectedProcedure

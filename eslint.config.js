@@ -52,7 +52,7 @@ module.exports = tseslint.config(
                 ["lib-api"],
                 ["env", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
-                ["ui", { app: "${from.app}" }],
+                ["ui-api", { app: "${from.app}" }],
                 ["pattern-api", { app: "${from.app}" }],
                 ["layout", { app: "${from.app}" }],
                 ["feature-routes", { app: "${from.app}" }],

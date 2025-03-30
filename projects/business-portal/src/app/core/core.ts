@@ -3,19 +3,12 @@ import { provideRouter, Routes } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 
-import { apiClient, TRPC_CLIENT } from '@business-portal/frontend';
+import { provideTrpcCore } from '@business-portal/frontend';
 import { provideCoreConfig } from './config/core.config.tokens';
 import { primeng } from './config/primeng/config';
-
+import { MessageService } from 'primeng/api';
 export type CoreOptions = {
   routes: Routes;
-};
-
-const provideTRPClient = () => {
-  return {
-    provide: TRPC_CLIENT,
-    useValue: apiClient,
-  };
 };
 
 export function provideCore({ routes }: CoreOptions) {
@@ -23,7 +16,8 @@ export function provideCore({ routes }: CoreOptions) {
     provideExperimentalZonelessChangeDetection(),
     provideAnimationsAsync(),
     provideRouter(routes),
-    provideTRPClient(),
+    provideTrpcCore(),
+    MessageService,
     providePrimeNG(primeng()),
     provideCoreConfig(),
   ];

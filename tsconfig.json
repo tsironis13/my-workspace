@@ -46,7 +46,10 @@
       "@business-portal/administration/user-assignments/domain": [
         "projects/business-portal/src/app/feature/administration/user-assignments-subfeature/domain/public-api.ts"
       ],
-      "@shared/auth": ["libs/shared/auth/src/public-api.ts"]
+      "@shared/auth": ["libs/shared/auth/src/public-api.ts"],
+      "@shared/forms": ["libs/shared/forms/src/public-api.ts"],
+      "@shared/global-loader": ["libs/shared/global-loader/src/public-api.ts"],
+      "@shared/toast": ["libs/shared/toast/src/public-api.ts"]
     },
     "skipLibCheck": true,
     "isolatedModules": true,

@@ -26,3 +26,15 @@
     width: var(--p-dialog-right-side-width);
   }
 }
+
+.p-button {
+  width: 100%;
+}
+
+.ng-invalid.ng-touched:not([formArrayName]):not(form) {
+  border: 1px solid red !important;
+}
+
+.ng-invalid.ng-dirty:not([formArrayName]):not(form) {
+  border: 1px solid red !important;
+}

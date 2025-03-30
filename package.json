@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "watch:shared-auth:lib": "cd libs/shared/auth && ng build --watch --configuration development",
+    "watch:shared-forms:lib": "cd libs/shared/forms && ng build --watch --configuration development",
+    "watch:shared-toast:lib": "cd libs/shared/toast && ng build --watch --configuration development",
     "watch:business-portal-backend:lib": "cd libs/backend/business-portal && ng build --watch --configuration development",
     "watch:business-portal-frontend:lib": "cd libs/frontend/business-portal && ng build --watch --configuration development",
     "start:business-portal-backend": "npx ts-node projects/business-portal-api/src/server.ts",
@@ -19,6 +21,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-architects/ngrx-toolkit": "^19.1.0",
     "@angular/animations": "^19.2.1",
     "@angular/common": "^19.2.1",
     "@angular/compiler": "^19.2.1",

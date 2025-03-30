@@ -7,6 +7,7 @@ import {
   User,
   AuthChangeEvent,
 } from '@supabase/supabase-js';
+import { from, Observable } from 'rxjs';
 
 import { AUTH_URL, AUTH_KEY } from './auth.tokens';
 
@@ -40,11 +41,20 @@ export class AuthSharedService {
     });
   }
 
-  public async signIn(
+  public signIn(
     email: string,
     password: string
-  ): Promise<AuthTokenResponsePassword> {
-    return this.#authClient()!.signInWithPassword({ email, password });
+  ): Observable<AuthTokenResponsePassword> {
+    return from(
+      this.#authClient()!
+        .signInWithPassword({ email, password })
+        .then((res) => {
+          if (res.error) {
+            throw new Error(res.error.message);
+          }
+          return res;
+        })
+    );
   }
 
   public async signOut(): Promise<void> {

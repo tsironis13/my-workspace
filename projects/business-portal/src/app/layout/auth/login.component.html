@@ -1,0 +1,17 @@
+<div
+  class="flex flex-col justify-center justify-self-center h-full gap-8 w-2xs"
+  myOrgAuth
+>
+  <my-org-app-input [rootFormGroup]="loginForm()" fControlName="email" />
+  <my-org-app-input
+    [rootFormGroup]="loginForm()"
+    inputType="password"
+    fControlName="password"
+  />
+  <my-org-app-button
+    [label]="'Sign In'"
+    myOrgSubmitButton
+    [form]="loginForm()"
+    (clickTriggered)="authDirective().signIn()"
+  />
+</div>

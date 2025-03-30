@@ -1,0 +1,5 @@
+@for (error of errors() | keyvalue; track trackByFn) {
+<div class="input-error absolute">
+  {{ error.key | errorMessage : error.value }}
+</div>
+}

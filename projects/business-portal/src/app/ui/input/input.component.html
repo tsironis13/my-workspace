@@ -1,9 +1,13 @@
 <ng-container [formGroup]="rootFormGroup()">
-  <input
-    class="w-full"
-    [type]="inputType()"
-    pSize="large"
-    pInputText
-    [formControlName]="fControlName()"
-  />
+  <p-floatlabel [variant]="labelVariant()">
+    <input
+      id="label"
+      class="w-full"
+      [type]="inputType()"
+      pSize="large"
+      pInputText
+      [formControlName]="fControlName()"
+    />
+    <label for="label">{{ label() }}</label>
+  </p-floatlabel>
 </ng-container>

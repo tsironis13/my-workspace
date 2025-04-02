@@ -1,15 +1,27 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  computed,
+} from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 
 import {
   DynamicDialogComponent,
-  DynamicDialogService,
+  DynamicDialogConfig,
+  DynamicDialogStore,
 } from '@business-portal/pattern';
 import { UserFilterDialogFormType } from './user-filter-dialog.form';
 import { YES_NO_OPTIONS_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
 import { SelectReactiveComponent } from '@business-portal/ui';
+import { ExtractControls } from '@business-portal/core/utils';
+
+type UserFilterDynamicDialogConfig = DynamicDialogConfig<
+  ExtractControls<UserFilterDialogFormType>,
+  null
+>;
 
 @Component({
   selector: 'my-org-app-user-filter-dialog',
@@ -23,9 +35,11 @@ import { SelectReactiveComponent } from '@business-portal/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserFilterDialogComponent {
-  protected readonly dynamicDialogService =
-    inject<
-      DynamicDialogService<UserFilterDialogComponent, UserFilterDialogFormType>
-    >(DynamicDialogService);
+  protected readonly dynamicDialogStore = inject(DynamicDialogStore);
+
   protected readonly yesNoOptions = inject(YES_NO_OPTIONS_CONFIG);
+
+  protected readonly activeDialog = computed(() =>
+    this.dynamicDialogStore.getActiveDialog<UserFilterDynamicDialogConfig>()
+  );
 }

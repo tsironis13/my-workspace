@@ -1,13 +1,21 @@
 <ng-container
   [ngTemplateOutlet]="headerTemplate()"
   [ngTemplateOutletContext]="{
-    $implicit: dynamicDialogService.headerContextState()
+    $implicit: headerContext()
   }"
 />
 
 <ng-template [myOrgDynamicDialogDefaultHeaderTemplate] let-header>
-  <div class="header flex-0">
+  <div class="header flex justify-between items-center">
     <h1>{{ header.title }}</h1>
+    <my-org-app-button
+      [buttonConfig]="{
+        type: 'icon',
+        icon: 'pi pi-times',
+        variant: 'text'
+      }"
+      (clickTriggered)="closeDialogTriggered.emit()"
+    />
   </div>
 </ng-template>
 
@@ -22,17 +30,16 @@
 <ng-container
   [ngTemplateOutlet]="footerTemplate()"
   [ngTemplateOutletContext]="{
-    $implicit: dynamicDialogService.headerContextState()
+    $implicit: headerContext()
   }"
 />
 
 <ng-template [myOrgDynamicDialogDefaultFooterTemplate] let-footer>
-  <div class="footer flex">
+  <div class="footer flex justify-between items-center">
     <p>default dialog footer!</p>
     <my-org-app-button
-      label="Submit"
-      myOrgUserFilterDialog
-      (clickTriggered)="dynamicDialogService.onSubmit()"
+      [buttonConfig]="{ label: 'Submit', type: 'basic', variant: undefined }"
+      (clickTriggered)="submitDialogTriggered.emit()"
     />
   </div>
 </ng-template>

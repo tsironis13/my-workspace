@@ -1,6 +1,10 @@
-<my-org-app-dynamic-dialog>
+<my-org-app-dynamic-dialog
+  [headerContext]="dynamicDialogStore.headerContext()"
+  (submitDialogTriggered)="dynamicDialogStore.onSubmit()"
+  (closeDialogTriggered)="dynamicDialogStore.closeDialog()"
+>
   <ng-template #dialogBody>
-    @let formGroup = dynamicDialogService.getForm();
+    @let formGroup = activeDialog().form;
     <div [formGroup]="formGroup">
       <my-org-app-select-reactive
         [options]="yesNoOptions"
@@ -8,7 +12,7 @@
         [fControlName]="'active'"
         optionLabel="name"
         optionValue="value"
-        placeholder="Active"
+        label="Active"
       />
     </div>
   </ng-template>

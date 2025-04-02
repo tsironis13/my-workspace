@@ -2,6 +2,7 @@ import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 
 const dialogPaddingMargin = '16px';
+const dialogBodyPadding = '32px 16px';
 
 export const myOrgPreset = definePreset(Aura, {
   components: {
@@ -24,7 +25,7 @@ export const myOrgPreset = definePreset(Aura, {
       },
       body: {
         // my custom body padding
-        padding: dialogPaddingMargin,
+        padding: dialogBodyPadding,
       },
       footer: {
         padding: dialogPaddingMargin,

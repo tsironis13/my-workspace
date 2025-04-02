@@ -1,1 +1,17 @@
-<p-button [label]="label()" (onClick)="clickTriggered.emit()" />
+@switch (buttonConfig().type) { @case ('basic') {
+<p-button
+  [label]="buttonConfig().label"
+  [rounded]="buttonConfig().rounded"
+  [variant]="buttonConfig().variant"
+  (onClick)="clickTriggered.emit()"
+/>
+} @case ('icon') { @let config = iconButtonConfig();
+<p-button
+  [label]="config.label"
+  [icon]="config.icon"
+  [variant]="config.variant"
+  [rounded]="buttonConfig().rounded"
+  aria-label="icon-button"
+  (onClick)="clickTriggered.emit()"
+/>
+} }

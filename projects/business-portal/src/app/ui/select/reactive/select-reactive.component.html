@@ -1,9 +1,16 @@
 <ng-container [formGroup]="rootFormGroup()">
-  <p-select
-    [options]="options()"
-    [formControlName]="fControlName()"
-    [optionLabel]="optionLabel()"
-    [optionValue]="optionValue()"
-    [placeholder]="placeholder()"
-  />
+  <p-floatLabel [variant]="labelVariant()" class="w-full">
+    <p-select
+      [options]="options()"
+      [formControlName]="fControlName()"
+      [optionLabel]="optionLabel()"
+      [optionValue]="optionValue()"
+      [virtualScroll]="virtualScroll()"
+      [virtualScrollItemSize]="virtualScrollItemSize()"
+      [virtualScrollOptions]="virtualScrollOptions()"
+      inputId="select-{{ fControlName() }}"
+      styleClass="w-full"
+    />
+    <label for="select-{{ fControlName() }}">{{ label() }}</label>
+  </p-floatLabel>
 </ng-container>

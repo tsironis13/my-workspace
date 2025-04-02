@@ -1,5 +1,5 @@
 <my-org-users-list
-  [users]="userManagementUiService.users() | userToUserViewModel"
+  [users]="userManagementUiService.users() | userEntityToUserViewModel"
   [totalCount]="userManagementUiService.totalCount()"
   [columns]="userManagementUiService.userColumns()"
   [paginationOptions]="userManagementUiService.paginationOptions()"
@@ -12,10 +12,17 @@
 >
   <my-org-app-page-header [title]="'User Management'">
     <ng-template>
-      <my-org-app-button label="Filter" myOrgUserFilterDialog />
       <my-org-app-button
-        label="Sign Up"
-        (click)="authService.signUp('test@test.com', 'test')"
+        [buttonConfig]="{ label: 'Filter', type: 'basic', variant: 'outlined' }"
+        myOrgUserFilterDialog
+      />
+      <my-org-app-button
+        [buttonConfig]="{
+          label: 'Create',
+          type: 'basic',
+          variant: undefined
+        }"
+        myOrgUserCreateDialog
       />
     </ng-template>
   </my-org-app-page-header>

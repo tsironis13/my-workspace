@@ -1,11 +1,11 @@
 import { router } from '../trpc';
-import { productCategoryRouter } from './categories';
 import { todosRouter } from './todos';
 import { usersRouter } from './users';
+import { businessGroupsRouter } from './business-groups';
 
 export const appRouter = router({
   todos: todosRouter,
-  productCategory: productCategoryRouter,
+  businessGroups: businessGroupsRouter,
   users: usersRouter,
 });
 

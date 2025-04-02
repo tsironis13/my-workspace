@@ -7,20 +7,20 @@ import {
   Entities,
   EntitiesMapped,
 } from '@business-portal/core/entities/application';
-import { User, UserFilter } from './user-management.data.model';
+import { UserEntity, UserFilter } from './user-management.data.model';
 import { UserManagementApiService } from '../infrastructure/user-management.api.service';
 import { UserApiResponseItem } from '../infrastructure/user-management.api.model';
 import { EntitiesApiResponse } from '@business-portal/core/entities/infrastructure';
 import { removeNullish } from '@business-portal/core/utils';
 
 export class UserManagementDataService
-  implements EntityListDataService<User, UserFilter>
+  implements EntityListDataService<UserEntity, UserFilter>
 {
   readonly #userManagementApiService = inject(UserManagementApiService);
 
   getListByFilterAndPagination(
-    params: EntityFilterData<User, UserFilter>
-  ): Observable<Entities<User>> {
+    params: EntityFilterData<UserEntity, UserFilter>
+  ): Observable<Entities<UserEntity>> {
     return from(
       this.#userManagementApiService.getUsersByFilterAndSortAndPagination(
         params.pagination,
@@ -33,7 +33,7 @@ export class UserManagementDataService
           <
             EntitiesMapped<
               EntitiesApiResponse<UserApiResponseItem>,
-              Entities<User>
+              Entities<UserEntity>
             >
           >data
       )

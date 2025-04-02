@@ -5,8 +5,8 @@ import { providePrimeNG } from 'primeng/config';
 
 import { provideTrpcCore } from '@business-portal/frontend';
 import { provideCoreConfig } from './config/core.config.tokens';
-import { primeng } from './config/primeng/config';
-import { MessageService } from 'primeng/api';
+import { primeng, providePrimengCoreServices } from './config/primeng/config';
+
 export type CoreOptions = {
   routes: Routes;
 };
@@ -17,8 +17,8 @@ export function provideCore({ routes }: CoreOptions) {
     provideAnimationsAsync(),
     provideRouter(routes),
     provideTrpcCore(),
-    MessageService,
     providePrimeNG(primeng()),
+    providePrimengCoreServices(),
     provideCoreConfig(),
   ];
 }

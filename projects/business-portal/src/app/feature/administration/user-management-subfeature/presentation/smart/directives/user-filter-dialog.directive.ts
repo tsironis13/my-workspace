@@ -2,24 +2,21 @@ import { Directive, inject } from '@angular/core';
 
 import { UserFilterDialogComponent } from '../user-filter-dialog/user-filter-dialog.component';
 import { UserManagementStore } from '@business-portal/administration/user-management/domain';
-import { DynamicDialogService } from '@business-portal/pattern';
 import {
   getUserFilterDialogForm,
   UserFilterDialogFormType,
 } from '../user-filter-dialog/user-filter-dialog.form';
+import { DynamicDialogStore } from '@business-portal/pattern';
+import { ExtractControls } from '@business-portal/core/utils';
 
 @Directive({
   selector: '[myOrgUserFilterDialog]',
-  providers: [DynamicDialogService],
   host: {
     '(click)': 'handleClick()',
   },
 })
 export class UserFilterDialogDirective {
-  readonly #dynamicDialogService =
-    inject<
-      DynamicDialogService<UserFilterDialogComponent, UserFilterDialogFormType>
-    >(DynamicDialogService);
+  readonly #dynamicDialogStore = inject(DynamicDialogStore);
 
   readonly #userManagementStore = inject(UserManagementStore);
 
@@ -28,15 +25,20 @@ export class UserFilterDialogDirective {
 
     this.loadFilters(form);
 
-    this.#dynamicDialogService.openDialog(
+    this.#dynamicDialogStore.openDialog<
+      UserFilterDialogComponent,
+      ExtractControls<UserFilterDialogFormType>,
+      null
+    >(
       UserFilterDialogComponent,
       {
-        data: this.#userManagementStore.filters(),
+        key: 'user-filter',
+        data: null,
         position: 'right',
         styleClass: 'right-side',
         contextState: {
           header: {
-            title: 'Filter123',
+            title: 'Filter',
           },
         },
         form,

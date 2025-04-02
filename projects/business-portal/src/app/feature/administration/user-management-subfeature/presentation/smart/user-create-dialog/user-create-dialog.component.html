@@ -1,0 +1,35 @@
+<my-org-app-dynamic-dialog
+  [headerContext]="dynamicDialogStore.headerContext()"
+  (submitDialogTriggered)="dynamicDialogStore.onSubmit()"
+  (closeDialogTriggered)="dynamicDialogStore.closeDialog()"
+>
+  @let formGroup = activeDialog().form;
+  <ng-template #dialogBody>
+    <my-org-app-progress-loader [loading]="businessGroupsState().loading">
+      <div [formGroup]="formGroup">
+        <my-org-app-select-reactive
+          [options]="
+            businessGroupsState().businessGroups
+              | businessGroupCoreToSelectViewModelItem
+          "
+          [rootFormGroup]="formGroup"
+          [fControlName]="'businessGroup'"
+          optionLabel="label"
+          optionValue="value"
+          label="Business Groups"
+          [virtualScroll]="true"
+          [virtualScrollItemSize]="38"
+        />
+      </div>
+    </my-org-app-progress-loader>
+  </ng-template>
+  <ng-template [myOrgDynamicDialogCustomFooterTemplate]>
+    <p>custom footer</p>
+    <my-org-app-button
+      [buttonConfig]="{ label: 'Sign In', type: 'basic', variant: undefined }"
+      myOrgSubmitButton
+      [form]="formGroup"
+      (clickTriggered)="dynamicDialogStore.onSubmit()"
+    />
+  </ng-template>
+</my-org-app-dynamic-dialog>

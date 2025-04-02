@@ -1,5 +1,6 @@
 import { inject, InjectionToken, Provider } from '@angular/core';
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';
+import { Router } from '@angular/router';
 
 import type { AppRouter } from '@business-portal/backend';
 import { ToastService } from '@shared/toast';
@@ -16,7 +17,7 @@ const TRPC_PROVIDER = new InjectionToken<
 
 const provideTrpcClient = (): Provider => ({
   provide: TRPC_PROVIDER,
-  useFactory: (toastService: ToastService) => {
+  useFactory: (toastService: ToastService, router: Router) => {
     return createTRPCProxyClient<AppRouter>({
       links: [
         httpBatchLink({
@@ -25,13 +26,17 @@ const provideTrpcClient = (): Provider => ({
             const response = await fetch(url, {
               ...options,
             });
+            console.log('response', response);
             if (!response.ok) {
               const json = await response.json();
               const message = json[0].error.message;
 
               toastService.showError(message);
+
+              if (response.status === 401) {
+                router.navigate(['/login']);
+              }
             }
-            console.log('response', response);
             return response;
           },
           async headers() {
@@ -43,7 +48,7 @@ const provideTrpcClient = (): Provider => ({
       ],
     });
   },
-  deps: [ToastService],
+  deps: [ToastService, Router],
 });
 
 export const injectTrpcClient = () => inject(TRPC_PROVIDER);

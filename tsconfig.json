@@ -28,6 +28,12 @@
       "@business-portal/core/utils": [
         "projects/business-portal/src/app/core/utils/public-api.ts"
       ],
+      "@business-portal/core/business-groups": [
+        "projects/business-portal/src/app/core/business-groups/public-api.ts"
+      ],
+      "@business-portal/core/store": [
+        "projects/business-portal/src/app/core/store/public-api.ts"
+      ],
       "@business-portal/ui": [
         "projects/business-portal/src/app/ui/public-api.ts"
       ],

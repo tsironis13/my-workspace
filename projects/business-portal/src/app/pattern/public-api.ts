@@ -1,4 +1,5 @@
 export { DynamicDialogComponent } from './dynamic-dialog/dynamic-dialog.component';
-export { DynamicDialogService } from './dynamic-dialog/services/dynamic-dialog.service';
-export { DynamicDialogDefaultHeaderTemplateDirective } from './dynamic-dialog/directives/dynamic-dialog-header-template.directive';
 export { DynamicDialogCustomHeaderTemplateDirective } from './dynamic-dialog/directives/dynamic-dialog-header-template.directive';
+export { DynamicDialogCustomFooterTemplateDirective } from './dynamic-dialog/directives/dynamic-dialog-footer-template.directive';
+export { DynamicDialogStore } from './dynamic-dialog/store/dynamic-dialog.store';
+export type { DynamicDialogConfig } from './dynamic-dialog/models/dynamic-dialog';

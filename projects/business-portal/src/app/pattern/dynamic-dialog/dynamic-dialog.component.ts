@@ -3,9 +3,11 @@ import {
   Component,
   contentChild,
   TemplateRef,
-  inject,
   viewChild,
   computed,
+  ChangeDetectionStrategy,
+  input,
+  output,
 } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 
@@ -13,12 +15,12 @@ import {
   DynamicDialogDefaultHeaderTemplateDirective,
   DynamicDialogCustomHeaderTemplateDirective,
 } from './directives/dynamic-dialog-header-template.directive';
-import { DynamicDialogService } from './services/dynamic-dialog.service';
 import {
   DynamicDialogCustomFooterTemplateDirective,
   DynamicDialogDefaultFooterTemplateDirective,
 } from './directives/dynamic-dialog-footer-template.directive';
 import { ButtonComponent } from '@business-portal/ui';
+import { ContextHeaderState, DeepPartial } from './models/dynamic-dialog';
 
 @Component({
   selector: 'my-org-app-dynamic-dialog',
@@ -31,8 +33,12 @@ import { ButtonComponent } from '@business-portal/ui';
   ],
   templateUrl: './dynamic-dialog.component.html',
   styleUrl: './dynamic-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicDialogComponent {
+  readonly headerContext = input.required<DeepPartial<ContextHeaderState>>();
+  readonly closeDialogTriggered = output<void>();
+  readonly submitDialogTriggered = output<void>();
   // body
   protected readonly bodyTemplate = contentChild.required('dialogBody', {
     read: TemplateRef,
@@ -59,8 +65,6 @@ export class DynamicDialogComponent {
       read: TemplateRef,
     }
   );
-
-  protected readonly dynamicDialogService = inject(DynamicDialogService);
 
   protected readonly headerTemplate = computed(
     () =>

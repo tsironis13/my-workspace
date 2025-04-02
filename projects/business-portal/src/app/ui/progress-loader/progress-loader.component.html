@@ -1,0 +1,11 @@
+<div>
+  @if (loading()) {
+
+  <div class="w-full">
+    <p-skeleton height="42px" />
+  </div>
+
+  } @else {
+  <ng-content />
+  }
+</div>

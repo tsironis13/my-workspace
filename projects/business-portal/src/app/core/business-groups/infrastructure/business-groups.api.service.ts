@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { injectTrpcClient } from '@business-portal/frontend';
-import { BusinessGroupCoreApiResponse } from './business-groups.api.model';
+import { BusinessGroupCoreDto } from './business-groups.api.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { BusinessGroupCoreApiResponse } from './business-groups.api.model';
 export class BusinessGroupsCoreApiService {
   readonly #trpcClient = injectTrpcClient();
 
-  getAll(): Promise<BusinessGroupCoreApiResponse[]> {
+  getAll(): Promise<BusinessGroupCoreDto[]> {
     return this.#trpcClient.businessGroups.all.query();
   }
 }

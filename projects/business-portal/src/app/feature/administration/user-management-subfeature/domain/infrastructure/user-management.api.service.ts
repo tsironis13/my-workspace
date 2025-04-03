@@ -1,26 +1,30 @@
 import { injectTrpcClient } from '@business-portal/frontend';
-import { UserApiResponseItem } from './user-management.api.model';
+import { CreateUserPostDto, UserDto } from './user-management.api.model';
 import {
-  EntityFilterApiModel,
-  EntitySortApiModel,
+  EntityFilterPostDto,
+  EntitySortPostDto,
 } from '@business-portal/core/entities/infrastructure';
 import {
-  EntitiesApiResponse,
-  EntityApiPagination,
+  EntitiesDto,
+  EntityPaginationPostDto,
 } from '@business-portal/core/entities/infrastructure';
 
 export class UserManagementApiService {
   readonly #trpcClient = injectTrpcClient();
 
   getUsersByFilterAndSortAndPagination(
-    pagination: EntityApiPagination,
-    sort: EntitySortApiModel<UserApiResponseItem>,
-    filters: EntityFilterApiModel<UserApiResponseItem>
-  ): Promise<EntitiesApiResponse<UserApiResponseItem>> {
+    pagination: EntityPaginationPostDto,
+    sort: EntitySortPostDto<UserDto>,
+    filters: EntityFilterPostDto<UserDto>
+  ): Promise<EntitiesDto<UserDto>> {
     return this.#trpcClient.users.getPaginated.query({
       pagination,
       sort,
       filters,
     });
+  }
+
+  createUser(user: CreateUserPostDto): Promise<unknown> {
+    return this.#trpcClient.users.create.mutate(user);
   }
 }

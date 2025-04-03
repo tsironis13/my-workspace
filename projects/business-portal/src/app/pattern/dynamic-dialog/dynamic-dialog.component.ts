@@ -20,7 +20,9 @@ import {
   DynamicDialogDefaultFooterTemplateDirective,
 } from './directives/dynamic-dialog-footer-template.directive';
 import { ButtonComponent } from '@business-portal/ui';
-import { ContextHeaderState, DeepPartial } from './models/dynamic-dialog';
+import { ContextState, DeepPartial } from './models/dynamic-dialog';
+import { SubmitButtonDirective } from '@shared/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'my-org-app-dynamic-dialog',
@@ -29,6 +31,7 @@ import { ContextHeaderState, DeepPartial } from './models/dynamic-dialog';
     DynamicDialogDefaultHeaderTemplateDirective,
     DynamicDialogDefaultFooterTemplateDirective,
     ButtonComponent,
+    SubmitButtonDirective,
     DividerModule,
   ],
   templateUrl: './dynamic-dialog.component.html',
@@ -36,7 +39,8 @@ import { ContextHeaderState, DeepPartial } from './models/dynamic-dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicDialogComponent {
-  readonly headerContext = input.required<DeepPartial<ContextHeaderState>>();
+  readonly context = input.required<DeepPartial<ContextState>>();
+  readonly dialogForm = input.required<FormGroup>();
   readonly closeDialogTriggered = output<void>();
   readonly submitDialogTriggered = output<void>();
   // body
@@ -48,16 +52,16 @@ export class DynamicDialogComponent {
     DynamicDialogDefaultHeaderTemplateDirective,
     { read: TemplateRef }
   );
-  protected readonly defaultFooterTemplate = viewChild(
-    DynamicDialogDefaultFooterTemplateDirective,
-    { read: TemplateRef }
-  );
-  // footer
   protected readonly customHeaderTemplate = contentChild(
     DynamicDialogCustomHeaderTemplateDirective,
     {
       read: TemplateRef,
     }
+  );
+  // footer
+  protected readonly defaultFooterTemplate = viewChild(
+    DynamicDialogDefaultFooterTemplateDirective,
+    { read: TemplateRef }
   );
   protected readonly customFooterTemplate = contentChild(
     DynamicDialogCustomFooterTemplateDirective,
@@ -75,7 +79,7 @@ export class DynamicDialogComponent {
 
   protected readonly footerTemplate = computed(
     () =>
-      <TemplateRef<unknown> | null>(
+      <TemplateRef<unknown>>(
         (this.customFooterTemplate() ?? this.defaultFooterTemplate())
       )
   );

@@ -3,3 +3,4 @@ export { DynamicDialogCustomHeaderTemplateDirective } from './dynamic-dialog/dir
 export { DynamicDialogCustomFooterTemplateDirective } from './dynamic-dialog/directives/dynamic-dialog-footer-template.directive';
 export { DynamicDialogStore } from './dynamic-dialog/store/dynamic-dialog.store';
 export type { DynamicDialogConfig } from './dynamic-dialog/models/dynamic-dialog';
+export { DynamicDialogFooterComponent } from './dynamic-dialog/footer/footer.component';

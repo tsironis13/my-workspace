@@ -1,4 +1,4 @@
-export type EntitiesApiResponse<T> = {
+export type EntitiesDto<T> = {
   items: T[];
   totalCount: number;
 };

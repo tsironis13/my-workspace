@@ -23,17 +23,4 @@ import { UserCreateDialogDirective } from './directives/user-create-dialog.direc
 })
 export class UserManagementComponent {
   protected readonly userManagementUiService = inject(UserManagementUiService);
-  //protected readonly authService = inject(AuthSharedService);
-
-  // async signUp() {
-  //   await this.authService.signUp('test@test.com', 'hdfsjklssjlksfd');
-  // }
-
-  // signIn() {
-  //   this.authService
-  //     .signIn('giannis123@hotmail.com', 'fjsfljsjksdffds')
-  //     .then((res) => {
-  //       console.log(res);
-  //     });
-  // }
 }

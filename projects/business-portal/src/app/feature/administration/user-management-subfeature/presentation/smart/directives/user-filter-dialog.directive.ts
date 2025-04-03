@@ -17,7 +17,6 @@ import { ExtractControls } from '@business-portal/core/utils';
 })
 export class UserFilterDialogDirective {
   readonly #dynamicDialogStore = inject(DynamicDialogStore);
-
   readonly #userManagementStore = inject(UserManagementStore);
 
   handleClick(): void {
@@ -28,7 +27,8 @@ export class UserFilterDialogDirective {
     this.#dynamicDialogStore.openDialog<
       UserFilterDialogComponent,
       ExtractControls<UserFilterDialogFormType>,
-      null
+      null,
+      { reset: boolean }
     >(
       UserFilterDialogComponent,
       {
@@ -43,8 +43,8 @@ export class UserFilterDialogDirective {
         },
         form,
       },
-      (form) => {
-        this.saveFilters(form);
+      (form, { reset }) => {
+        this.saveFilters(form, reset);
       }
     );
   }
@@ -55,7 +55,11 @@ export class UserFilterDialogDirective {
     }
   }
 
-  private saveFilters(form: UserFilterDialogFormType): void {
+  private saveFilters(form: UserFilterDialogFormType, reset?: boolean): void {
+    if (reset) {
+      form.reset();
+    }
+
     this.#userManagementStore.changeFilters(form.getRawValue());
   }
 }

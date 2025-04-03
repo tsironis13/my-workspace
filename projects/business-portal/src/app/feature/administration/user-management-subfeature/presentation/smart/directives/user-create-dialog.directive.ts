@@ -2,8 +2,14 @@ import { computed, Directive, inject } from '@angular/core';
 
 import { UserCreateDialogComponent } from '../user-create-dialog/user-create-dialog.component';
 import { BusinessGroupsCoreStore } from '@business-portal/core/business-groups';
-import { getUserCreateDialogForm } from '../user-create-dialog/user-create-dialog.form';
+import {
+  getUserCreateDialogForm,
+  UserCreateDialogFormType,
+} from '../user-create-dialog/user-create-dialog.form';
 import { DynamicDialogStore } from '@business-portal/pattern';
+import { UserManagementStore } from '@business-portal/administration/user-management/domain';
+import { AuthStore } from '@business-portal/core/auth';
+import { removeNullish } from '@business-portal/core/utils';
 
 @Directive({
   selector: '[myOrgUserCreateDialog]',
@@ -14,6 +20,8 @@ import { DynamicDialogStore } from '@business-portal/pattern';
 export class UserCreateDialogDirective {
   readonly #dynamicDialogStore = inject(DynamicDialogStore);
   readonly #businessGroupsCoreStore = inject(BusinessGroupsCoreStore);
+  readonly #userManagementStore = inject(UserManagementStore);
+  readonly #authStore = inject(AuthStore);
 
   readonly #data = computed(() => {
     return {
@@ -34,16 +42,23 @@ export class UserCreateDialogDirective {
         styleClass: 'right-side',
         contextState: {
           header: {
-            title: 'Filter',
+            title: 'Create User',
           },
         },
         form,
       },
-      (form) => {
-        console.log(form);
-
-        //this.saveFilters(form);
-      }
+      (form) => this.createUser(form)
     );
+  }
+
+  private createUser(form: UserCreateDialogFormType): void {
+    const formValue = removeNullish(form.getRawValue());
+
+    this.#authStore.signUp(formValue.email).then((authUserId) => {
+      this.#userManagementStore.createEntity({
+        ...formValue,
+        authUserId,
+      });
+    });
   }
 }

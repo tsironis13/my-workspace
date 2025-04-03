@@ -1,4 +1,4 @@
-import { computed, inject, Signal, Type } from '@angular/core';
+import { computed, DestroyRef, inject, Signal, Type } from '@angular/core';
 import {
   patchState,
   signalStoreFeature,
@@ -10,7 +10,7 @@ import {
 } from '@ngrx/signals';
 import { EntityId, setAllEntities } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { pipe } from 'rxjs';
+import { pipe, tap } from 'rxjs';
 import { switchMap } from 'rxjs';
 import { tapResponse } from '@ngrx/operators';
 
@@ -27,11 +27,15 @@ import {
   setFulfilled,
   setError,
 } from '../../../store/request-status.feature';
+import { ToastService } from '@shared/toast';
+import { GlobalLoaderStore } from '@shared/global-loader';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export function withListDataService<
   E extends Entity,
   F extends EntityFilter,
-  S extends EntityListDataService<E, F>
+  C extends Record<string, unknown>,
+  S extends EntityListDataService<E, F, C>
 >(dataService: Type<S>) {
   return signalStoreFeature(
     {
@@ -62,6 +66,9 @@ export function withListDataService<
     withRequestStatus(),
     withProps(() => ({
       _dataService: inject(dataService),
+      _toastService: inject(ToastService),
+      _globalLoaderStore: inject(GlobalLoaderStore),
+      _destroyRef: inject(DestroyRef),
     })),
     withComputed((store) => ({
       entityFilterParams: computed<EntityFilterData<E, F>>(() => {
@@ -77,7 +84,7 @@ export function withListDataService<
         changeFilters(filters: F): void {
           patchState(
             store,
-            { filters },
+            updateFilters(filters),
             updatePagination(store.pagination().pageSize, 1)
           );
         },
@@ -104,7 +111,6 @@ export function withListDataService<
               return store._dataService
                 .getListByFilterAndPagination(params)
                 .pipe(
-                  //delay(3000),
                   tapResponse({
                     next: (response) => {
                       patchState(
@@ -125,9 +131,42 @@ export function withListDataService<
             })
           )
         ),
+        createEntity: rxMethod<C>(
+          pipe(
+            tap((entity) => {
+              const observable = store._dataService.createEntity(entity);
+
+              store._globalLoaderStore
+                .withLoadingObservable(observable)
+                .pipe(takeUntilDestroyed(store._destroyRef))
+                .subscribe({
+                  next: () => {
+                    store._toastService.showSuccess(
+                      'Entity created successfully!'
+                    );
+                    patchState(
+                      store,
+                      updateFilters(<F>{}),
+                      updatePagination(store.pagination().pageSize, 1)
+                    );
+                  },
+                  error: (e: Error) =>
+                    store._toastService.showError(
+                      'An error occured while creating the entity.'
+                    ),
+                });
+            })
+          )
+        ),
       };
     })
   );
+}
+
+export function updateFilters<F>(filters: F): { filters: F } {
+  return {
+    filters,
+  };
 }
 
 export function updatePagination(

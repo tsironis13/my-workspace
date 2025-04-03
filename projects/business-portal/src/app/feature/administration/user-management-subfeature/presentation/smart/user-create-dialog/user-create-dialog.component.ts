@@ -5,20 +5,20 @@ import {
   computed,
   Signal,
 } from '@angular/core';
-
 import { ReactiveFormsModule } from '@angular/forms';
+import { Divider } from 'primeng/divider';
 
 import {
   DynamicDialogComponent,
   DynamicDialogConfig,
-  DynamicDialogCustomFooterTemplateDirective,
   DynamicDialogStore,
+  DynamicDialogCustomFooterTemplateDirective,
+  DynamicDialogFooterComponent,
 } from '@business-portal/pattern';
-import { YES_NO_OPTIONS_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
 import {
+  InputComponent,
   SelectReactiveComponent,
-  ProgressLoaderComponent,
-  ButtonComponent,
+  SkeletonLoaderComponent,
 } from '@business-portal/ui';
 import {
   BusinessGroupCore,
@@ -26,7 +26,6 @@ import {
 } from '@business-portal/core/business-groups';
 import { UserCreateDialogFormType } from './user-create-dialog.form';
 import { ExtractControls } from '@business-portal/core/utils';
-import { SubmitButtonDirective } from '@shared/forms';
 
 type UserCreateDynamicDialogConfig = DynamicDialogConfig<
   ExtractControls<UserCreateDialogFormType>,
@@ -41,16 +40,16 @@ type UserCreateDynamicDialogConfig = DynamicDialogConfig<
     DynamicDialogComponent,
     SelectReactiveComponent,
     BusinessGroupCoreToSelectViewModelItemPipe,
-    ProgressLoaderComponent,
-    ButtonComponent,
-    SubmitButtonDirective,
     DynamicDialogCustomFooterTemplateDirective,
+    DynamicDialogFooterComponent,
+    InputComponent,
+    SkeletonLoaderComponent,
+    Divider,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCreateDialogComponent {
   protected readonly dynamicDialogStore = inject(DynamicDialogStore);
-  protected readonly yesNoOptions = inject(YES_NO_OPTIONS_CONFIG);
 
   protected readonly activeDialog = computed(() =>
     this.dynamicDialogStore.getActiveDialog<UserCreateDynamicDialogConfig>()
@@ -58,4 +57,12 @@ export class UserCreateDialogComponent {
   protected readonly businessGroupsState = computed(() =>
     this.activeDialog().data()
   );
+
+  protected create(): void {
+    this.dynamicDialogStore.onSubmit();
+  }
+
+  protected cancel(): void {
+    this.dynamicDialogStore.closeDialog();
+  }
 }

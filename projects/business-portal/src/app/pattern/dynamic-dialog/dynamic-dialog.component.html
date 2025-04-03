@@ -1,7 +1,7 @@
 <ng-container
   [ngTemplateOutlet]="headerTemplate()"
   [ngTemplateOutletContext]="{
-    $implicit: headerContext()
+    $implicit: context().header
   }"
 />
 
@@ -27,21 +27,26 @@
 
 <p-divider />
 
-<ng-container
-  [ngTemplateOutlet]="footerTemplate()"
-  [ngTemplateOutletContext]="{
-    $implicit: headerContext()
-  }"
-/>
+<div class="footer flex justify-between items-center">
+  <ng-container
+    [ngTemplateOutlet]="footerTemplate()"
+    [ngTemplateOutletContext]="{
+      $implicit: context().footer
+    }"
+  />
+</div>
 
 <ng-template [myOrgDynamicDialogDefaultFooterTemplate] let-footer>
-  <div class="footer flex justify-between items-center">
-    <p>default dialog footer!</p>
-    <my-org-app-button
-      [buttonConfig]="{ label: 'Submit', type: 'basic', variant: undefined }"
-      (clickTriggered)="submitDialogTriggered.emit()"
-    />
-  </div>
+  <p>default dialog footer!</p>
+  <my-org-app-button
+    [buttonConfig]="{
+      label: footer?.button?.submit?.label ?? 'Submit',
+      type: 'basic',      
+    }"
+    myOrgSubmitButton
+    [form]="dialogForm()"
+    (clickTriggered)="submitDialogTriggered.emit()"
+  />
 </ng-template>
 
 <!-- <ng-container [ngTemplateOutlet]="footerTemplate() || defaultFooter" />

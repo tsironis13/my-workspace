@@ -8,10 +8,10 @@ import {
 import { ButtonModule } from 'primeng/button';
 
 import {
-  ButtonConfig,
-  IconButtonConfig,
-  BaseButtonConfig,
-} from './button.type';
+  ButtonConfigViewModel,
+  IconButtonConfigViewModel,
+  BaseButtonConfigViewModel,
+} from './button.view.model';
 
 @Component({
   selector: 'my-org-app-button',
@@ -20,14 +20,14 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  readonly buttonConfig = input.required<ButtonConfig>();
+  readonly buttonConfig = input.required<ButtonConfigViewModel>();
 
   readonly clickTriggered = output<void>();
 
-  protected readonly basicButtonConfig = computed<BaseButtonConfig>(() =>
-    this.buttonConfig()
+  protected readonly basicButtonConfig = computed<BaseButtonConfigViewModel>(
+    () => this.buttonConfig()
   );
-  protected readonly iconButtonConfig = computed<IconButtonConfig>(
-    () => <IconButtonConfig>this.buttonConfig()
+  protected readonly iconButtonConfig = computed<IconButtonConfigViewModel>(
+    () => <IconButtonConfigViewModel>this.buttonConfig()
   );
 }

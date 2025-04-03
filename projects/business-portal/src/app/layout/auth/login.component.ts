@@ -38,3 +38,6 @@ export class LoginComponent {
   protected readonly authDirective = viewChild.required(AuthDirective);
   protected readonly loginForm = computed(() => this.authDirective().loginForm);
 }
+
+//tsiro1@hotmail.com
+//sxtvttio

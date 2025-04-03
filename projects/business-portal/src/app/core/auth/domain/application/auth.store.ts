@@ -54,6 +54,27 @@ export const AuthStore = signalStore(
             error: (e: Error) => store._toastService.showError(e.message),
           });
       },
+      signUp(email: string | null, password?: string): Promise<string> {
+        if (!email) {
+          throw new Error('Email is required');
+        }
+
+        return store._sharedAuthService
+          .signUp(email, password)
+          .then((response) => {
+            return new Promise<string>((resolve) => {
+              if (response.error) {
+                throw new Error(response.error.message);
+              }
+
+              if (!response.data.user) {
+                throw new Error('User not found');
+              }
+
+              resolve(response.data.user.id);
+            });
+          });
+      },
       signOut(): void {
         store._sharedAuthService.signOut().then(() => {
           store._router.navigate(['/login']);

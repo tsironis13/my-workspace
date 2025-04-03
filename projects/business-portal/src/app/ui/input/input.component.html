@@ -1,7 +1,7 @@
 <ng-container [formGroup]="rootFormGroup()">
   <p-floatlabel [variant]="labelVariant()">
     <input
-      id="label"
+      [id]="label()"
       class="w-full"
       [type]="inputType()"
       pSize="large"

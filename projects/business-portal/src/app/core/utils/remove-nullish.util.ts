@@ -1,5 +1,5 @@
 type RecursivePartial<T> = {
-  [P in keyof T]?: T[P] extends (infer U)[]
+  [P in keyof T]: T[P] extends (infer U)[]
     ? U extends object
       ? RecursivePartial<U>[]
       : U[]

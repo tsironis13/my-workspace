@@ -14,7 +14,7 @@
     [label]="'Password'"
   />
   <my-org-app-button
-    [buttonConfig]="{ label: 'Sign In', type: 'basic', variant: undefined }"
+    [buttonConfig]="{ label: 'Sign In', type: 'basic' }"
     myOrgSubmitButton
     [form]="loginForm()"
     (clickTriggered)="authDirective().signIn()"

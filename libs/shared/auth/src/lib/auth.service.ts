@@ -6,6 +6,7 @@ import {
   Session,
   User,
   AuthChangeEvent,
+  AuthResponse,
 } from '@supabase/supabase-js';
 import { from, Observable } from 'rxjs';
 
@@ -62,14 +63,13 @@ export class AuthSharedService {
     localStorage.clear();
   }
 
-  public async signUp(email: string, password: string) {
-    console.log(password);
-    const x = await this.#authClient()!.signUp({
-      email: 'giannis123@hotmail.com',
-      password: 'fjsfljsjksdffds',
-      //email_confirm: true,
+  public async signUp(email: string, password?: string): Promise<AuthResponse> {
+    const passw = password ?? Math.random().toString(36).slice(-8);
+
+    return await this.#authClient()!.signUp({
+      email,
+      password: 'sxtvttio',
     });
-    console.log(x);
   }
 
   public async getSession() {

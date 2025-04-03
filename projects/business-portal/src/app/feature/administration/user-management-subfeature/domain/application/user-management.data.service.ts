@@ -9,12 +9,15 @@ import {
 } from '@business-portal/core/entities/application';
 import { UserEntity, UserFilter } from './user-management.data.model';
 import { UserManagementApiService } from '../infrastructure/user-management.api.service';
-import { UserApiResponseItem } from '../infrastructure/user-management.api.model';
-import { EntitiesApiResponse } from '@business-portal/core/entities/infrastructure';
+import {
+  CreateUserPostDto,
+  UserDto,
+} from '../infrastructure/user-management.api.model';
+import { EntitiesDto } from '@business-portal/core/entities/infrastructure';
 import { removeNullish } from '@business-portal/core/utils';
 
 export class UserManagementDataService
-  implements EntityListDataService<UserEntity, UserFilter>
+  implements EntityListDataService<UserEntity, UserFilter, CreateUserPostDto>
 {
   readonly #userManagementApiService = inject(UserManagementApiService);
 
@@ -30,13 +33,12 @@ export class UserManagementDataService
     ).pipe(
       map(
         (data) =>
-          <
-            EntitiesMapped<
-              EntitiesApiResponse<UserApiResponseItem>,
-              Entities<UserEntity>
-            >
-          >data
+          <EntitiesMapped<EntitiesDto<UserDto>, Entities<UserEntity>>>data
       )
     );
+  }
+
+  createEntity(entity: CreateUserPostDto): Observable<unknown> {
+    return from(this.#userManagementApiService.createUser(entity));
   }
 }

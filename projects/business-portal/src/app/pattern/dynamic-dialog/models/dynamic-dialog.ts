@@ -8,6 +8,7 @@ export type DeepPartial<T> = {
 
 export type ContextState = {
   header: ContextHeaderState;
+  footer: ContextFooterState;
 };
 
 export type ContextHeaderState = {
@@ -17,7 +18,12 @@ export type ContextHeaderState = {
 
 export type ContextFooterState = {
   button: {
-    label: string;
+    submit: {
+      label: string;
+    };
+    cancel: {
+      label: string;
+    };
   };
 };
 
@@ -35,5 +41,6 @@ export type DynamicDialogConfig<
 };
 
 export type DynamicDialogFunc<
-  F extends { [K in keyof F]: AbstractControl<unknown, unknown> }
-> = (form: FormGroup<F>, params?: Record<string, unknown>) => void;
+  F extends { [K in keyof F]: AbstractControl<unknown, unknown> },
+  P extends Record<string, unknown>
+> = (form: FormGroup<F>, params: P) => void;

@@ -1,4 +1,4 @@
-export type BusinessGroupCoreApiResponse = {
+export type BusinessGroupCoreDto = {
   id: number;
   name: string;
 };

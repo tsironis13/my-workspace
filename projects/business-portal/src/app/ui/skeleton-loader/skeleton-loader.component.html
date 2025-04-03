@@ -2,7 +2,7 @@
   @if (loading()) {
 
   <div class="w-full">
-    <p-skeleton height="42px" />
+    <p-skeleton height="42px" [width]="skeletonWidth()" />
   </div>
 
   } @else {

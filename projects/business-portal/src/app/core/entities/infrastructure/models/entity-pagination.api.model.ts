@@ -1,4 +1,4 @@
-export type EntityApiPagination = {
+export type EntityPaginationPostDto = {
   pageSize: number;
   pageNumber: number;
 };

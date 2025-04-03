@@ -1,5 +1,5 @@
 import { Directive } from '@angular/core';
-import { ContextHeaderState } from '../models/dynamic-dialog';
+import { ContextFooterState } from '../models/dynamic-dialog';
 
 @Directive({
   standalone: true,
@@ -10,7 +10,7 @@ export class DynamicDialogDefaultFooterTemplateDirective {
     dir: DynamicDialogDefaultFooterTemplateDirective,
     ctx: unknown
   ): ctx is {
-    $implicit: ContextHeaderState;
+    $implicit: ContextFooterState;
   } {
     return true;
   }

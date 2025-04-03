@@ -1,6 +1,7 @@
 import { asc, count, desc, and, SQL, eq } from 'drizzle-orm';
 import { optional, z } from 'zod';
 import { PgSelect, PgColumn } from 'drizzle-orm/pg-core';
+import { TRPCError } from '@trpc/server';
 
 import { db } from '../../drizzle/db';
 import { Users, users } from '../../drizzle/schema';
@@ -18,6 +19,12 @@ export function withPagination<T extends PgSelect>(
     .limit(pageSize)
     .offset((page - 1) * pageSize);
 }
+
+type NewUser = typeof users.$inferInsert;
+
+const insertUser = async (user: NewUser) => {
+  return db.insert(users).values(user);
+};
 
 export const usersRouter = router({
   //   getByName: publicProcedure
@@ -40,7 +47,14 @@ export const usersRouter = router({
       .select()
       .from(users)
       .where(eq(users.authUserId, currentUser.id));
-    //throw new Error('test');
+
+    if (result.length === 0 || result.length > 1) {
+      throw new TRPCError({
+        code: 'UNAUTHORIZED',
+        message: 'User not validated',
+      });
+    }
+
     return result[0];
   }),
   getPaginated: protectedProcedure
@@ -62,8 +76,6 @@ export const usersRouter = router({
       })
     )
     .query(async ({ input }) => {
-      console.log(input);
-
       const filters: SQL<unknown>[] = [];
       const inputFilters = input.filters;
 
@@ -117,17 +129,42 @@ export const usersRouter = router({
   //       })
   //       .from(productCategories);
   //   }),
-  //   create: publicProcedure
-  //     .input(
-  //       z.object({
-  //         name: z.string(),
-  //         description: z.nullable(z.string()),
-  //         parentCategoryId: z.nullable(z.number()),
-  //       })
-  //     )
-  //     .mutation(async ({ input }) => {
-  //       return await db.insert(productCategories).values(input).returning();
-  //     }),
+  create: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        familyName: z.string(),
+        email: z.string(),
+        authUserId: z.string(),
+        phoneNumber: optional(z.string()),
+        businessGroupId: optional(z.number()),
+      })
+    )
+    .mutation(async ({ input }) => {
+      return await insertUser({
+        name: input.name,
+        familyName: input.familyName,
+        email: input.email,
+        authUserId: input.authUserId,
+        businessGroupId: input.businessGroupId,
+        phoneNumber: input.phoneNumber,
+        active: true,
+      });
+      // return await db
+      //   .insert(users)
+      //   .values({
+      //     //namse: input.firstName,
+      //     familyName: input.lastName,
+      //     email: input.email,
+      //     authUserId: 1,
+      //     businessGroupId: input.businessGroupId,
+      //     phoneNumber: input.phoneNumber,
+      //     active: true,
+      //     createdAt: new Date(),
+      //     deletedAt: null,
+      //   })
+      //   .returning();
+    }),
   //   getById: publicProcedure.input(z.number()).query(async ({ input }) => {
   //     return await db
   //       .select()

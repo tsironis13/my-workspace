@@ -1,0 +1,25 @@
+<div class="flex justify-between items-center w-full">
+  <my-org-app-skeleton-loader [loading]="isDialogLoading()" [width]="'7rem'">
+    <my-org-app-button
+      [buttonConfig]="leftButtonConfig()"
+      (clickTriggered)="leftButtonClicked.emit()"
+    />
+  </my-org-app-skeleton-loader>
+
+  <my-org-app-skeleton-loader [loading]="isDialogLoading()" [width]="'10rem'">
+    @if (validateDialogOnSubmit() && dialogForm()) {
+    <my-org-app-button
+      [buttonConfig]="rightButtonConfig()"
+      myOrgSubmitButton
+      [form]="form()"
+      (clickTriggered)="rightButtonClicked.emit()"
+    >
+    </my-org-app-button>
+    } @else {
+    <my-org-app-button
+      [buttonConfig]="rightButtonConfig()"
+      (clickTriggered)="rightButtonClicked.emit()"
+    />
+    }
+  </my-org-app-skeleton-loader>
+</div>

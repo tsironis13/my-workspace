@@ -1,4 +1,5 @@
 <div>
   <div>navbar</div>
   <button myOrgAuth (click)="authDirective().signOut()">Sign Out</button>
+  <div>{{ authStore.currentUser()?.email }}</div>
 </div>

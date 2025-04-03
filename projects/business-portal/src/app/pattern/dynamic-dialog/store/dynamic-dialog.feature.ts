@@ -11,7 +11,6 @@ import { computed, inject, Signal, Type } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import {
-  ContextHeaderState,
   ContextState,
   DeepPartial,
   DynamicDialogConfig,
@@ -28,7 +27,7 @@ type DynamicDialogEntityState = {
   key: string;
   form: FormGroup<any>;
   data: Signal<unknown> | Observable<unknown> | null;
-  func: DynamicDialogFunc<any> | undefined;
+  func: DynamicDialogFunc<any, any> | undefined;
   dialogRef: DynamicDialogRef<any>;
   contextState: DeepPartial<ContextState>;
 };
@@ -48,23 +47,22 @@ export function withDynamicDialog() {
       ),
     })),
     withComputed((store) => ({
-      headerContext: computed(
-        () =>
-          <DeepPartial<ContextHeaderState>>(
-            store._activeDialog().contextState.header
-          )
+      context: computed(
+        () => <DeepPartial<ContextState>>store._activeDialog().contextState
       ),
+      activeDialogForm: computed(() => store._activeDialog().form),
     })),
     withMethods((store) => {
       return {
         openDialog<
           C,
           F extends { [K in keyof F]: AbstractControl<unknown, unknown> },
-          D extends Signal<unknown> | Observable<unknown> | null
+          D extends Signal<unknown> | Observable<unknown> | null,
+          P extends Record<string, unknown> = {}
         >(
           componentType: Type<C>,
           config: DynamicDialogConfig<F, D>,
-          func?: DynamicDialogFunc<F>
+          func?: DynamicDialogFunc<F, P>
         ): DynamicDialogRef<C> {
           const ref = store._dynamicDialogService.open(componentType, {
             showHeader: false,
@@ -97,14 +95,14 @@ export function withDynamicDialog() {
         getActiveDialog<T>(): T {
           return <T>store._activeDialog();
         },
-        onSubmit(): void {
+        onSubmit(addtionalParams: Record<string, unknown> = {}): void {
           const activeDialog = store._activeDialog();
 
           if (!activeDialog?.func || !activeDialog.form) {
             return;
           }
 
-          activeDialog.func(activeDialog.form);
+          activeDialog.func(activeDialog.form, addtionalParams);
 
           this.closeDialog();
         },

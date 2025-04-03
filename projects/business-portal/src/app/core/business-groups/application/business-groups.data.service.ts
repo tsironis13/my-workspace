@@ -4,7 +4,7 @@ import { inject, Injectable } from '@angular/core';
 import { EntitiesMapped } from '@business-portal/core/entities/application';
 import { BusinessGroupCore } from './business-groups.data.model';
 import { BusinessGroupsCoreApiService } from '../infrastructure/business-groups.api.service';
-import { BusinessGroupCoreApiResponse } from '../infrastructure/business-groups.api.model';
+import { BusinessGroupCoreDto } from '../infrastructure/business-groups.api.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,9 @@ export class BusinessGroupsCoreDataService {
     return from(this.#businessGroupsCoreApiService.getAll()).pipe(
       map(
         (data) =>
-          <EntitiesMapped<BusinessGroupCoreApiResponse[], BusinessGroupCore[]>>(
-            data
-          )
+          <EntitiesMapped<BusinessGroupCoreDto[], BusinessGroupCore[]>>data
       ),
-      delay(5000)
+      delay(2000)
     );
   }
 }

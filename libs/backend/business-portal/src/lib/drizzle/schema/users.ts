@@ -1,12 +1,15 @@
-import { InferSelectModel, sql } from 'drizzle-orm';
-import { uuid } from 'drizzle-orm/gel-core';
+import { InferSelectModel } from 'drizzle-orm';
 import {
   pgTable,
   bigserial,
   text,
   timestamp,
   boolean,
+  integer,
+  uuid,
 } from 'drizzle-orm/pg-core';
+
+import { businessGroups } from './business-groups';
 
 export const users = pgTable('users', {
   id: bigserial('id', { mode: 'number' }).primaryKey(),
@@ -15,7 +18,7 @@ export const users = pgTable('users', {
   familyName: text('familyName'),
   phoneNumber: text('phoneNumber'),
   active: boolean('active').default(true).notNull(),
-  authUserId: <any>uuid('authUserId').notNull(),
+  authUserId: uuid('authUserId').notNull(),
   createdAt: timestamp('created_at', {
     withTimezone: true,
     mode: 'string',
@@ -23,6 +26,9 @@ export const users = pgTable('users', {
     .defaultNow()
     .notNull(),
   deletedAt: timestamp('deleted_at', { withTimezone: true, mode: 'string' }),
+  businessGroupId: integer('businessGroupId').references(
+    () => businessGroups.id
+  ),
 });
 
 export type Users = InferSelectModel<typeof users>;

@@ -26,7 +26,7 @@ const provideTrpcClient = (): Provider => ({
             const response = await fetch(url, {
               ...options,
             });
-            console.log('response', response);
+
             if (!response.ok) {
               const json = await response.json();
               const message = json[0].error.message;
@@ -34,6 +34,7 @@ const provideTrpcClient = (): Provider => ({
               toastService.showError(message);
 
               if (response.status === 401) {
+                localStorage.clear();
                 router.navigate(['/login']);
               }
             }

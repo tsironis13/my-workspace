@@ -1,5 +1,6 @@
 <my-org-app-dynamic-dialog
-  [headerContext]="dynamicDialogStore.headerContext()"
+  [context]="dynamicDialogStore.context()"
+  [dialogForm]="dynamicDialogStore.activeDialogForm()"
   (submitDialogTriggered)="dynamicDialogStore.onSubmit()"
   (closeDialogTriggered)="dynamicDialogStore.closeDialog()"
 >
@@ -15,5 +16,18 @@
         label="Active"
       />
     </div>
+  </ng-template>
+
+  <ng-template [myOrgDynamicDialogCustomFooterTemplate]>
+    <my-org-app-dynamic-dialog-footer
+      [leftButtonConfig]="{
+        label: 'Reset All',
+        type: 'basic',
+        variant: 'outlined'
+      }"
+      [rightButtonConfig]="{ label: 'Apply Filters', type: 'basic' }"
+      (leftButtonClicked)="applyFilters(true)"
+      (rightButtonClicked)="applyFilters()"
+    />
   </ng-template>
 </my-org-app-dynamic-dialog>

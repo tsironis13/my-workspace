@@ -13,7 +13,7 @@ export const authGuard =
 
     try {
       const session = await authSharedService.getSession();
-      console.log('session', session);
+
       if (!session.data.session) {
         return navigateToLogin();
       }

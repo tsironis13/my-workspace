@@ -1,35 +1,79 @@
 <my-org-app-dynamic-dialog
-  [headerContext]="dynamicDialogStore.headerContext()"
+  [context]="dynamicDialogStore.context()"
+  [dialogForm]="dynamicDialogStore.activeDialogForm()"
   (submitDialogTriggered)="dynamicDialogStore.onSubmit()"
   (closeDialogTriggered)="dynamicDialogStore.closeDialog()"
 >
-  @let formGroup = activeDialog().form;
   <ng-template #dialogBody>
-    <my-org-app-progress-loader [loading]="businessGroupsState().loading">
-      <div [formGroup]="formGroup">
+    @let formGroup = activeDialog().form;
+    <div class="grid grid-cols-2 gap-4">
+      <h1 class="col-span-2">Main Information</h1>
+      <my-org-app-skeleton-loader [loading]="businessGroupsState().loading">
+        <my-org-app-input
+          [rootFormGroup]="formGroup"
+          [fControlName]="'name'"
+          label="First Name"
+        />
+      </my-org-app-skeleton-loader>
+      <my-org-app-skeleton-loader [loading]="businessGroupsState().loading">
+        <my-org-app-input
+          [rootFormGroup]="formGroup"
+          [fControlName]="'familyName'"
+          label="Last Name"
+        />
+      </my-org-app-skeleton-loader>
+      <p-divider class="col-span-2" />
+      <h1 class="col-span-2">Contact</h1>
+      <my-org-app-skeleton-loader [loading]="businessGroupsState().loading">
+        <my-org-app-input
+          [rootFormGroup]="formGroup"
+          [fControlName]="'email'"
+          label="Email"
+        />
+      </my-org-app-skeleton-loader>
+      <my-org-app-skeleton-loader [loading]="businessGroupsState().loading">
+        <my-org-app-input
+          [rootFormGroup]="formGroup"
+          [fControlName]="'phoneNumber'"
+          label="Phone Number"
+        />
+      </my-org-app-skeleton-loader>
+      <p-divider class="col-span-2" />
+      <h1 class="col-span-2">Business Group</h1>
+      <my-org-app-skeleton-loader
+        [loading]="businessGroupsState().loading"
+        class="col-span-2"
+      >
         <my-org-app-select-reactive
           [options]="
             businessGroupsState().businessGroups
               | businessGroupCoreToSelectViewModelItem
           "
           [rootFormGroup]="formGroup"
-          [fControlName]="'businessGroup'"
+          [fControlName]="'businessGroupId'"
           optionLabel="label"
           optionValue="value"
           label="Business Groups"
           [virtualScroll]="true"
           [virtualScrollItemSize]="38"
         />
-      </div>
-    </my-org-app-progress-loader>
+      </my-org-app-skeleton-loader>
+    </div>
   </ng-template>
+
   <ng-template [myOrgDynamicDialogCustomFooterTemplate]>
-    <p>custom footer</p>
-    <my-org-app-button
-      [buttonConfig]="{ label: 'Sign In', type: 'basic', variant: undefined }"
-      myOrgSubmitButton
-      [form]="formGroup"
-      (clickTriggered)="dynamicDialogStore.onSubmit()"
+    <my-org-app-dynamic-dialog-footer
+      [leftButtonConfig]="{
+        label: 'Cancel',
+        type: 'basic',
+        variant: 'outlined'
+      }"
+      [rightButtonConfig]="{ label: 'Create', type: 'basic' }"
+      [validateDialogOnSubmit]="true"
+      [isDialogLoading]="businessGroupsState().loading"
+      [dialogForm]="dynamicDialogStore.activeDialogForm()"
+      (leftButtonClicked)="cancel()"
+      (rightButtonClicked)="create()"
     />
   </ng-template>
 </my-org-app-dynamic-dialog>

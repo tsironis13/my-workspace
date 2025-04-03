@@ -12,18 +12,23 @@
 >
   <my-org-app-page-header [title]="'User Management'">
     <ng-template>
-      <my-org-app-button
-        [buttonConfig]="{ label: 'Filter', type: 'basic', variant: 'outlined' }"
-        myOrgUserFilterDialog
-      />
-      <my-org-app-button
-        [buttonConfig]="{
+      <div class="flex gap-2">
+        <my-org-app-button
+          [buttonConfig]="{
+            label: 'Filter',
+            type: 'basic',
+            variant: 'outlined'
+          }"
+          myOrgUserFilterDialog
+        />
+        <my-org-app-button
+          [buttonConfig]="{
           label: 'Create',
-          type: 'basic',
-          variant: undefined
+          type: 'basic',          
         }"
-        myOrgUserCreateDialog
-      />
+          myOrgUserCreateDialog
+        />
+      </div>
     </ng-template>
   </my-org-app-page-header>
 </my-org-users-list>

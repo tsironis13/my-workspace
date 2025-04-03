@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, viewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  viewChild,
+} from '@angular/core';
 
-import { AuthDirective } from '@business-portal/core/auth';
+import { AuthDirective, AuthStore } from '@business-portal/core/auth';
 
 @Component({
   selector: 'my-org-navbar',
@@ -11,4 +16,6 @@ import { AuthDirective } from '@business-portal/core/auth';
 })
 export class NavbarComponent {
   protected readonly authDirective = viewChild.required(AuthDirective);
+
+  authStore = inject(AuthStore);
 }

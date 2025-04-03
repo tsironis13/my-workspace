@@ -11,6 +11,8 @@ import { ButtonModule } from 'primeng/button';
 import {
   DynamicDialogComponent,
   DynamicDialogConfig,
+  DynamicDialogCustomFooterTemplateDirective,
+  DynamicDialogFooterComponent,
   DynamicDialogStore,
 } from '@business-portal/pattern';
 import { UserFilterDialogFormType } from './user-filter-dialog.form';
@@ -31,6 +33,8 @@ type UserFilterDynamicDialogConfig = DynamicDialogConfig<
     ReactiveFormsModule,
     DynamicDialogComponent,
     SelectReactiveComponent,
+    DynamicDialogCustomFooterTemplateDirective,
+    DynamicDialogFooterComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -42,4 +46,8 @@ export class UserFilterDialogComponent {
   protected readonly activeDialog = computed(() =>
     this.dynamicDialogStore.getActiveDialog<UserFilterDynamicDialogConfig>()
   );
+
+  protected applyFilters(reset?: boolean): void {
+    this.dynamicDialogStore.onSubmit({ reset });
+  }
 }

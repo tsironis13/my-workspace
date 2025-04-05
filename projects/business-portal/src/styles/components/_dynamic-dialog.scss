@@ -1,0 +1,12 @@
+.p-dialog-mask {
+  z-index: var(--dynamic-dialog-z-index) !important;
+
+  .p-dialog {
+    height: var(--p-dialog-height);
+    max-height: var(--p-dialog-max-height) !important;
+
+    &.right-side {
+      width: var(--p-dialog-right-side-width);
+    }
+  }
+}

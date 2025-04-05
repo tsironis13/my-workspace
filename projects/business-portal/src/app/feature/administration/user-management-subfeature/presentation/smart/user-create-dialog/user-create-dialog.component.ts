@@ -6,7 +6,6 @@ import {
   Signal,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Divider } from 'primeng/divider';
 
 import {
   DynamicDialogComponent,
@@ -16,6 +15,7 @@ import {
   DynamicDialogFooterComponent,
 } from '@business-portal/pattern';
 import {
+  DividerComponent,
   InputComponent,
   SelectReactiveComponent,
   SkeletonLoaderComponent,
@@ -44,7 +44,7 @@ type UserCreateDynamicDialogConfig = DynamicDialogConfig<
     DynamicDialogFooterComponent,
     InputComponent,
     SkeletonLoaderComponent,
-    Divider,
+    DividerComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

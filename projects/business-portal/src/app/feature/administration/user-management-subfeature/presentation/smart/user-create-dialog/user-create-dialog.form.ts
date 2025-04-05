@@ -13,7 +13,7 @@ export const getUserCreateDialogForm = (): UserCreateDialogFormType => {
     name: new FormControl('', [Validators.required]),
     familyName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl(''),
     businessGroupId: new FormControl(),
   });
 };

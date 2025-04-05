@@ -22,7 +22,7 @@
           label="Last Name"
         />
       </my-org-app-skeleton-loader>
-      <p-divider class="col-span-2" />
+      <my-org-app-divider [styleClass]="'py-2'" class="col-span-2" />
       <h1 class="col-span-2">Contact</h1>
       <my-org-app-skeleton-loader [loading]="businessGroupsState().loading">
         <my-org-app-input
@@ -36,9 +36,10 @@
           [rootFormGroup]="formGroup"
           [fControlName]="'phoneNumber'"
           label="Phone Number"
+          [validatorKey]="'phoneNumberValidator'"
         />
       </my-org-app-skeleton-loader>
-      <p-divider class="col-span-2" />
+      <my-org-app-divider [styleClass]="'py-2'" class="col-span-2" />
       <h1 class="col-span-2">Business Group</h1>
       <my-org-app-skeleton-loader
         [loading]="businessGroupsState().loading"

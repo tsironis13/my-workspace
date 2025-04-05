@@ -1,4 +1,11 @@
 :host {
   display: block;
   height: 100%;
+
+  margin: 0 0 0 20rem;
+  transition: margin 0.2s ease-in-out;
+
+  &.drawer-expanded {
+    margin: 0 0 0 3.75rem;
+  }
 }

@@ -25,6 +25,9 @@
       "@business-portal/core/auth": [
         "projects/business-portal/src/app/core/auth/public-api.ts"
       ],
+      "@business-portal/core/navigation": [
+        "projects/business-portal/src/app/core/navigation/public-api.ts"
+      ],
       "@business-portal/core/utils": [
         "projects/business-portal/src/app/core/utils/public-api.ts"
       ],

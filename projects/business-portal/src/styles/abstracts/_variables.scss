@@ -1,0 +1,16 @@
+//z-index
+$base: 0;
+$above: 1102;
+
+$sidebar-z-index: $base + $above;
+$main-content-z-index: $sidebar-z-index + $above;
+$dynamic-dialog-z-index: $main-content-z-index + $above;
+$toast-z-index: $dynamic-dialog-z-index + $above;
+
+:root {
+  //z-index
+  --main-content-z-index: #{$main-content-z-index};
+  --sidebar-z-index: #{$sidebar-z-index};
+  --dynamic-dialog-z-index: #{$dynamic-dialog-z-index};
+  --toast-z-index: #{$toast-z-index};
+}

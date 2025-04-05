@@ -1,6 +1,7 @@
 export type BaseButtonConfigViewModel = {
   variant?: 'outlined' | 'text';
   rounded?: boolean;
+  styleClass?: string;
 };
 
 export type IconButtonConfigViewModel = BaseButtonConfigViewModel & {

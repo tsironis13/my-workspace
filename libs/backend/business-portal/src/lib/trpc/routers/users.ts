@@ -104,6 +104,8 @@ export const usersRouter = router({
         input.pagination.pageSize
       );
 
+      //throw new Error('test');
+
       return {
         items: [...result],
         totalCount: totalCount[0].count,

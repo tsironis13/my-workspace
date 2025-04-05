@@ -28,7 +28,7 @@ const provideTrpcClient = (): Provider => ({
             });
 
             if (!response.ok) {
-              const json = await response.json();
+              const json = await response.clone().json();
               const message = json[0].error.message;
 
               toastService.showError(message);

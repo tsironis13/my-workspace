@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostBinding,
+  inject,
+} from '@angular/core';
 
 import { NavigationMainComponent } from './main/navigation-main.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NavigationStore } from '@business-portal/core/navigation';
 
 @Component({
   selector: 'my-org-navigation-container',
@@ -10,4 +16,11 @@ import { NavbarComponent } from './navbar/navbar.component';
   imports: [NavbarComponent, NavigationMainComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigationContainerComponent {}
+export class NavigationContainerComponent {
+  readonly #navigationStore = inject(NavigationStore);
+
+  @HostBinding('class.drawer-expanded')
+  get sidebarState() {
+    return this.#navigationStore.isSidebarCollapsed();
+  }
+}

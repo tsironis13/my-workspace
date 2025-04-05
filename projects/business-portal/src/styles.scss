@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use "styles/app";
 @import "tailwindcss";
 @import "primeicons/primeicons.css";
 
@@ -19,15 +20,6 @@
   overflow: auto;
 }
 
-.p-dialog {
-  height: var(--p-dialog-height);
-  max-height: var(--p-dialog-max-height) !important;
-
-  &.right-side {
-    width: var(--p-dialog-right-side-width);
-  }
-}
-
 .p-button {
   width: 100%;
 }
@@ -38,4 +30,17 @@
 
 .ng-invalid.ng-dirty:not([formArrayName]):not(form) {
   border: 1px solid red !important;
+}
+
+.p-drawer-mask {
+  background-color: transparent !important;
+}
+
+.p-drawer {
+  width: 20rem;
+  background: antiquewhite !important;
+
+  &.drawer-collapsed {
+    width: 60px;
+  }
 }

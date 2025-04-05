@@ -9,7 +9,6 @@ import {
   input,
   output,
 } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
 
 import {
   DynamicDialogDefaultHeaderTemplateDirective,
@@ -19,7 +18,7 @@ import {
   DynamicDialogCustomFooterTemplateDirective,
   DynamicDialogDefaultFooterTemplateDirective,
 } from './directives/dynamic-dialog-footer-template.directive';
-import { ButtonComponent } from '@business-portal/ui';
+import { ButtonComponent, DividerComponent } from '@business-portal/ui';
 import { ContextState, DeepPartial } from './models/dynamic-dialog';
 import { SubmitButtonDirective } from '@shared/forms';
 import { FormGroup } from '@angular/forms';
@@ -32,7 +31,7 @@ import { FormGroup } from '@angular/forms';
     DynamicDialogDefaultFooterTemplateDirective,
     ButtonComponent,
     SubmitButtonDirective,
-    DividerModule,
+    DividerComponent,
   ],
   templateUrl: './dynamic-dialog.component.html',
   styleUrl: './dynamic-dialog.component.scss',

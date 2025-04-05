@@ -7,7 +7,10 @@ import {
 import { InputTextModule } from 'primeng/inputtext';
 import { FloatLabel } from 'primeng/floatlabel';
 
-import { DynamicValidatorMessageDirective } from '@shared/forms';
+import {
+  DynamicValidatorMessageDirective,
+  PhoneNumberPatternDirective,
+} from '@shared/forms';
 
 type ExtractString<T> = Extract<keyof T, string>;
 
@@ -18,6 +21,7 @@ type ExtractString<T> = Extract<keyof T, string>;
     ReactiveFormsModule,
     FloatLabel,
     DynamicValidatorMessageDirective,
+    PhoneNumberPatternDirective,
   ],
   templateUrl: './input.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +31,7 @@ export class InputComponent<
 > {
   readonly rootFormGroup = input.required<FormGroup<F>>();
   readonly fControlName = input.required<ExtractString<F>>();
+  readonly validatorKey = input<string>('');
   readonly inputType = input<string>('text');
   readonly labelVariant = input<'over' | 'in' | 'on'>('over');
   readonly label = input<string>('');

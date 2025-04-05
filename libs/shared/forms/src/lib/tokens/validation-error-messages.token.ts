@@ -12,6 +12,7 @@ const ERROR_MESSAGES: Record<
   appPasswordShouldMatch: () => `Password should match`,
   passwordShouldMatch: () => `Password should match`,
   pattern: () => `Wrong format`,
+  phoneNumberPattern: () => 'The phone number format is invalid',
 };
 
 export const VALIDATION_ERROR_MESSAGES = new InjectionToken(

@@ -122,9 +122,11 @@ export function withListDataService<
                         setFulfilled()
                       );
                     },
-                    error: (error: any) => {
-                      console.error(error);
-                      patchState(store, setError(error.message));
+                    error: (error: Error) => {
+                      console.log(error);
+                      patchState(store, setFulfilled());
+
+                      store._toastService.showError(error.message);
                     },
                   })
                 );

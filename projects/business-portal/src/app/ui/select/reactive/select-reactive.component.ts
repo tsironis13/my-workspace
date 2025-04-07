@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  contentChild,
+  input,
+  TemplateRef,
+} from '@angular/core';
 import { SelectModule } from 'primeng/select';
 import { FloatLabel } from 'primeng/floatlabel';
 import {
@@ -7,7 +13,11 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { ScrollerOptions } from 'primeng/api';
+import { NgTemplateOutlet } from '@angular/common';
+
 import { DynamicValidatorMessageDirective } from '@shared/forms';
+import { SelectCustomTemplateItemContextDirective } from '../select-custom-template-item-context.directive';
+import { SelectCustomTemplateHeaderContextDirective } from '../select-custom-template-header-context.directive';
 
 type ExtractString<T> = Extract<keyof T, string>;
 
@@ -19,6 +29,7 @@ type ExtractString<T> = Extract<keyof T, string>;
     ReactiveFormsModule,
     FloatLabel,
     DynamicValidatorMessageDirective,
+    NgTemplateOutlet,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -41,4 +52,16 @@ export class SelectReactiveComponent<
     lazy: true,
     step: 50,
   });
+  readonly filter = input(false);
+  readonly filterByFields = input<string>();
+
+  protected readonly customSelectItemTemplate = contentChild(
+    SelectCustomTemplateItemContextDirective,
+    { read: TemplateRef }
+  );
+
+  protected readonly customSelectHeaderTemplate = contentChild(
+    SelectCustomTemplateHeaderContextDirective,
+    { read: TemplateRef }
+  );
 }

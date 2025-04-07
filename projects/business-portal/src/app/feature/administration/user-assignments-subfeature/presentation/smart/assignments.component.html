@@ -1,0 +1,21 @@
+<my-org-app-page-header [title]="'User Assignments'">
+  <ng-template>
+    <div class="flex gap-2">
+      <my-org-app-button
+        [buttonConfig]="{
+          label: 'Filter',
+          type: 'basic',
+          variant: 'outlined'
+        }"
+        myOrgUserFilterDialog
+      />
+      <my-org-app-button
+        [buttonConfig]="{
+          label: 'Create',
+          type: 'basic',          
+        }"
+        myOrgUserAssignmentCreateDialog
+      />
+    </div>
+  </ng-template>
+</my-org-app-page-header>

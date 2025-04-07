@@ -3,12 +3,13 @@ import {
   patchState,
   signalStoreFeature,
   withComputed,
+  withHooks,
   withMethods,
   withProps,
 } from '@ngrx/signals';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { computed, inject, Signal, Type } from '@angular/core';
-import { Observable } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 
 import {
   ContextState,
@@ -22,6 +23,8 @@ import {
   removeEntity,
   SelectEntityId,
 } from '@ngrx/signals/entities';
+import { NavigationStart, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 type DynamicDialogEntityState = {
   key: string;
@@ -40,6 +43,7 @@ export function withDynamicDialog() {
     withEntities<DynamicDialogEntityState>(),
     withProps(() => ({
       _dynamicDialogService: inject(DialogService),
+      _router: inject(Router),
     })),
     withComputed((store) => ({
       _activeDialog: computed(
@@ -115,6 +119,16 @@ export function withDynamicDialog() {
           }
         },
       };
+    }),
+    withHooks({
+      onInit(store) {
+        store._router.events
+          .pipe(
+            filter((e) => e instanceof NavigationStart),
+            takeUntilDestroyed()
+          )
+          .subscribe(() => store.closeDialog());
+      },
     })
   );
 }

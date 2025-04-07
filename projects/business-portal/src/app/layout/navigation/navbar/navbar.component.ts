@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { Ripple } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { StyleClass } from 'primeng/styleclass';
+import { RouterLink } from '@angular/router';
 
 import { AuthDirective, AuthStore } from '@business-portal/core/auth';
 import { DynamicDialogStore } from '@business-portal/pattern';
@@ -28,6 +29,7 @@ import { NavigationStore } from '@business-portal/core/navigation';
     AvatarModule,
     StyleClass,
     ButtonComponent,
+    RouterLink,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

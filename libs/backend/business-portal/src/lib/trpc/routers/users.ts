@@ -57,6 +57,16 @@ export const usersRouter = router({
 
     return result[0];
   }),
+  all: protectedProcedure.query(async () => {
+    return await db
+      .select({
+        id: users.id,
+        name: users.name,
+        familyName: users.familyName,
+        email: users.email,
+      })
+      .from(users);
+  }),
   getPaginated: protectedProcedure
     .input(
       z.object({

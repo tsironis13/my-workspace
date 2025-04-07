@@ -6,22 +6,20 @@ import { tapResponse } from '@ngrx/operators';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { switchMap, pipe } from 'rxjs';
 
-import { BusinessGroupCore } from './business-groups.data.model';
-import { BusinessGroupsCoreDataService } from './business-groups.data.service';
+import { UserAssignmentsUser } from './users.data.model';
+import { UserAssignmentsUsersDataService } from './users.data.service';
 import {
   withRequestStatus,
   setPending,
   setFulfilled,
 } from '@business-portal/core/store';
 
-// Add 'Core' to the name to indicate that this is a core Store
-export const BusinessGroupsCoreStore = signalStore(
-  { providedIn: 'root' },
-  withDevtools('business-groups-core'),
-  withEntities<BusinessGroupCore>(),
+export const UserAssignmentsUsersStore = signalStore(
+  withDevtools('user-assignments-users'),
+  withEntities<UserAssignmentsUser>(),
   withRequestStatus(),
   withProps(() => ({
-    _businessGroupCoreDataService: inject(BusinessGroupsCoreDataService),
+    _userAssignmentsUserDataService: inject(UserAssignmentsUsersDataService),
   })),
   withMethods((store) => {
     return {
@@ -29,7 +27,7 @@ export const BusinessGroupsCoreStore = signalStore(
         pipe(
           switchMap(() => {
             patchState(store, setPending());
-            return store._businessGroupCoreDataService.getAll().pipe(
+            return store._userAssignmentsUserDataService.getAll().pipe(
               tapResponse({
                 next: (response) => {
                   patchState(store, setFulfilled(), addEntities(response));

@@ -8,9 +8,26 @@
       [virtualScroll]="virtualScroll()"
       [virtualScrollItemSize]="virtualScrollItemSize()"
       [virtualScrollOptions]="virtualScrollOptions()"
+      [filter]="filter()"
+      [filterBy]="filterByFields()"
       inputId="select-{{ fControlName() }}"
       styleClass="w-full"
-    />
+    >
+      @if (customSelectHeaderTemplate()) {
+      <ng-template #header>
+        <ng-container
+          [ngTemplateOutlet]="customSelectHeaderTemplate() ?? null"
+        ></ng-container>
+      </ng-template>
+      } @if (customSelectItemTemplate()) {
+      <ng-template #item let-option>
+        <ng-container
+          [ngTemplateOutlet]="customSelectItemTemplate() ?? null"
+          [ngTemplateOutletContext]="{ $implicit: option }"
+        ></ng-container>
+      </ng-template>
+      }
+    </p-select>
     <label for="select-{{ fControlName() }}">{{ label() }}</label>
   </p-floatLabel>
 </ng-container>

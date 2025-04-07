@@ -21,9 +21,4 @@ export default <Routes>[
         (m) => m.UserManagementComponent
       ),
   },
-  {
-    path: 'assignments',
-    loadChildren: () =>
-      import('../user-assignments-subfeature/user-assignments.routes'),
-  },
 ];

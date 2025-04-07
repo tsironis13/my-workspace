@@ -8,7 +8,12 @@ export type {
 
 export { SelectReactiveComponent } from './select/reactive/select-reactive.component';
 export { SelectTemplateDrivenComponent } from './select/template-driven/select-template-driven.component';
-export type { SelectItemViewModel } from './select/select.view.model';
+export type {
+  SelectItemViewModel,
+  SelectItemCustomTemplateViewModel,
+} from './select/select.view.model';
+export { SelectCustomTemplateItemContextDirective } from './select/select-custom-template-item-context.directive';
+export { SelectCustomTemplateHeaderContextDirective } from './select/select-custom-template-header-context.directive';
 
 export { ButtonComponent } from './button/button.component';
 export type { ButtonConfigViewModel } from './button/button.view.model';

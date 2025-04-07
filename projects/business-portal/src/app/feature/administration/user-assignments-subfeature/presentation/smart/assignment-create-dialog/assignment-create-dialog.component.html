@@ -1,0 +1,82 @@
+<my-org-app-dynamic-dialog
+  [context]="dynamicDialogStore.context()"
+  [dialogForm]="dynamicDialogStore.activeDialogForm()"
+  (submitDialogTriggered)="dynamicDialogStore.onSubmit()"
+  (closeDialogTriggered)="dynamicDialogStore.closeDialog()"
+>
+  <ng-template #dialogBody>
+    @let formGroup = activeDialog().form;
+    <div class="grid grid-cols-2 gap-10">
+      <my-org-app-skeleton-loader [loading]="isLoading()" class="col-span-2">
+        <my-org-app-select-reactive
+          [options]="
+            users() | userAssignmentsUsersToSelectCustomTemplateViewModelItem
+          "
+          [rootFormGroup]="formGroup"
+          [fControlName]="'userId'"
+          label="User (to whome role will apply)"
+          [virtualScroll]="true"
+          [virtualScrollItemSize]="38"
+          [filter]="true"
+          [filterByFields]="'name,familyName,email'"
+        >
+          <ng-template myOrgSelectCustomTemplateHeaderContext>
+            <div class="grid grid-cols-12 p-3 bg-gray-100">
+              <div class="col-span-2">Name</div>
+              <div class="col-span-4">Family Name</div>
+              <div class="col-span-6">Email</div>
+            </div>
+          </ng-template>
+          <ng-template
+            myOrgSelectCustomTemplateItemContext
+            [item]="
+              (users()
+                | userAssignmentsUsersToSelectCustomTemplateViewModelItem)[0]
+            "
+            let-item
+          >
+            <div class="grid grid-cols-12 gap-2 w-full">
+              <div
+                class="col-span-2 whitespace-normal"
+                style="word-break: break-word"
+              >
+                {{ item.name }}
+              </div>
+              <div class="col-span-4">{{ item.familyName }}</div>
+              <div class="col-span-6 whitespace-normal">{{ item.email }}</div>
+            </div>
+          </ng-template>
+        </my-org-app-select-reactive>
+      </my-org-app-skeleton-loader>
+
+      <my-org-app-skeleton-loader [loading]="isLoading()" class="col-span-2">
+        <my-org-app-select-reactive
+          [options]="
+            userRoles()
+              | userAssignmentsUserRolesToSelectCustomTemplateViewModelItem
+          "
+          [rootFormGroup]="formGroup"
+          [fControlName]="'userRoleId'"
+          label="Role (each one has a different set of permissions)"
+        >
+        </my-org-app-select-reactive>
+      </my-org-app-skeleton-loader>
+    </div>
+  </ng-template>
+
+  <ng-template [myOrgDynamicDialogCustomFooterTemplate]>
+    <my-org-app-dynamic-dialog-footer
+      [leftButtonConfig]="{
+        label: 'Cancel',
+        type: 'basic',
+        variant: 'outlined'
+      }"
+      [rightButtonConfig]="{ label: 'Create', type: 'basic' }"
+      [validateDialogOnSubmit]="true"
+      [isDialogLoading]="isLoading()"
+      [dialogForm]="dynamicDialogStore.activeDialogForm()"
+      (leftButtonClicked)="cancel()"
+      (rightButtonClicked)="create()"
+    />
+  </ng-template>
+</my-org-app-dynamic-dialog>

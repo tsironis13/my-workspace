@@ -31,6 +31,8 @@ export class UserCreateDialogDirective {
   });
 
   handleClick(): void {
+    this.getBusinessGroups();
+
     const form = getUserCreateDialogForm();
 
     this.#dynamicDialogStore.openDialog(
@@ -49,6 +51,10 @@ export class UserCreateDialogDirective {
       },
       (form) => this.createUser(form)
     );
+  }
+
+  private getBusinessGroups(): void {
+    this.#businessGroupsCoreStore.getAll();
   }
 
   private createUser(form: UserCreateDialogFormType): void {

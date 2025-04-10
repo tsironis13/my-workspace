@@ -1,13 +1,16 @@
 import { Routes } from '@angular/router';
 
 import {
-  UserAssignmentsUserRolesStore,
-  UserAssignmentsUsersStore,
-  UserAssignmentsUsersDataService,
   UserAssignmentsUsersApiService,
-  UserAssignmentsUserRolesDataService,
   UserAssignmentsUserRolesApiService,
-} from '@business-portal/administration/user-assignments/domain';
+} from './domain/infrastructure/public-api';
+
+import {
+  UserAssignmentsUsersStore,
+  UserAssignmentsUserRolesDataService,
+  UserAssignmentsUsersDataService,
+  UserAssignmentsUserRolesStore,
+} from './domain/application/public-api';
 
 export default <Routes>[
   {

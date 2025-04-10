@@ -7,9 +7,9 @@ import {
   UserCreateDialogFormType,
 } from '../user-create-dialog/user-create-dialog.form';
 import { DynamicDialogStore } from '@business-portal/pattern';
-import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 import { AuthStore } from '@business-portal/core/auth';
 import { removeNullish } from '@business-portal/core/utils';
+import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 
 @Directive({
   selector: '[myOrgUserCreateDialog]',

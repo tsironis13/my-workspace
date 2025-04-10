@@ -23,3 +23,5 @@ export { InputComponent } from './input/input.component';
 export { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.component';
 
 export { DividerComponent } from './divider/divider.component';
+
+export { TreeSelectComponent } from './tree-select/tree-select.component';

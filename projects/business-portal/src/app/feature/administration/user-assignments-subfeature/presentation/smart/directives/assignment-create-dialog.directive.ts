@@ -1,15 +1,14 @@
 import { computed, Directive, inject } from '@angular/core';
 
-import {
-  UserAssignmentCreateDialogComponent,
-  UserAssignmentCreateDialogData,
-} from '../assignment-create-dialog/assignment-create-dialog.component';
+import { UserAssignmentCreateDialogComponent } from '../assignment-create-dialog/assignment-create-dialog.component';
 import { getUserAssignmentCreateDialogForm } from '../assignment-create-dialog/assignment-create-dialog.form';
 import { DynamicDialogStore } from '@business-portal/pattern';
+import { UserAssignmentCreateDialogData } from '../assignment-create-dialog/assignment-create-dialog.data.model';
 import {
   UserAssignmentsUsersStore,
   UserAssignmentsUserRolesStore,
 } from '@business-portal/administration/user-assignments/domain';
+import { BusinessGroupsCoreStore } from '@business-portal/core/business-groups';
 
 @Directive({
   selector: '[myOrgUserAssignmentCreateDialog]',
@@ -21,6 +20,7 @@ export class UserAssignmentCreateDialogDirective {
   readonly #dynamicDialogStore = inject(DynamicDialogStore);
   readonly #usersCoreStore = inject(UserAssignmentsUsersStore);
   readonly #userRolesCoreStore = inject(UserAssignmentsUserRolesStore);
+  readonly #businessGroupsCoreStore = inject(BusinessGroupsCoreStore);
 
   readonly #data = computed<UserAssignmentCreateDialogData>(() => {
     return {
@@ -32,12 +32,17 @@ export class UserAssignmentCreateDialogDirective {
         data: this.#userRolesCoreStore.entities(),
         loading: this.#userRolesCoreStore.isPending(),
       },
+      businessGroups: {
+        data: this.#businessGroupsCoreStore.entities(),
+        loading: false,
+      },
     };
   });
 
   handleClick(): void {
     this.getUsers();
     this.getAssignableUserRoles();
+    this.getBusinessGroups();
 
     const form = getUserAssignmentCreateDialogForm();
 
@@ -56,7 +61,7 @@ export class UserAssignmentCreateDialogDirective {
         form,
       },
       (form) => {
-        console.log(form);
+        console.log(form.getRawValue());
       }
     );
   }
@@ -67,5 +72,9 @@ export class UserAssignmentCreateDialogDirective {
 
   private getAssignableUserRoles(): void {
     this.#userRolesCoreStore.getAssignableUserRoles();
+  }
+
+  private getBusinessGroups(): void {
+    this.#businessGroupsCoreStore.getAll();
   }
 }

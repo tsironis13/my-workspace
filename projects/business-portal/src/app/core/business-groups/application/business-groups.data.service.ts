@@ -1,4 +1,4 @@
-import { from, map, Observable, delay } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 
 import { EntitiesMapped } from '@business-portal/core/entities/application';
@@ -18,8 +18,7 @@ export class BusinessGroupsCoreDataService {
       map(
         (data) =>
           <EntitiesMapped<BusinessGroupCoreDto[], BusinessGroupCore[]>>data
-      ),
-      delay(2000)
+      )
     );
   }
 }

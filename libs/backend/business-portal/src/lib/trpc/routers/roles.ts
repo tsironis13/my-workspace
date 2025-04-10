@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, ne } from 'drizzle-orm';
 
 import { db } from '../../drizzle/db';
 import {
@@ -20,7 +20,8 @@ export const rolesRouter = router({
       })
       .from(roles)
       .leftJoin(roleRoleScopes, eq(roles.id, roleRoleScopes.rolesId))
-      .leftJoin(roleScopes, eq(roleRoleScopes.scopesId, roleScopes.id));
+      .leftJoin(roleScopes, eq(roleRoleScopes.scopesId, roleScopes.id))
+      .where(ne(roles.id, 1));
 
     const result = rows.reduce<
       {

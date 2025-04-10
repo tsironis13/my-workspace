@@ -1,13 +1,13 @@
 import { computed, inject, linkedSignal } from '@angular/core';
 
-import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 import { UserViewModel } from '../presentational/models/user.view.model';
 import {
   ColumnTypeViewModel,
   PaginationViewModel,
   SortDataViewModel,
 } from '@business-portal/ui';
-import { PAGINATOR_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
+import { PAGINATOR_CONFIG } from '@business-portal/core/config/token';
+import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 
 export const columnsConfig = (): ColumnTypeViewModel<UserViewModel>[] => {
   return [

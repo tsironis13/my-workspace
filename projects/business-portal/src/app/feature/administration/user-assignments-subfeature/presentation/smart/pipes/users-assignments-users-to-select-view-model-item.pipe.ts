@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { UserAssignmentsUser } from './users.data.model';
+import { UserAssignmentsUser } from '@business-portal/administration/user-assignments/domain';
 import { SelectItemCustomTemplateViewModel } from '@business-portal/ui';
 
 @Pipe({

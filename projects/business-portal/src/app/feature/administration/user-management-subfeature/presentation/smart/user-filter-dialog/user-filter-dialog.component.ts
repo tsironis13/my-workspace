@@ -16,9 +16,9 @@ import {
   DynamicDialogStore,
 } from '@business-portal/pattern';
 import { UserFilterDialogFormType } from './user-filter-dialog.form';
-import { YES_NO_OPTIONS_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
 import { SelectReactiveComponent } from '@business-portal/ui';
 import { ExtractControls } from '@business-portal/core/utils';
+import { YES_NO_OPTIONS_CONFIG } from '@business-portal/core/config/token';
 
 type UserFilterDynamicDialogConfig = DynamicDialogConfig<
   ExtractControls<UserFilterDialogFormType>,

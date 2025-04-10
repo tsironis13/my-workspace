@@ -1,6 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-//import { admin } from '../../admin.component';
-//import { device } from '../../../devices/devices.component';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { PageHeaderComponent, ButtonComponent } from '@business-portal/ui';
 import { UserAssignmentCreateDialogDirective } from './directives/assignment-create-dialog.directive';
@@ -19,11 +17,4 @@ export type Assignment = {
   templateUrl: `./assignments.component.html`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AssignmentsComponent implements OnInit {
-  ngOnInit(): void {
-    // const x: Management = {
-    //   name: 'test',
-    // };
-    console.log('assignments');
-  }
-}
+export class AssignmentsComponent {}

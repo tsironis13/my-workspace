@@ -20,7 +20,6 @@ import { EntitySort } from '../models/entity-sort.model';
 import { EntityListDataService } from '../models/entity-list.data.service.model';
 import { EntityFilterData } from '../models/entity-filter.data.model';
 import { EntityPagination } from '../models/entity-pagination.model';
-import { PAGINATOR_CONFIG } from 'projects/business-portal/src/app/core/config/core.config.tokens';
 import {
   withRequestStatus,
   setPending,
@@ -30,6 +29,7 @@ import {
 import { ToastService } from '@shared/toast';
 import { GlobalLoaderStore } from '@shared/global-loader';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PAGINATOR_CONFIG } from '@business-portal/core/config/token';
 
 export function withListDataService<
   E extends Entity,

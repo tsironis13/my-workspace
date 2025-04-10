@@ -1,13 +1,13 @@
 <my-org-app-dynamic-dialog
-  [context]="dynamicDialogStore.context()"
-  [dialogForm]="dynamicDialogStore.activeDialogForm()"
-  (submitDialogTriggered)="dynamicDialogStore.onSubmit()"
-  (closeDialogTriggered)="dynamicDialogStore.closeDialog()"
+  [context]="context()"
+  [dialogForm]="activeDialogForm()"
+  (submitDialogTriggered)="onSubmit()"
+  (closeDialogTriggered)="closeDialog()"
 >
   <ng-template #dialogBody>
     @let formGroup = activeDialog().form;
     <div class="grid grid-cols-2 gap-10">
-      <my-org-app-skeleton-loader [loading]="isLoading()" class="col-span-2">
+      <my-org-app-skeleton-loader [loading]="loading()" class="col-span-2">
         <my-org-app-select-reactive
           [options]="
             users() | userAssignmentsUsersToSelectCustomTemplateViewModelItem
@@ -49,17 +49,46 @@
         </my-org-app-select-reactive>
       </my-org-app-skeleton-loader>
 
-      <my-org-app-skeleton-loader [loading]="isLoading()" class="col-span-2">
+      <my-org-app-skeleton-loader [loading]="loading()" class="col-span-2">
         <my-org-app-select-reactive
           [options]="
-            userRoles()
-              | userAssignmentsUserRolesToSelectCustomTemplateViewModelItem
+            userRoles() | userAssignmentsUserRolesToSelectViewModelItem
           "
           [rootFormGroup]="formGroup"
-          [fControlName]="'userRoleId'"
+          [fControlName]="'userRole'"
           label="Role (each one has a different set of permissions)"
         >
         </my-org-app-select-reactive>
+      </my-org-app-skeleton-loader>
+
+      <my-org-app-skeleton-loader
+        [loading]="
+          userAssignmentCreateDialogScopeTreeSelectInteractionStore.businessGroupsLoading()
+        "
+        class="col-span-2"
+      >
+        <my-org-app-tree-select
+          [options]="
+            userAssignmentCreateDialogScopeTreeSelectInteractionStore.scopeTreeSelectOptions()
+          "
+          [rootFormGroup]="formGroup"
+          [fControlName]="'scope'"
+          label="Scope"
+          [loading]="
+            userAssignmentCreateDialogScopeTreeSelectInteractionStore.loading()
+          "
+          (nodeExpandTriggered)="
+            userAssignmentCreateDialogScopeTreeSelectInteractionStore.onNodeExpand(
+              $event
+            )
+          "
+          (nodeCollapseTriggered)="
+            userAssignmentCreateDialogScopeTreeSelectInteractionStore.onNodeCollapse(
+              $event
+            )
+          "
+        >
+        </my-org-app-tree-select>
       </my-org-app-skeleton-loader>
     </div>
   </ng-template>
@@ -73,10 +102,10 @@
       }"
       [rightButtonConfig]="{ label: 'Create', type: 'basic' }"
       [validateDialogOnSubmit]="true"
-      [isDialogLoading]="isLoading()"
-      [dialogForm]="dynamicDialogStore.activeDialogForm()"
-      (leftButtonClicked)="cancel()"
-      (rightButtonClicked)="create()"
+      [isDialogLoading]="loading()"
+      [dialogForm]="activeDialogForm()"
+      (leftButtonClicked)="closeDialog()"
+      (rightButtonClicked)="onSubmit()"
     />
   </ng-template>
 </my-org-app-dynamic-dialog>

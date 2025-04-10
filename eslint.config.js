@@ -103,7 +103,7 @@ module.exports = tseslint.config(
                   },
                 ],
                 [
-                  "subfeature-domain-api",
+                  "subfeature-domain-application-api",
                   {
                     app: "${from.app}",
                     feature: "${from.feature}",
@@ -111,7 +111,7 @@ module.exports = tseslint.config(
                   },
                 ],
                 [
-                  "feature-domain-api",
+                  "feature-domain-application-api",
                   {
                     app: "${from.app}",
                     feature: "${from.feature}",
@@ -194,7 +194,15 @@ module.exports = tseslint.config(
                   },
                 ],
                 [
-                  "subfeature-domain-api",
+                  "subfeature-domain-application-api",
+                  {
+                    app: "${from.app}",
+                    feature: "${from.feature}",
+                    subfeature: "${from.subfeature}",
+                  },
+                ],
+                [
+                  "subfeature-domain-infrastructure-api",
                   {
                     app: "${from.app}",
                     feature: "${from.feature}",
@@ -239,7 +247,7 @@ module.exports = tseslint.config(
                   },
                 ],
                 [
-                  "feature-domain-api",
+                  "feature-domain-application-api",
                   {
                     app: "${from.app}",
                     feature: "${from.feature}",
@@ -450,8 +458,25 @@ module.exports = tseslint.config(
           baseCapture: ["app"],
         },
         {
+          type: "subfeature-domain-application-api",
+          mode: "file",
+          pattern: "feature/*/(*)-subfeature/domain/application/public-api.ts",
+          capture: ["feature", "subfeature"],
+          basePattern: "projects/**/src/app",
+          baseCapture: ["app"],
+        },
+        {
           type: "subfeature-domain-application",
           pattern: "feature/*/(*)-subfeature/domain/application",
+          capture: ["feature", "subfeature"],
+          basePattern: "projects/**/src/app",
+          baseCapture: ["app"],
+        },
+        {
+          type: "subfeature-domain-infrastructure-api",
+          mode: "file",
+          pattern:
+            "feature/*/(*)-subfeature/domain/infrastructure/public-api.ts",
           capture: ["feature", "subfeature"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
@@ -463,14 +488,7 @@ module.exports = tseslint.config(
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
-        {
-          type: "subfeature-domain-api",
-          mode: "file",
-          pattern: "feature/*/(*)-subfeature/domain/public-api.ts",
-          capture: ["feature", "subfeature"],
-          basePattern: "projects/**/src/app",
-          baseCapture: ["app"],
-        },
+
         // feature types
         {
           type: "feature-routes", // distinction between routes and implementation; will be important for the rules

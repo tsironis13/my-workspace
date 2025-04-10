@@ -1,19 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { UserAssignmentsAssignableUserRole } from './user-roles.data.model';
-import { SelectItemCustomTemplateViewModel } from '@business-portal/ui';
+import { SelectItemViewModel } from '@business-portal/ui';
+import { UserAssignmentsAssignableUserRole } from '@business-portal/administration/user-assignments/domain';
 
 @Pipe({
-  name: 'userAssignmentsUserRolesToSelectCustomTemplateViewModelItem',
+  name: 'userAssignmentsUserRolesToSelectViewModelItem',
 })
-export class UserAssignmentsUserRolesToSelectCustomTemplateViewModelItemPipe
+export class UserAssignmentsUserRolesToSelectViewModelItemPipe
   implements PipeTransform
 {
   transform(
     userRoles:
       | UserAssignmentsAssignableUserRole
       | UserAssignmentsAssignableUserRole[]
-  ): SelectItemCustomTemplateViewModel<UserAssignmentsAssignableUserRole>[] {
+  ): SelectItemViewModel<UserAssignmentsAssignableUserRole>[] {
     return Array.isArray(userRoles)
       ? userRoles.map(this.mapUserRolesToSelectViewModelItem)
       : [this.mapUserRolesToSelectViewModelItem(userRoles)];
@@ -21,10 +21,10 @@ export class UserAssignmentsUserRolesToSelectCustomTemplateViewModelItemPipe
 
   private mapUserRolesToSelectViewModelItem(
     userRole: UserAssignmentsAssignableUserRole
-  ): SelectItemCustomTemplateViewModel<UserAssignmentsAssignableUserRole> {
+  ): SelectItemViewModel<UserAssignmentsAssignableUserRole> {
     return {
       label: userRole.name,
-      value: userRole.id,
+      value: userRole,
     };
   }
 }

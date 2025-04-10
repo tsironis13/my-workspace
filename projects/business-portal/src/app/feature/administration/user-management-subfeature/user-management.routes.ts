@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
+import { UserManagementUiService } from './presentation/smart/user-management.ui.service';
 import {
   UserManagementStore,
-  UserManagementApiService,
   UserManagementDataService,
-} from '@business-portal/administration/user-management/domain';
-import { UserManagementUiService } from './presentation/smart/user-management.ui.service';
+} from './domain/application/public-api';
+import { UserManagementApiService } from './domain/infrastructure/public-api';
 
 export default <Routes>[
   {

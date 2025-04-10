@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { UserEntity } from '@business-portal/administration/user-management/domain';
 import { UserViewModel } from '../../presentational/models/user.view.model';
+import { UserEntity } from '@business-portal/administration/user-management/domain';
 
 @Pipe({
   name: 'userEntityToUserViewModel',

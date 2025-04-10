@@ -13,6 +13,7 @@ import {
   DynamicDialogStore,
   DynamicDialogCustomFooterTemplateDirective,
   DynamicDialogFooterComponent,
+  BusinessGroupCoreToSelectViewModelItemPipe,
 } from '@business-portal/pattern';
 import {
   DividerComponent,
@@ -20,10 +21,7 @@ import {
   SelectReactiveComponent,
   SkeletonLoaderComponent,
 } from '@business-portal/ui';
-import {
-  BusinessGroupCore,
-  BusinessGroupCoreToSelectViewModelItemPipe,
-} from '@business-portal/core/business-groups';
+import { BusinessGroupCore } from '@business-portal/core/business-groups';
 import { UserCreateDialogFormType } from './user-create-dialog.form';
 import { ExtractControls } from '@business-portal/core/utils';
 

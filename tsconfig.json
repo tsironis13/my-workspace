@@ -34,6 +34,9 @@
       "@business-portal/core/business-groups": [
         "projects/business-portal/src/app/core/business-groups/public-api.ts"
       ],
+      "@business-portal/core/business-entity-types": [
+        "projects/business-portal/src/app/core/business-entity-types/public-api.ts"
+      ],
       "@business-portal/core/store": [
         "projects/business-portal/src/app/core/store/public-api.ts"
       ],
@@ -50,10 +53,10 @@
         "projects/business-portal/src/app/core/entities/infrastructure/public-api.ts"
       ],
       "@business-portal/administration/user-management/domain": [
-        "projects/business-portal/src/app/feature/administration/user-management-subfeature/domain/public-api.ts"
+        "projects/business-portal/src/app/feature/administration/user-management-subfeature/domain/application/public-api.ts"
       ],
       "@business-portal/administration/user-assignments/domain": [
-        "projects/business-portal/src/app/feature/administration/user-assignments-subfeature/domain/public-api.ts"
+        "projects/business-portal/src/app/feature/administration/user-assignments-subfeature/domain/application/public-api.ts"
       ],
       "@shared/auth": ["libs/shared/auth/src/public-api.ts"],
       "@shared/forms": ["libs/shared/forms/src/public-api.ts"],

@@ -3,47 +3,28 @@ import {
   ChangeDetectionStrategy,
   inject,
   computed,
-  Signal,
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import {
   DynamicDialogComponent,
-  DynamicDialogConfig,
-  DynamicDialogStore,
   DynamicDialogCustomFooterTemplateDirective,
   DynamicDialogFooterComponent,
+  DynamicDialogStore,
 } from '@business-portal/pattern';
 import {
   SelectCustomTemplateHeaderContextDirective,
   SelectCustomTemplateItemContextDirective,
   SelectReactiveComponent,
   SkeletonLoaderComponent,
+  TreeSelectComponent,
 } from '@business-portal/ui';
-import {
-  UserAssignmentsAssignableUserRole,
-  UserAssignmentsUser,
-  UserAssignmentsUsersToSelectCustomTemplateViewModelItemPipe,
-  UserAssignmentsUserRolesToSelectCustomTemplateViewModelItemPipe,
-} from '@business-portal/administration/user-assignments/domain';
-import { UserAssignmentCreateDialogFormType } from './assignment-create-dialog.form';
-import { ExtractControls } from '@business-portal/core/utils';
 
-export type UserAssignmentCreateDialogData = {
-  users: {
-    data: UserAssignmentsUser[];
-    loading: boolean;
-  };
-  userRoles: {
-    data: UserAssignmentsAssignableUserRole[];
-    loading: boolean;
-  };
-};
-
-type UserAssignmentCreateDynamicDialogConfig = DynamicDialogConfig<
-  ExtractControls<UserAssignmentCreateDialogFormType>,
-  Signal<UserAssignmentCreateDialogData>
->;
+import { UserAssignmentsUserRolesToSelectViewModelItemPipe } from '../pipes/users-assignments-user-roles-to-select-view-model-item.pipe';
+import { UserAssignmentsUsersToSelectCustomTemplateViewModelItemPipe } from '../pipes/users-assignments-users-to-select-view-model-item.pipe';
+import { UserAssignmentCreateDialogScopeTreeSelectInteractionStore } from './assignment-create-dialog-scope-tree-select-interaction.store';
+import { UserAssignmentCreateDynamicDialogConfig } from './assignment-create-dialog.data.model';
+import { UserAssignmentsBusinessEntitiesDataService } from '@business-portal/administration/user-assignments/domain';
 
 @Component({
   selector: 'my-org-app-user-assignment-create-dialog',
@@ -56,32 +37,44 @@ type UserAssignmentCreateDynamicDialogConfig = DynamicDialogConfig<
     DynamicDialogFooterComponent,
     SkeletonLoaderComponent,
     UserAssignmentsUsersToSelectCustomTemplateViewModelItemPipe,
-    UserAssignmentsUserRolesToSelectCustomTemplateViewModelItemPipe,
+    UserAssignmentsUserRolesToSelectViewModelItemPipe,
     SelectCustomTemplateItemContextDirective,
     SelectCustomTemplateHeaderContextDirective,
+    TreeSelectComponent,
+  ],
+  providers: [
+    UserAssignmentsBusinessEntitiesDataService,
+    UserAssignmentCreateDialogScopeTreeSelectInteractionStore,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserAssignmentCreateDialogComponent {
-  protected readonly dynamicDialogStore = inject(DynamicDialogStore);
+  protected readonly userAssignmentCreateDialogScopeTreeSelectInteractionStore =
+    inject(UserAssignmentCreateDialogScopeTreeSelectInteractionStore);
+  readonly #dynamicDialogStore = inject(DynamicDialogStore);
 
-  protected readonly activeDialog = computed(() =>
-    this.dynamicDialogStore.getActiveDialog<UserAssignmentCreateDynamicDialogConfig>()
+  public readonly context = computed(() => this.#dynamicDialogStore.context());
+  public readonly activeDialogForm = computed(() =>
+    this.#dynamicDialogStore.activeDialogForm()
   );
-  protected readonly dialogData = computed(() => this.activeDialog().data());
-  protected readonly isLoading = computed(
-    () => this.dialogData().users.loading || this.dialogData().userRoles.loading
+  public readonly activeDialog = computed(() =>
+    this.#dynamicDialogStore.getActiveDialog<UserAssignmentCreateDynamicDialogConfig>()
   );
-  protected readonly users = computed(() => this.dialogData().users.data);
-  protected readonly userRoles = computed(
-    () => this.dialogData().userRoles.data
+  public readonly users = computed(() => this.activeDialog().data().users.data);
+  public readonly userRoles = computed(
+    () => this.activeDialog().data().userRoles.data
+  );
+  public readonly loading = computed(
+    () =>
+      this.activeDialog().data().users.loading ||
+      this.activeDialog().data().userRoles.loading
   );
 
-  protected create(): void {
-    this.dynamicDialogStore.onSubmit();
+  public onSubmit(): void {
+    this.#dynamicDialogStore.onSubmit();
   }
 
-  protected cancel(): void {
-    this.dynamicDialogStore.closeDialog();
+  public closeDialog(): void {
+    this.#dynamicDialogStore.closeDialog();
   }
 }

@@ -1,0 +1,9 @@
+p-treeselect {
+  height: 100%;
+  display: block;
+  border-radius: var(--p-treeselect-border-radius);
+
+  .p-treeselect {
+    width: 100%;
+  }
+}

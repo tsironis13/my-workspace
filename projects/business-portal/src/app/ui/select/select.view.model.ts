@@ -1,6 +1,6 @@
-export type SelectItemViewModel = {
+export type SelectItemViewModel<T = unknown> = {
   label: string;
-  value: string | number;
+  value: T;
 };
 
 export type SelectItemCustomTemplateViewModel<T> = SelectItemViewModel & {

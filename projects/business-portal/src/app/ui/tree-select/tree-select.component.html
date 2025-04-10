@@ -1,0 +1,18 @@
+<ng-container [formGroup]="rootFormGroup()">
+  <p-floatLabel [variant]="labelVariant()" class="w-full">
+    <p-treeSelect
+      [options]="options()"
+      [formControlName]="fControlName()"
+      inputId="select-{{ fControlName() }}"
+      styleClass="w-full"
+      (onNodeExpand)="onNodeExpand($event)"
+      (onNodeCollapse)="onNodeCollapse($event)"
+      [loading]="loading()"
+      [virtualScroll]="true"
+      [virtualScrollItemSize]="40"
+      [virtualScrollOptions]="{ scrollHeight: '360px' }"
+    >
+    </p-treeSelect>
+    <label for="select-{{ fControlName() }}">{{ label() }}</label>
+  </p-floatLabel>
+</ng-container>

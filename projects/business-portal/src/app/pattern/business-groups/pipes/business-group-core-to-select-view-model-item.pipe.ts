@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { BusinessGroupCore } from '../application/business-groups.data.model';
+import { BusinessGroupCore } from '@business-portal/core/business-groups';
 import { SelectItemViewModel } from '@business-portal/ui';
 
 @Pipe({

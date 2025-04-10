@@ -1,13 +1,13 @@
 import { Directive, inject } from '@angular/core';
 
 import { UserFilterDialogComponent } from '../user-filter-dialog/user-filter-dialog.component';
-import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 import {
   getUserFilterDialogForm,
   UserFilterDialogFormType,
 } from '../user-filter-dialog/user-filter-dialog.form';
 import { DynamicDialogStore } from '@business-portal/pattern';
 import { ExtractControls } from '@business-portal/core/utils';
+import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 
 @Directive({
   selector: '[myOrgUserFilterDialog]',

@@ -15,7 +15,7 @@ export const users = pgTable('users', {
   id: bigserial('id', { mode: 'number' }).primaryKey(),
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
-  familyName: text('familyName'),
+  familyName: text('familyName').notNull(),
   phoneNumber: text('phoneNumber'),
   active: boolean('active').default(true).notNull(),
   authUserId: uuid('authUserId').notNull(),

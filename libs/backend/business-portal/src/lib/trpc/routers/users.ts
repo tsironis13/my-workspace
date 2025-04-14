@@ -1,24 +1,12 @@
 import { asc, count, desc, and, SQL, eq } from 'drizzle-orm';
 import { optional, z } from 'zod';
-import { PgSelect, PgColumn } from 'drizzle-orm/pg-core';
 import { TRPCError } from '@trpc/server';
 
 import { db } from '../../drizzle/db';
 import { Users, users } from '../../drizzle/schema';
 import { router } from '../trpc';
 import { protectedProcedure } from './utils/protected-procedure.util';
-
-export function withPagination<T extends PgSelect>(
-  qb: T,
-  orderByColumn: PgColumn | SQL | SQL.Aliased,
-  page = 1,
-  pageSize = 10
-) {
-  return qb
-    .orderBy(orderByColumn)
-    .limit(pageSize)
-    .offset((page - 1) * pageSize);
-}
+import { withPagination } from './utils/with-pagination.util';
 
 type NewUser = typeof users.$inferInsert;
 
@@ -27,19 +15,6 @@ const insertUser = async (user: NewUser) => {
 };
 
 export const usersRouter = router({
-  //   getByName: publicProcedure
-  //     .input(
-  //       z.object({
-  //         name: z.string(),
-  //       })
-  //     )
-  //     .query(async ({ input }) => {
-  //       return await db
-  //         .select()
-  //         .from(productCategories)
-  //         .where(eq(productCategories.name, input.name))
-  //         .limit(2);
-  //     }),
   current: protectedProcedure.query(async (opts) => {
     const currentUser = await opts.ctx.user;
 
@@ -114,33 +89,11 @@ export const usersRouter = router({
         input.pagination.pageSize
       );
 
-      //throw new Error('test');
-
       return {
         items: [...result],
         totalCount: totalCount[0].count,
       };
-
-      //return await db.select().from(productCategories).limit(input);
     }),
-  //   list: publicProcedure.input(z.array(z.string())).query(async ({ input }) => {
-  //     const obj: Record<
-  //       string,
-  //       (typeof productCategories)[keyof ProductCategories]
-  //     > = {};
-
-  //     input.forEach((key) => {
-  //       obj[key] = productCategories[key as keyof ProductCategories];
-  //     });
-
-  //     return await db
-  //       .select({
-  //         id: productCategories.id,
-  //         parentCategoryId: productCategories.parentCategoryId,
-  //         name: productCategories.name,
-  //       })
-  //       .from(productCategories);
-  //   }),
   create: protectedProcedure
     .input(
       z.object({
@@ -162,38 +115,5 @@ export const usersRouter = router({
         phoneNumber: input.phoneNumber,
         active: true,
       });
-      // return await db
-      //   .insert(users)
-      //   .values({
-      //     //namse: input.firstName,
-      //     familyName: input.lastName,
-      //     email: input.email,
-      //     authUserId: 1,
-      //     businessGroupId: input.businessGroupId,
-      //     phoneNumber: input.phoneNumber,
-      //     active: true,
-      //     createdAt: new Date(),
-      //     deletedAt: null,
-      //   })
-      //   .returning();
     }),
-  //   getById: publicProcedure.input(z.number()).query(async ({ input }) => {
-  //     return await db
-  //       .select()
-  //       .from(productCategories)
-  //       .where(eq(productCategories.id, input));
-  //   }),
-  //   remove: publicProcedure
-  //     .input(
-  //       z.object({
-  //         id: z.number(),
-  //       })
-  //     )
-  //     .mutation(
-  //       async ({ input }) =>
-  //         await db
-  //           .delete(productCategories)
-  //           .where(eq(productCategories.id, input.id))
-  //           .returning()
-  //     ),
 });

@@ -1,6 +1,6 @@
 export type UserViewModel = {
   name: string;
-  familyName: string | null;
+  familyName: string;
   email: string;
   phoneNumber: string | null;
   active: boolean;

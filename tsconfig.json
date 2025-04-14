@@ -19,8 +19,8 @@
       "@business-portal/frontend": [
         "libs/frontend/business-portal/src/public-api.ts"
       ],
-      "@business-portal/core/config/token": [
-        "projects/business-portal/src/app/core/config/core.config.tokens.ts"
+      "@business-portal/core/config": [
+        "projects/business-portal/src/app/core/config/public-api.ts"
       ],
       "@business-portal/core/auth": [
         "projects/business-portal/src/app/core/auth/public-api.ts"

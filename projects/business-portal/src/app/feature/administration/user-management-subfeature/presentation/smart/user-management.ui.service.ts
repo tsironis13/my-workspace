@@ -6,7 +6,11 @@ import {
   PaginationViewModel,
   SortDataViewModel,
 } from '@business-portal/ui';
-import { PAGINATOR_CONFIG } from '@business-portal/core/config/token';
+import {
+  PAGINATOR_CONFIG,
+  SORT_CONFIG,
+  SortConfig,
+} from '@business-portal/core/config';
 import { UserManagementStore } from '@business-portal/administration/user-management/domain';
 
 export const columnsConfig = (): ColumnTypeViewModel<UserViewModel>[] => {
@@ -22,15 +26,13 @@ export const columnsConfig = (): ColumnTypeViewModel<UserViewModel>[] => {
 export class UserManagementUiService {
   readonly #userManagementStore = inject(UserManagementStore);
   readonly #paginatorConfig = inject(PAGINATOR_CONFIG);
+  readonly #sortConfig = inject<SortConfig<UserViewModel>>(SORT_CONFIG);
 
   readonly paginationOptions = computed<PaginationViewModel>(() => ({
     pageSizeOptions: this.#paginatorConfig.pageSizeOptions,
     defaultPageSize: this.#paginatorConfig.defaultPageSize,
   }));
-  readonly defaultSort = computed<SortDataViewModel<UserViewModel>>(() => ({
-    sortBy: 'name',
-    sortOrder: 1,
-  }));
+  readonly defaultSort = computed(() => this.#sortConfig);
   readonly users = computed(() => this.#userManagementStore.entities());
   readonly totalCount = computed(() => this.#userManagementStore.totalCount());
   readonly isLoading = computed(() => this.#userManagementStore.isPending());

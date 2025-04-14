@@ -4,6 +4,7 @@ import { usersRouter } from './users';
 import { businessGroupsRouter } from './business-groups';
 import { rolesRouter } from './roles';
 import { businessEntitiesRouter } from './business-entities';
+import { userAssignmentsRouter } from './user-assignments';
 
 export const appRouter = router({
   todos: todosRouter,
@@ -11,6 +12,7 @@ export const appRouter = router({
   businessEntities: businessEntitiesRouter,
   users: usersRouter,
   roles: rolesRouter,
+  userAssignments: userAssignmentsRouter,
 });
 
 // Export type router type signature,

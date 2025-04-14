@@ -24,12 +24,15 @@ import {
   withRequestStatus,
   setPending,
   setFulfilled,
-  setError,
 } from '../../../store/request-status.feature';
 import { ToastService } from '@shared/toast';
 import { GlobalLoaderStore } from '@shared/global-loader';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { PAGINATOR_CONFIG } from '@business-portal/core/config/token';
+import {
+  PAGINATOR_CONFIG,
+  SORT_CONFIG,
+  SortConfig,
+} from '@business-portal/core/config';
 
 export function withListDataService<
   E extends Entity,
@@ -49,14 +52,14 @@ export function withListDataService<
     },
     withState<EntityFilterData<E, F>>(
       (
-        pageNumber = inject(PAGINATOR_CONFIG).defaultPageNumber,
-        pageSize = inject(PAGINATOR_CONFIG).defaultPageSize
+        pagination = inject(PAGINATOR_CONFIG),
+        sort = inject<SortConfig<E>>(SORT_CONFIG)
       ) => ({
         pagination: {
-          pageNumber,
-          pageSize,
+          pageNumber: pagination.defaultPageNumber,
+          pageSize: pagination.defaultPageSize,
         },
-        sort: { sortBy: 'id', sortOrder: 1 },
+        sort,
         filters: <F>{},
       })
     ),

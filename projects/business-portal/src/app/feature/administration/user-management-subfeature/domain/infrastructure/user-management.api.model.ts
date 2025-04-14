@@ -2,7 +2,7 @@ export type UserDto = {
   id: number;
   name: string;
   email: string;
-  familyName: string | null;
+  familyName: string;
   phoneNumber: string | null;
   active: boolean;
   createdAt: string;

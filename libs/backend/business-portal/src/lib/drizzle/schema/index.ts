@@ -5,3 +5,5 @@ export * from './role-scopes';
 export * from './role-role-scopes';
 export * from './business-entity-types';
 export * from './business-entities';
+export * from './user-assignments';
+export * from './locations';

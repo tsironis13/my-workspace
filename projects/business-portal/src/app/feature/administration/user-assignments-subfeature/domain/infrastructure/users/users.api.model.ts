@@ -1,6 +1,6 @@
 export type UserAssignmentsUserDto = {
   id: number;
   name: string;
-  familyName: string | null;
+  familyName: string;
   email: string;
 };

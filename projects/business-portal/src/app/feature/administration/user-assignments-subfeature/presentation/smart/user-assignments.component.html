@@ -1,5 +1,8 @@
 <my-org-user-assignments-list
-  [userAssignments]="userAssignmentsUiService.userAssignments()"
+  [userAssignments]="
+    userAssignmentsUiService.userAssignments()
+      | userAssignmentEntityToUserAssignmentViewModel
+  "
   [totalCount]="userAssignmentsUiService.totalCount()"
   [columns]="userAssignmentsUiService.userAssignmentColumns()"
   [paginationOptions]="userAssignmentsUiService.paginationOptions()"

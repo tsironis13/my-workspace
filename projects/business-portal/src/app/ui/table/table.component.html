@@ -41,7 +41,14 @@
       <tr>
         @for (col of columns; track $index) {
         <td>
-          {{ rowData[col.field] }}
+          <ng-container [ngSwitch]="col.metaData?.type">
+            <ng-container *ngSwitchCase="'date'">
+              {{ rowData[col.field] | date }}
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{
+              rowData[col.field]
+            }}</ng-container>
+          </ng-container>
         </td>
         }
       </tr>

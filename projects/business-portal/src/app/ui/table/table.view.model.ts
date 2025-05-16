@@ -10,7 +10,8 @@ export type ColumnTypeViewModel<T> = {
 };
 
 type ColumnMetaDataViewModel = {
-  disableSort: boolean;
+  disableSort?: boolean;
+  type?: 'date' | 'template';
 };
 
 export type SortDataViewModel<T> = {

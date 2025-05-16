@@ -25,3 +25,5 @@ export { SkeletonLoaderComponent } from './skeleton-loader/skeleton-loader.compo
 export { DividerComponent } from './divider/divider.component';
 
 export { TreeSelectComponent } from './tree-select/tree-select.component';
+
+export { FullWidthDirective } from './full-width/full-width.directive';

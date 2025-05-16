@@ -8,6 +8,12 @@ import {
 } from '@angular/core';
 import { TableModule, TableLazyLoadEvent } from 'primeng/table';
 import { ProgressBarModule } from 'primeng/progressbar';
+import {
+  DatePipe,
+  NgSwitch,
+  NgSwitchCase,
+  NgSwitchDefault,
+} from '@angular/common';
 
 import {
   ColumnTypeViewModel,
@@ -21,7 +27,15 @@ type PrimengSortOrder = { sortBy: string; sortOrder: 1 | -1 };
 
 @Component({
   selector: 'my-org-app-table',
-  imports: [TableModule, TablePaginatorComponent, ProgressBarModule],
+  imports: [
+    TableModule,
+    TablePaginatorComponent,
+    ProgressBarModule,
+    DatePipe,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+  ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

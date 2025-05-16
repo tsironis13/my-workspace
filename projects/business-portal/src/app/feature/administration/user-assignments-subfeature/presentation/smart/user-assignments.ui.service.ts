@@ -19,6 +19,14 @@ export const columnsConfig =
       { field: 'firstName', header: 'First name' },
       { field: 'lastName', header: 'Last name' },
       { field: 'email', header: 'Email' },
+      { field: 'role', header: 'Role' },
+      { field: 'scopeType', header: 'Scope Type' },
+      { field: 'scopeName', header: 'Scope Name' },
+      {
+        field: 'createdAt',
+        header: 'Date Of Creation',
+        metaData: { type: 'date' },
+      },
     ];
   };
 

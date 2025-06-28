@@ -32,7 +32,7 @@
     "@angular/router": "^19.2.1",
     "@fastify/cors": "^11.0.0",
     "@ngrx/operators": "^19.0.1",
-    "@ngrx/signals": "^19.0.1",
+    "@ngrx/signals": "^19.2.1",
     "@primeng/themes": "^19.0.9",
     "@supabase/supabase-js": "^2.49.1",
     "@tailwindcss/postcss": "^4.0.14",

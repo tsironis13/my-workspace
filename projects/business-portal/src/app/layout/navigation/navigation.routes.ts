@@ -8,11 +8,17 @@ export const routes: Routes = [
     path: '',
     component: NavigationContainerComponent,
     children: [
+      // {
+      //   path: 'administration',
+      //   canActivate: [authGuard()],
+      //   loadChildren: () =>
+      //     import('../../feature/administration/administration.feature.routes'),
+      // },
       {
         path: 'administration',
         canActivate: [authGuard()],
         loadChildren: () =>
-          import('../../feature/administration/administration.feature.routes'),
+          import('../../domains/administration/api/administration.routes'),
       },
       {
         path: '**',

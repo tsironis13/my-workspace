@@ -1,0 +1,34 @@
+<my-org-users-list
+  [users]="usersOverviewFeatureService.users() | userEntityToUserViewModel"
+  [totalCount]="usersOverviewFeatureService.totalCount()"
+  [columns]="usersOverviewFeatureService.userColumns()"
+  [paginationOptions]="usersOverviewFeatureService.paginationOptions()"
+  [defaultSort]="usersOverviewFeatureService.defaultSort()"
+  [isLoading]="usersOverviewFeatureService.isLoading()"
+  [metadata]="usersOverviewFeatureService.tableMetadata()"
+  (pageChange)="usersOverviewFeatureService.pageChange($event)"
+  (pageSizeChange)="usersOverviewFeatureService.pageSizeChange($event)"
+  (sortChange)="usersOverviewFeatureService.sortChange($event)"
+>
+  <my-org-app-page-header [title]="'User Management'">
+    <ng-template>
+      <div class="flex gap-2">
+        <my-org-app-button
+          [buttonConfig]="{
+            label: 'Filter',
+            type: 'basic',
+            variant: 'outlined'
+          }"
+          (click)="usersOverviewFeatureService.filterUsers()"
+        />
+        <my-org-app-button
+          [buttonConfig]="{
+          label: 'Create',
+          type: 'basic',          
+        }"
+          (click)="usersOverviewFeatureService.createUser()"
+        />
+      </div>
+    </ng-template>
+  </my-org-app-page-header>
+</my-org-users-list>

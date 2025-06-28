@@ -1,0 +1,37 @@
+<my-org-user-assignments-list
+  [userAssignments]="
+    userAssignmentsFeatureService.userAssignments()
+      | userAssignmentEntityToUserAssignmentViewModel
+  "
+  [totalCount]="userAssignmentsFeatureService.totalCount()"
+  [columns]="userAssignmentsFeatureService.userAssignmentColumns()"
+  [paginationOptions]="userAssignmentsFeatureService.paginationOptions()"
+  [defaultSort]="userAssignmentsFeatureService.defaultSort()"
+  [isLoading]="userAssignmentsFeatureService.isLoading()"
+  [metadata]="userAssignmentsFeatureService.tableMetadata()"
+  (pageChange)="userAssignmentsFeatureService.pageChange($event)"
+  (pageSizeChange)="userAssignmentsFeatureService.pageSizeChange($event)"
+  (sortChange)="userAssignmentsFeatureService.sortChange($event)"
+>
+  <my-org-app-page-header [title]="'User Assignments'">
+    <ng-template>
+      <div class="flex gap-2">
+        <my-org-app-button
+          [buttonConfig]="{
+            label: 'Filter',
+            type: 'basic',
+            variant: 'outlined'
+          }"
+          myOrgUserFilterDialog
+        />
+        <my-org-app-button
+          [buttonConfig]="{
+          label: 'Create',
+          type: 'basic',          
+        }"
+          myOrgUserAssignmentCreateDialog
+        />
+      </div>
+    </ng-template>
+  </my-org-app-page-header>
+</my-org-user-assignments-list>

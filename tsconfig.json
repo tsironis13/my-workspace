@@ -52,11 +52,23 @@
       "@business-portal/core/entities/infrastructure": [
         "projects/business-portal/src/app/core/entities/infrastructure/public-api.ts"
       ],
-      "@business-portal/administration/user-management/domain": [
-        "projects/business-portal/src/app/feature/administration/user-management-subfeature/domain/application/public-api.ts"
+      "@business-portal/access-control/presentation": [
+        "projects/business-portal/src/app/domains/access-control/presentation/public-api.ts"
       ],
-      "@business-portal/administration/user-assignments/domain": [
-        "projects/business-portal/src/app/feature/administration/user-assignments-subfeature/domain/application/public-api.ts"
+      "@business-portal/access-control/data": [
+        "projects/business-portal/src/app/domains/access-control/data/public-api.ts"
+      ],
+      "@business-portal/access-control/infrastructure": [
+        "projects/business-portal/src/app/domains/access-control/infrastructure/public-api.ts"
+      ],
+      "@business-portal/user-assignments/infrastructure": [
+        "projects/business-portal/src/app/domains/user-assignments/infrastructure/public-api.ts"
+      ],
+      "@business-portal/user-assignments/data": [
+        "projects/business-portal/src/app/domains/user-assignments/data/public-api.ts"
+      ],
+      "@business-portal/user-assignments/presentation": [
+        "projects/business-portal/src/app/domains/user-assignments/presentation/public-api.ts"
       ],
       "@shared/auth": ["libs/shared/auth/src/public-api.ts"],
       "@shared/forms": ["libs/shared/forms/src/public-api.ts"],

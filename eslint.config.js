@@ -55,7 +55,7 @@ module.exports = tseslint.config(
                 ["ui-api", { app: "${from.app}" }],
                 ["pattern-api", { app: "${from.app}" }],
                 ["layout", { app: "${from.app}" }],
-                ["feature-routes", { app: "${from.app}" }],
+                ["domain-routes", { app: "${from.app}" }],
               ],
             },
             {
@@ -79,148 +79,103 @@ module.exports = tseslint.config(
               ],
             },
             {
-              from: ["subfeature-ui-smart"],
-              allow: [
-                ["lib-api"],
-                ["env", { app: "${from.app}" }],
-                ["ui-api", { app: "${from.app}" }],
-                ["pattern-api", { app: "${from.app}" }],
-                ["core", { app: "${from.app}" }],
-                [
-                  "subfeature-ui-smart",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "subfeature-ui-presentational",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "subfeature-domain-application-api",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "feature-domain-application-api",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-              ],
-            },
-            {
-              from: ["subfeature-ui-presentational"],
-              allow: [
-                ["env", { app: "${from.app}" }],
-                [
-                  "subfeature-ui-presentational",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "ui-api",
-                  {
-                    app: "${from.app}",
-                  },
-                ],
-              ],
-            },
-            {
-              from: ["subfeature-domain-application"],
-              allow: [
-                ["env", { app: "${from.app}" }],
-                ["core", { app: "${from.app}" }],
-                [
-                  "subfeature-domain-application",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "subfeature-domain-infrastructure",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-              ],
-            },
-            {
-              from: ["subfeature-domain-infrastructure"],
+              from: ["domain-routes"],
               allow: [
                 ["lib-api"],
                 ["env", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
                 [
-                  "subfeature-domain-infrastructure",
+                  "domain-feature",
                   {
                     app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
+                    domain: "${from.domain}",
+                  },
+                ],
+                [
+                  "domain-routes",
+                  {
+                    app: "${from.app}",
+                    domain: "!${from.domain}",
+                  },
+                ],
+                [
+                  "domain-data-api",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
+                  },
+                ],
+                [
+                  "domain-infrastructure-api",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
                   },
                 ],
               ],
             },
             {
-              from: ["subfeature-routes"],
+              from: ["domain-infrastructure-api"],
+              allow: [
+                [
+                  "domain-infrastructure-api",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
+                  },
+                ],
+              ],
+            },
+            {
+              from: ["domain-infrastructure"],
               allow: [
                 ["lib-api"],
                 ["env", { app: "${from.app}" }],
                 ["core", { app: "${from.app}" }],
                 [
-                  "subfeature-ui-smart",
+                  "domain-infrastructure",
                   {
                     app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "subfeature-domain-application-api",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "subfeature-domain-infrastructure-api",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "${from.subfeature}",
-                  },
-                ],
-                [
-                  "subfeature-routes",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                    subfeature: "!${from.subfeature}",
+                    domain: "${from.domain}",
                   },
                 ],
               ],
             },
             {
-              from: ["feature-ui-smart"],
+              from: ["domain-data-api"],
+              allow: [
+                [
+                  "domain-data-api",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
+                  },
+                ],
+              ],
+            },
+            {
+              from: ["domain-data"],
+              allow: [
+                ["env", { app: "${from.app}" }],
+                ["core", { app: "${from.app}" }],
+                [
+                  "domain-data",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
+                  },
+                ],
+                [
+                  "domain-infrastructure-api",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
+                  },
+                ],
+              ],
+            },
+            {
+              from: ["domain-feature"],
               allow: [
                 ["lib-api"],
                 ["env", { app: "${from.app}" }],
@@ -233,38 +188,51 @@ module.exports = tseslint.config(
                 ],
                 ["pattern-api", { app: "${from.app}" }],
                 [
-                  "feature-ui-smart",
+                  "domain-feature",
                   {
                     app: "${from.app}",
+                    domain: "${from.domain}",
                     feature: "${from.feature}",
                   },
                 ],
                 [
-                  "feature-ui-presentational",
+                  "domain-presentation-api",
                   {
                     app: "${from.app}",
-                    feature: "${from.feature}",
+                    domain: "${from.domain}",
                   },
                 ],
                 [
-                  "feature-domain-application-api",
+                  "domain-data-api",
                   {
                     app: "${from.app}",
-                    feature: "${from.feature}",
+                    domain: "${from.domain}",
                   },
                 ],
               ],
             },
             {
-              from: ["feature-ui-presentational"],
+              from: ["domain-presentation-api"],
+              allow: [
+                [
+                  "domain-presentation-api",
+                  {
+                    app: "${from.app}",
+                    domain: "${from.domain}",
+                  },
+                ],
+              ],
+            },
+            {
+              from: ["domain-presentation"],
               allow: [
                 ["env", { app: "${from.app}" }],
                 ["ui", { app: "${from.app}" }],
                 [
-                  "feature-ui-presentational",
+                  "domain-presentation",
                   {
                     app: "${from.app}",
-                    feature: "${from.feature}",
+                    domain: "${from.domain}",
                   },
                 ],
                 [
@@ -272,59 +240,6 @@ module.exports = tseslint.config(
                   {
                     app: "${from.app}",
                   },
-                ],
-              ],
-            },
-            {
-              from: ["feature-domain-application"],
-              allow: [
-                ["env", { app: "${from.app}" }],
-                ["core", { app: "${from.app}" }],
-                [
-                  "feature-domain-application",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                  },
-                ],
-                [
-                  "feature-domain-infrastructure",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                  },
-                ],
-              ],
-            },
-            {
-              from: ["feature-domain-infrastructure"],
-              allow: [
-                ["lib-api"],
-                ["env", { app: "${from.app}" }],
-                ["core", { app: "${from.app}" }],
-                [
-                  "feature-domain-infrastructure",
-                  {
-                    app: "${from.app}",
-                    feature: "${from.feature}",
-                  },
-                ],
-              ],
-            },
-            {
-              from: ["feature-routes"],
-              allow: [
-                ["lib-api"],
-                ["env", { app: "${from.app}" }],
-                ["core", { app: "${from.app}" }],
-                ["feature", { app: "${from.app}", feature: "${from.feature}" }],
-                [
-                  "feature-routes",
-                  { app: "${from.app}", feature: "!${from.feature}" },
-                ],
-                [
-                  "subfeature-routes",
-                  { app: "${from.app}", feature: "${from.feature}" },
                 ],
               ],
             },
@@ -433,96 +348,63 @@ module.exports = tseslint.config(
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
-        // subfeature level 1 types
         {
-          type: "subfeature-routes", // distinction between routes and implementation; will be important for the rules
+          type: "domain-routes", // distinction between routes and implementation; will be important for the rules
           mode: "file",
-          pattern: "feature/*/(*)-subfeature/*.routes.ts",
-          capture: ["feature", "subfeature"],
+          pattern: "domains/*/api/*.routes.ts",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
         {
-          type: "subfeature-ui-smart",
-          pattern: "feature/*/(*)-subfeature/presentation/smart",
-          capture: ["feature", "subfeature"],
-          basePattern: "projects/**/src/app",
-          baseCapture: ["app"],
-        },
-
-        {
-          type: "subfeature-ui-presentational",
-          pattern: "feature/*/(*)-subfeature/presentation/presentational",
-          capture: ["feature", "subfeature"],
+          type: "domain-feature",
+          pattern: "domains/*/feat-(*)",
+          capture: ["domain", "feature"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
         {
-          type: "subfeature-domain-application-api",
+          type: "domain-presentation-api",
           mode: "file",
-          pattern: "feature/*/(*)-subfeature/domain/application/public-api.ts",
-          capture: ["feature", "subfeature"],
+          pattern: "domains/*/presentation/public-api.ts",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
         {
-          type: "subfeature-domain-application",
-          pattern: "feature/*/(*)-subfeature/domain/application",
-          capture: ["feature", "subfeature"],
+          type: "domain-presentation",
+          pattern: "domains/*/presentation",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
         {
-          type: "subfeature-domain-infrastructure-api",
+          type: "domain-data-api",
           mode: "file",
-          pattern:
-            "feature/*/(*)-subfeature/domain/infrastructure/public-api.ts",
-          capture: ["feature", "subfeature"],
+          pattern: "domains/*/data/public-api.ts",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
         {
-          type: "subfeature-domain-infrastructure",
-          pattern: "feature/*/(*)-subfeature/domain/infrastructure",
-          capture: ["feature", "subfeature"],
+          type: "domain-data",
+          pattern: "domains/*/data",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
-
-        // feature types
         {
-          type: "feature-routes", // distinction between routes and implementation; will be important for the rules
+          type: "domain-infrastructure-api",
           mode: "file",
-          pattern: "feature/*/*.feature.routes.ts",
-          capture: ["feature"],
+          pattern: "domains/*/infrastructure/public-api.ts",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
         {
-          type: "feature-ui-smart",
-          pattern: "feature/*/presentation/smart",
-          capture: ["feature"],
-          basePattern: "projects/**/src/app",
-          baseCapture: ["app"],
-        },
-        {
-          type: "feature-ui-presentational",
-          pattern: "feature/*/presentation/presentational",
-          capture: ["feature"],
-          basePattern: "projects/**/src/app",
-          baseCapture: ["app"],
-        },
-        {
-          type: "feature-domain-application",
-          pattern: "feature/*/domain/application",
-          capture: ["feature"],
-          basePattern: "projects/**/src/app",
-          baseCapture: ["app"],
-        },
-        {
-          type: "feature-domain-infrastructure",
-          pattern: "feature/*/domain/infrastructure",
-          capture: ["feature"],
+          type: "domain-infrastructure",
+          pattern: "domains/*/infrastructure",
+          capture: ["domain"],
           basePattern: "projects/**/src/app",
           baseCapture: ["app"],
         },
